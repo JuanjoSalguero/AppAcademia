@@ -5,31 +5,95 @@
  */
 package appacademia;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Label;
+import javafx.scene.Parent;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.StackPane;
 
 /**
  *
- * @author Ana
+ * @author 
  */
 public class VistaPrincipalController implements Initializable {
-    
+
     @FXML
-    private Label label;
+    private AnchorPane rootVistaPrincipal;
     
-    @FXML
-    private void handleButtonAction(ActionEvent event) {
-        System.out.println("You clicked me!");
-        label.setText("Hello World!");
-    }
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
     }    
+
+    @FXML
+    private void onActionMenuItemNuevo(ActionEvent event) {
+        try{
+            // Cargar la vista de detalle
+            FXMLLoader fxmlLoader=new
+            FXMLLoader(getClass().getResource("VistaCurso.fxml"));
+            Parent rootVistaCurso = fxmlLoader.load();
+            VistaCursoController vistaCursoController = (VistaCursoController) fxmlLoader.getController();
+            vistaCursoController.setRootVistaPrincipal(rootVistaPrincipal);
+
+            // Ocultar la vista de la lista
+            rootVistaPrincipal.setVisible(false);
+            
+            //Añadir la vista Curso al StackPane principal para que se muestre
+            StackPane rootMain = (StackPane) rootVistaPrincipal.getScene().getRoot();
+            rootMain.getChildren().add(rootVistaCurso);
+        } catch (IOException ex){
+            Logger.getLogger(VistaCursoController.class.getName()).log(Level.SEVERE,null,ex);
+        }
+    }
+
+    @FXML
+    private void onActionMenuItemMatricula(ActionEvent event) {
+        try{
+            // Cargar la vista de detalle
+            FXMLLoader fxmlLoader=new
+            FXMLLoader(getClass().getResource("VistaMatricula.fxml"));
+            Parent rootVistaMatricula = fxmlLoader.load();
+            VistaMatriculaController vistaMatriculaController = (VistaMatriculaController) fxmlLoader.getController();
+            vistaMatriculaController.setRootVistaPrincipal(rootVistaPrincipal);
+
+            // Ocultar la vista de la lista
+            rootVistaPrincipal.setVisible(false);
+            
+            //Añadir la vista Matricula al StackPane principal para que se muestre
+            StackPane rootMain = (StackPane) rootVistaPrincipal.getScene().getRoot();
+            rootMain.getChildren().add(rootVistaMatricula);
+        } catch (IOException ex){
+            Logger.getLogger(VistaMatriculaController.class.getName()).log(Level.SEVERE,null,ex);
+        }
+    }
+
+    @FXML
+    private void onActionMenuItemTablaAlumnos(ActionEvent event) {
+        try{
+            // Cargar la vista de detalle
+            FXMLLoader fxmlLoader=new
+            FXMLLoader(getClass().getResource("VistaAlumnos.fxml"));
+            Parent rootVistaAlumnos = fxmlLoader.load();
+            VistaAlumnosController vistaAlumnosController = (VistaAlumnosController) fxmlLoader.getController();
+            vistaAlumnosController.setRootVistaPrincipal(rootVistaPrincipal);
+
+            // Ocultar la vista de la lista
+            rootVistaPrincipal.setVisible(false);
+            
+            //Añadir la vista Matricula al StackPane principal para que se muestre
+            StackPane rootMain = (StackPane) rootVistaPrincipal.getScene().getRoot();
+            rootMain.getChildren().add(rootVistaAlumnos);
+        } catch (IOException ex){
+            Logger.getLogger(VistaAlumnosController.class.getName()).log(Level.SEVERE,null,ex);
+        }
+    }
     
 }
