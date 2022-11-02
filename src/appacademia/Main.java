@@ -19,8 +19,8 @@ import javafx.stage.Stage;
 public class Main extends Application {
     
     // Entity manager y StackPane como root de las vistas
-//  private EntityManagerFactory emf;
-//  private EntityManager em;
+    // private EntityManagerFactory emf;
+    // private EntityManager em;
     StackPane rootMain = new StackPane();
     
     @Override
@@ -29,8 +29,7 @@ public class Main extends Application {
         Pane rootAgendaView = fxmlLoader.load();
         rootMain.getChildren().add(rootAgendaView);
                 
-                
-        Scene scene = new Scene(rootMain);
+        Scene scene = new Scene(rootMain, 1080, 800);
         
         stage.setScene(scene);
         stage.show();

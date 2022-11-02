@@ -2,58 +2,229 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.Spinner?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.Tooltip?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-
-<AnchorPane id="AnchorPane" fx:id="rootVistaCurso" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/19" fx:controller="appacademia.VistaCursoController">
+<AnchorPane id="AnchorPane" fx:id="rootVistaCurso" nodeOrientation="LEFT_TO_RIGHT" prefHeight="802.0" prefWidth="1039.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="appacademia.VistaCursoController">
    <children>
-      <Label alignment="CENTER" layoutX="253.0" layoutY="14.0" prefHeight="25.0" prefWidth="95.0" style="-fx-font-size: 20;" text="Curso" />
-      <GridPane hgap="10.0" layoutY="42.0" prefHeight="367.0" prefWidth="600.0" vgap="10.0">
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutY="14.0" prefHeight="46.0" prefWidth="1019.0" text="Curso" textAlignment="CENTER" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="60.0">
+         <font>
+            <Font name="System Italic" size="30.0" />
+         </font>
+      </Label>
+      <GridPane alignment="CENTER" hgap="10.0" layoutX="80.0" layoutY="56.0" prefHeight="555.0" prefWidth="879.0" vgap="10.0" AnchorPane.leftAnchor="80.0" AnchorPane.rightAnchor="80.0" AnchorPane.topAnchor="100.0">
         <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="257.0" minWidth="10.0" prefWidth="127.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="266.0" minWidth="10.0" prefWidth="258.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="136.0" minWidth="10.0" prefWidth="106.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="308.0" minWidth="10.0" prefWidth="278.0" />
         </columnConstraints>
         <rowConstraints>
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="45.4" minHeight="10.0" prefHeight="45.4" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="30.0" minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="30.0" minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="30.0" minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="42.0" minHeight="30.0" prefHeight="42.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="30.0" minHeight="18.0" prefHeight="18.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="58.0" minHeight="30.0" prefHeight="58.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="30.0" minHeight="11.0" prefHeight="21.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="37.0" minHeight="11.0" prefHeight="37.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="96.0" minHeight="11.0" prefHeight="83.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="8">
+            <Label prefHeight="35.0" prefWidth="289.0" text="Detalles académicos del curso" underline="true" GridPane.columnSpan="3">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Label>
+            <Label text="Nombre:" GridPane.rowIndex="1" />
+            <TextField fx:id="textFieldNombre" GridPane.columnIndex="1" GridPane.rowIndex="1">
+               <tooltip>
+                  <Tooltip text="Introduzca el nombre" />
+               </tooltip></TextField>
+            <Label text="Duración:" GridPane.rowIndex="2" />
+            <TextField fx:id="textFieldDuracion" GridPane.columnIndex="1" GridPane.rowIndex="2">
+               <GridPane.margin>
+                  <Insets right="60.0" />
+               </GridPane.margin>
+               <tooltip>
+                  <Tooltip text="Introduzca la duración del curso en horas" />
+               </tooltip></TextField>
+            <Label text="Proveedor del curso:" GridPane.columnSpan="2" GridPane.rowIndex="3" />
+            <TextField fx:id="textFieldProveedor" prefHeight="26.0" prefWidth="482.0" promptText="IES Los Montecillos" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="3">
+               <GridPane.margin>
+                  <Insets />
+               </GridPane.margin>
+               <tooltip>
+                  <Tooltip text="Instituto que provee el curso" />
+               </tooltip>
+            </TextField>
+            <Label text="Categoría:" GridPane.columnIndex="2" GridPane.rowIndex="1">
+               <GridPane.margin>
+                  <Insets left="20.0" />
+               </GridPane.margin>
+            </Label>
+            <ComboBox fx:id="comboBoxCategoria" prefHeight="25.0" prefWidth="196.0" promptText="Seleccione una" GridPane.columnIndex="3" GridPane.rowIndex="1">
+               <tooltip>
+                  <Tooltip text="Seleccione una categoría" />
+               </tooltip>
+            </ComboBox>
+            <Label text="Certificación:" GridPane.columnIndex="2" GridPane.rowIndex="2">
+               <GridPane.margin>
+                  <Insets left="20.0" />
+               </GridPane.margin>
+            </Label>
+            <TextField fx:id="textFieldCertificacion" GridPane.columnIndex="3" GridPane.rowIndex="2">
+               <tooltip>
+                  <Tooltip text="Introduzca la certificación deseada" />
+               </tooltip></TextField>
+            <Label prefHeight="35.0" prefWidth="289.0" text="Datos adicionales" underline="true" GridPane.columnSpan="2" GridPane.rowIndex="5">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Label>
+            <Label text="Fecha de inicio:" GridPane.rowIndex="6" GridPane.valignment="TOP">
+               <GridPane.margin>
+                  <Insets bottom="2.0" />
+               </GridPane.margin>
+            </Label>
+            <DatePicker fx:id="datePickerFechaInicio" prefHeight="25.0" prefWidth="250.0" GridPane.columnSpan="2" GridPane.rowIndex="6" GridPane.valignment="BOTTOM">
+               <tooltip>
+                  <Tooltip text="Introduzca la fecha de inicio del curso" />
+               </tooltip>
+               <GridPane.margin>
+                  <Insets />
+               </GridPane.margin>
+            </DatePicker>
+            <Label text="Fecha de finalización:" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="6" GridPane.valignment="TOP">
+               <padding>
+                  <Insets left="20.0" />
+               </padding>
+               <GridPane.margin>
+                  <Insets bottom="2.0" />
+               </GridPane.margin>
+            </Label>
+            <DatePicker fx:id="datePickerFechaFin" prefHeight="25.0" prefWidth="250.0" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="6" GridPane.valignment="BOTTOM">
+               <tooltip>
+                  <Tooltip text="Introduzca la fecha fin del curso" />
+               </tooltip>
+               <GridPane.margin>
+                  <Insets left="20.0" />
+               </GridPane.margin>
+            </DatePicker>
+            <Label text="Número de asistentes:" GridPane.rowIndex="7" />
+            <Spinner fx:id="spinnerAsistentes" editable="true" prefHeight="25.0" prefWidth="116.0" GridPane.columnIndex="1" GridPane.rowIndex="7">
+               <tooltip>
+                  <Tooltip text="Introduzca el número de asistentes" />
+               </tooltip>
+            </Spinner>
+            <Label text="Instructor/a:" GridPane.columnIndex="2" GridPane.rowIndex="7">
+               <GridPane.margin>
+                  <Insets left="20.0" />
+               </GridPane.margin>
+            </Label>
+            <ComboBox fx:id="comboBoxInstructor" prefHeight="25.0" prefWidth="250.0" promptText="Selecione uno/a" GridPane.columnIndex="3" GridPane.rowIndex="7">
+               <tooltip>
+                  <Tooltip text="Seleccione su instructor correspondiente" />
+               </tooltip>
+            </ComboBox>
+            <Label text="Tipo de curso" GridPane.rowIndex="8">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Label>
+            <VBox fx:id="vBoxTipoCurso" prefHeight="200.0" prefWidth="100.0" spacing="5.0" GridPane.rowIndex="9">
                <children>
-                  <Button mnemonicParsing="false" onAction="#onActionButtonAceptar" text="Aceptar">
-                     <HBox.margin>
-                        <Insets bottom="10.0" right="10.0" />
-                     </HBox.margin>
-                  </Button>
-                  <Button mnemonicParsing="false" onAction="#onActionButtonCancelar" text="Cancelar">
-                     <HBox.margin>
-                        <Insets bottom="10.0" left="10.0" />
-                     </HBox.margin>
-                  </Button>
+                  <RadioButton fx:id="radioButtonOficial" mnemonicParsing="false" text="Oficial">
+                     <tooltip>
+                        <Tooltip text="Oficial" />
+                     </tooltip>
+                  </RadioButton>
+                  <RadioButton fx:id="radioButtonOnline" mnemonicParsing="false" text="Online">
+                     <tooltip>
+                        <Tooltip text="Online" />
+                     </tooltip>
+                  </RadioButton>
+                  <RadioButton fx:id="radioButtonVideoDemanda" mnemonicParsing="false" text="Video bajo demanda">
+                     <tooltip>
+                        <Tooltip text="Video bajo demanda" />
+                     </tooltip>
+                  </RadioButton>
                </children>
+            </VBox>
+            <Label text="Importe:" GridPane.columnIndex="2" GridPane.rowIndex="8">
                <opaqueInsets>
                   <Insets />
                </opaqueInsets>
+               <padding>
+                  <Insets left="20.0" />
+               </padding>
+            </Label>
+            <TextField fx:id="textFieldImporte" prefHeight="25.0" prefWidth="132.0" promptText="€" GridPane.columnIndex="3" GridPane.rowIndex="8">
                <GridPane.margin>
-                  <Insets right="10.0" />
+                  <Insets right="180.0" />
                </GridPane.margin>
-            </HBox>
+               <tooltip>
+                  <Tooltip text="Importe del curso" />
+               </tooltip>
+            </TextField>
+            <CheckBox mnemonicParsing="false" text="Beca" GridPane.columnIndex="2" GridPane.halignment="LEFT" GridPane.rowIndex="9" GridPane.valignment="TOP">
+               <GridPane.margin>
+                  <Insets left="20.0" />
+               </GridPane.margin>
+               <tooltip>
+                  <Tooltip text="Marcar en caso de corresponder beca" />
+               </tooltip>
+            </CheckBox>
+            <Text fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" text="Ayudas para el estudio, mobilidad, investigación, centros docentes o necesidades específicas." textAlignment="JUSTIFY" wrappingWidth="310.513671875" GridPane.columnIndex="2" GridPane.halignment="LEFT" GridPane.rowIndex="9" GridPane.valignment="BOTTOM">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets left="20.0" />
+               </GridPane.margin>
+            </Text>
          </children>
          <padding>
             <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
          </padding>
+      </GridPane>
+      <GridPane layoutX="85.0" layoutY="572.0" prefHeight="48.0" prefWidth="758.0" AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="80.0" AnchorPane.rightAnchor="80.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="100.0" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="182.0" minWidth="10.0" prefWidth="159.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="236.0" minWidth="10.0" prefWidth="236.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Button mnemonicParsing="false" onAction="#onActionButtonLimpiar" prefHeight="36.0" prefWidth="95.0" text="Limpiar" />
+            <Button mnemonicParsing="false" onAction="#onActionButtonCancelar" prefHeight="36.0" prefWidth="95.0" text="Cancelar" GridPane.columnIndex="3" GridPane.halignment="RIGHT">
+               <padding>
+                  <Insets right="5.0" />
+               </padding>
+            </Button>
+            <Button mnemonicParsing="false" onAction="#onActionButtonAceptar" prefHeight="36.0" prefWidth="95.0" text="Aceptar" GridPane.columnIndex="3" GridPane.halignment="RIGHT">
+               <GridPane.margin>
+                  <Insets right="130.0" />
+               </GridPane.margin>
+            </Button>
+         </children>
       </GridPane>
    </children>
 </AnchorPane>
