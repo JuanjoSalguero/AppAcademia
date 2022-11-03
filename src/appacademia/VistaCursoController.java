@@ -18,7 +18,9 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.Spinner;
+import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
@@ -32,9 +34,10 @@ import javafx.scene.layout.VBox;
 public class VistaCursoController implements Initializable {
 
     // ------------------------------------------------------------------- VARIABLES
-        private Pane rootVistaPrincipal;
-        private List<String> instructores;
-        
+    private Pane rootVistaPrincipal;
+    private List<String> instructores;
+    private ToggleGroup tipo;
+
     // ------------------------------------------------------------------- NODOS
     @FXML
     private AnchorPane rootVistaCurso;
@@ -45,7 +48,7 @@ public class VistaCursoController implements Initializable {
     @FXML
     private TextField textFieldProveedor;
     @FXML
-    private ComboBox<?> comboBoxCategoria;
+    private ComboBox<String> comboBoxCategoria;
     @FXML
     private TextField textFieldCertificacion;
     @FXML
@@ -53,7 +56,7 @@ public class VistaCursoController implements Initializable {
     @FXML
     private DatePicker datePickerFechaFin;
     @FXML
-    private Spinner<?> spinnerAsistentes;
+    private Spinner<Integer> spinnerAsistentes;
     @FXML
     private RadioButton radioButtonOficial;
     @FXML
@@ -72,12 +75,17 @@ public class VistaCursoController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
-        // Fecha de inicio DatePicker
-        datePickerFechaInicio.setValue(LocalDate.now());
+
+        // Control de errores y restricciones de los objetos
+        controlYRestriccionErrores();
+
+        // Nº asistentes Spinner
+        cargarSpinner();
         // Instructores ComboBox
         cargarInstructoresComboBox();
-    }    
+        // Tipo de curso (ToggleGroup)
+        Modularizacion.TipoToggleGroup(tipo, radioButtonOficial, radioButtonOnline, radioButtonVideoDemanda);
+    }
 
     @FXML
     private void onActionButtonAceptar(ActionEvent event) {
@@ -89,34 +97,56 @@ public class VistaCursoController implements Initializable {
         rootMain.getChildren().remove(rootVistaCurso);
         rootVistaPrincipal.setVisible(true);
     }
-    
+
     // Luego se implementa en clase de métodos generales
-    public void setRootVistaPrincipal(Pane rootVistaPrincipal){
+    public void setRootVistaPrincipal(Pane rootVistaPrincipal) {
         this.rootVistaPrincipal = rootVistaPrincipal;
     }
 
     @FXML
     private void onActionButtonLimpiar(ActionEvent event) {
     }
-    
+
     // ------------------------------------------------------------------- MÉTODOS
     // Método para cargar los instructores a la lista
-    private void cargarInstructoresComboBox(){
-        
+    private void cargarInstructoresComboBox() {
+
         // Creamos la lista de los instructores
         instructores = new ArrayList<>();
-        
+
         // Añadimos la listareada anteriormente a ObservableList
         ObservableList<String> instructoresObservableList = FXCollections.observableList(instructores);
-        
+
         // Indroducimos los instructores en la ObservableList
         instructoresObservableList.add("Ana García Lomeña");
         instructoresObservableList.add("David Muñoz Pérez");
         instructoresObservableList.add("Elena López López");
         instructoresObservableList.add("Emilio Gutiérrez Marín");
         instructoresObservableList.add("Soledad Jiménez Jiménez");
-        
+
         // Añadimos la lista de instructores al combobox
-        comboBoxInstructor.setItems(instructoresObservableList);        
+        comboBoxInstructor.setItems(instructoresObservableList);
+    }
+    
+    // Método para crear el número de asistentes (spinner)
+    public void cargarSpinner() {
+        // Value factory.
+        SpinnerValueFactory<Integer> valueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 30, 0);
+
+        spinnerAsistentes.setValueFactory(valueFactory);
+        spinnerAsistentes.setEditable(false);
+    }
+
+    // Método de control y restricción de los nodos de la vista
+    public void controlYRestriccionErrores() {
+
+        // TextField Nombre restricción solo letras
+        Modularizacion.soloLetras(textFieldNombre);
+        // TextField Duración restricción solo números
+        Modularizacion.soloNumeros(textFieldDuracion);
+        // Fecha por defecto del DatePicker Fecha de inicio 
+        datePickerFechaInicio.setValue(LocalDate.now());
+        // Resintricción del DatePicker Fecha de Inicio
+        Modularizacion.restringirDatepicker(datePickerFechaInicio);
     }
 }
