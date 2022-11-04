@@ -24,7 +24,6 @@ import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
 
 /**
  * FXML Controller class
@@ -67,8 +66,6 @@ public class VistaCursoController implements Initializable {
     private TextField textFieldImporte;
     @FXML
     private ComboBox<String> comboBoxInstructor;
-    @FXML
-    private VBox vBoxTipoCurso;
 
     /**
      * Initializes the controller class.
@@ -107,6 +104,7 @@ public class VistaCursoController implements Initializable {
     private void onActionButtonLimpiar(ActionEvent event) {
     }
 
+    
     // ------------------------------------------------------------------- MÉTODOS
     // Método para cargar los instructores a la lista
     private void cargarInstructoresComboBox() {
@@ -129,24 +127,32 @@ public class VistaCursoController implements Initializable {
     }
     
     // Método para crear el número de asistentes (spinner)
-    public void cargarSpinner() {
+    private void cargarSpinner() {
         // Value factory.
-        SpinnerValueFactory<Integer> valueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 30, 0);
+        SpinnerValueFactory<Integer> valueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 100, 0);
 
         spinnerAsistentes.setValueFactory(valueFactory);
         spinnerAsistentes.setEditable(false);
     }
 
     // Método de control y restricción de los nodos de la vista
-    public void controlYRestriccionErrores() {
+    private void controlYRestriccionErrores() {
 
         // TextField Nombre restricción solo letras
         Modularizacion.soloLetras(textFieldNombre);
         // TextField Duración restricción solo números
         Modularizacion.soloNumeros(textFieldDuracion);
+        // TextField Proveedor del curso restricción solo letras
+        Modularizacion.soloLetras(textFieldProveedor);
+        // TextField Certificación restricción solo letras
+        Modularizacion.soloLetras(textFieldCertificacion);
         // Fecha por defecto del DatePicker Fecha de inicio 
         datePickerFechaInicio.setValue(LocalDate.now());
-        // Resintricción del DatePicker Fecha de Inicio
+        // Spinner número de asistentes solo números
+
+        // Restricción del DatePicker Fecha de Inicio
         Modularizacion.restringirDatepicker(datePickerFechaInicio);
+        // TextField Duración restricción solo números
+        Modularizacion.soloNumerosYComa(textFieldImporte);
     }
 }

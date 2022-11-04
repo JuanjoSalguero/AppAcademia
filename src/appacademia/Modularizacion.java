@@ -10,6 +10,7 @@ import javafx.beans.value.ObservableValue;
 import javafx.scene.control.DateCell;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.RadioButton;
+import javafx.scene.control.Spinner;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 
@@ -27,6 +28,8 @@ public class Modularizacion {
         radioButton1.setToggleGroup(toggleGroup);
         radioButton2.setToggleGroup(toggleGroup);
         radioButton3.setToggleGroup(toggleGroup);
+        
+        radioButton1.setSelected(true);
     }
     
     // Método para limitar la fecha de DatePicker desde hoy hacia atrás
@@ -54,8 +57,8 @@ public class Modularizacion {
             @Override
             public void changed(
                     ObservableValue<? extends String> observable, String oldValue, String newValue) {
-                if (!newValue.matches("[a-zA-Z\\sñáéíóú*]")) {
-                    textField.setText(newValue.replaceAll("[^a-zA-Z\\sñáéíóú]", ""));
+                if (!newValue.matches("[a-zA-Z\\sñÑáéíóúüÁÉÍÓÚ*]")) {
+                    textField.setText(newValue.replaceAll("[^a-zA-Z\\sñÑáéíóúüÁÉÍÓÚ]", ""));
                 }
             }
         });
@@ -69,8 +72,8 @@ public class Modularizacion {
             @Override
             public void changed(
                     ObservableValue<? extends String> observable, String oldValue, String newValue) {
-                if (!newValue.matches("\\d*" + ",")) {
-                    textField.setText(newValue.replaceAll("[^\\d]" + ",", ""));
+                if (!newValue.matches("\\d*,.")) {
+                    textField.setText(newValue.replaceAll("[^\\d.]" , ""));
                 }
             }
         });
