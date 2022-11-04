@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
- 
+
 <AnchorPane id="AnchorPane" fx:id="rootVistaAlumnos" prefHeight="802.0" prefWidth="1039.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="appacademia.VistaAlumnosController">
    <children>
       <Button layoutX="852.0" layoutY="707.0" mnemonicParsing="false" onAction="#onActionButtonSalir" prefHeight="36.0" prefWidth="95.0" text="Salir" AnchorPane.bottomAnchor="60.0" />
