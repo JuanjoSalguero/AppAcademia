@@ -1,0 +1,7 @@
+Iniciar Servicio BD:
+nos situamos en:  C:\Users\usu2dam\Documents\hsqldb\hsqldb-2.7.1\hsqldb\lib
+java -cp lib/hsqldb.jar org.hsqldb.server.Server --database.0 file:data/BDAcademia --dbname.0 BDAcademia
+
+Conexión:
+ En el aula:         jdbc:hsqldb:hsql://192.168.100.238/BDAcademia [SA on PUBLIC] 
+ En casa en la misma máquina del IDE: jdbc:hsqldb:hsql://localhost/BDAcademia [SA on PUBLIC]
