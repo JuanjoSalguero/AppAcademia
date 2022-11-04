@@ -9,6 +9,8 @@ import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
@@ -24,6 +26,20 @@ public class VistaAlumnosController implements Initializable {
     private AnchorPane rootVistaAlumnos;
     
     private Pane rootVistaPrincipal;
+    @FXML
+    private TableView<?> tableViewAlumnos;
+    @FXML
+    private TableColumn<?, ?> columnDNI;
+    @FXML
+    private TableColumn<?, ?> columnNombre;
+    @FXML
+    private TableColumn<?, ?> columnDireccion;
+    @FXML
+    private TableColumn<?, ?> columnLocalidad;
+    @FXML
+    private TableColumn<?, ?> columnProvincia;
+    @FXML
+    private TableColumn<?, ?> columnTelefono;
 
     /**
      * Initializes the controller class.
@@ -44,5 +60,6 @@ public class VistaAlumnosController implements Initializable {
     public void setRootVistaPrincipal(Pane rootVistaPrincipal){
         this.rootVistaPrincipal = rootVistaPrincipal;
     }
+
     
 }
