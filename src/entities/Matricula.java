@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package appacademia.entidades;
+package entities;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -22,7 +22,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author usu2dam
+ * @author Juanjo
  */
 @Entity
 @Table(name = "MATRICULA")
@@ -171,7 +171,7 @@ public class Matricula implements Serializable {
 
     @Override
     public String toString() {
-        return "appacademia.entidades.Matricula[ matriculaPK=" + matriculaPK + " ]";
+        return "appacademia.Matricula[ matriculaPK=" + matriculaPK + " ]";
     }
     
 }

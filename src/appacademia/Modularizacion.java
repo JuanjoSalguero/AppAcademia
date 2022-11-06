@@ -7,9 +7,12 @@ package appacademia;
 import java.time.LocalDate;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.DateCell;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.RadioButton;
+import javafx.scene.control.Spinner;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 
@@ -71,8 +74,8 @@ public class Modularizacion {
             @Override
             public void changed(
                     ObservableValue<? extends String> observable, String oldValue, String newValue) {
-                if (!newValue.matches("\\d*,.")) {
-                    textField.setText(newValue.replaceAll("[^\\d.]" , ""));
+                if (!newValue.matches("[1-9.*]")) {
+                    textField.setText(newValue.replaceAll("[^1-9.]" , ""));
                 }
             }
         });
@@ -92,4 +95,64 @@ public class Modularizacion {
             }
         });
     }
+    
+    // Sobrecarga del método anterior, pero en este caso se pasa por parametro spinner
+    // Método para restringir TextField a solo números sin coma
+    public static void soloNumeros(Spinner spinner) {
+
+        spinner.getEditor().textProperty().addListener(new ChangeListener<String>() {
+
+            @Override
+            public void changed(
+                    ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                if (!newValue.matches("\\d*")) {
+                    spinner.getEditor().setText(oldValue);
+                }
+            }
+        });
+    }
+    
+    //  ***************************************** MÉTODOS PARA LIMPIAR *****************************************
+    
+    // Limpiar TextField
+    public static void limpiarTextField(TextField textField){
+        textField.clear();
+    }
+    
+    // Limpiar ComboBox
+    public static void limpiarComboBox(ComboBox comboBox){
+        comboBox.valueProperty().set(null);
+    }
+    
+    // DatePicker fecha actual
+    public static void fechaActualDatePicker(DatePicker datePicker){
+        datePicker.setValue(LocalDate.now());
+    }
+    
+    // Limpiar DatePicker
+    public static void limpiarDatePicker(DatePicker datePicker){
+        datePicker.getEditor().clear();
+    }
+    
+    // Limpiar Spinner
+    public static void limpiarSpinner(Spinner spinner){
+        spinner.getValueFactory().setValue(0);
+    }
+    
+    // Limpiar Radiobutton
+    public static void limpiarRadioButton(RadioButton radioButton){
+        radioButton.setSelected(false);
+    }
+    
+    // Marcar por defecto RadioButton
+    public static void porDefectRadioButton(RadioButton radioButton){
+        radioButton.setSelected(true);
+    }
+    
+    // Limpiar CheckBox
+    public static void limpiarCheckBox(CheckBox checkBox){
+        checkBox.setSelected(false);
+    }
+    
+    
 }

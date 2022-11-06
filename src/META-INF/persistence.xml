@@ -2,14 +2,14 @@
 <persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
   <persistence-unit name="AppAcademiaPU" transaction-type="RESOURCE_LOCAL">
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
-    <class>appacademia.entidades.Matricula</class>
-    <class>appacademia.entidades.Provincia</class>
-    <class>appacademia.entidades.Curso</class>
-    <class>appacademia.entidades.Alumno</class>
+    <class>entities.Matricula</class>
+    <class>entities.Provincia</class>
+    <class>entities.Curso</class>
+    <class>entities.Alumno</class>
     <properties>
-      <property name="javax.persistence.jdbc.url" value="jdbc:hsqldb:hsql://localhost/BDAcademia"/>
-      <property name="javax.persistence.jdbc.user" value="SA"/>
-      <property name="javax.persistence.jdbc.driver" value="org.hsqldb.jdbcDriver"/>
+      <property name="javax.persistence.jdbc.url" value="jdbc:derby:BDAcademia;create=true"/>
+      <property name="javax.persistence.jdbc.user" value="APP"/>
+      <property name="javax.persistence.jdbc.driver" value="org.apache.derby.jdbc.EmbeddedDriver"/>
       <property name="javax.persistence.jdbc.password" value=""/>
     </properties>
   </persistence-unit>

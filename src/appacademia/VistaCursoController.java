@@ -4,9 +4,15 @@
  */
 package appacademia;
 
+import entities.Curso;
+import java.math.BigDecimal;
 import java.net.URL;
+import java.time.Instant;
 import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
@@ -14,6 +20,8 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.RadioButton;
@@ -24,6 +32,8 @@ import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
+import javax.persistence.EntityManager;
+import javax.persistence.RollbackException;
 
 /**
  * FXML Controller class
@@ -35,7 +45,10 @@ public class VistaCursoController implements Initializable {
     // ------------------------------------------------------------------- VARIABLES
     private Pane rootVistaPrincipal;
     private List<String> instructores;
+    private List<String> categorias;
     private ToggleGroup tipo;
+    private EntityManager em;
+    private Curso curso;
 
     // ------------------------------------------------------------------- NODOS
     @FXML
@@ -66,6 +79,8 @@ public class VistaCursoController implements Initializable {
     private TextField textFieldImporte;
     @FXML
     private ComboBox<String> comboBoxInstructor;
+    @FXML
+    private CheckBox checkBoxBeca;
 
     /**
      * Initializes the controller class.
@@ -82,10 +97,129 @@ public class VistaCursoController implements Initializable {
         cargarInstructoresComboBox();
         // Tipo de curso (ToggleGroup)
         Modularizacion.TipoToggleGroup(tipo, radioButtonOficial, radioButtonOnline, radioButtonVideoDemanda);
+        // Categorías
+        cargarCategoriasComboBox();
+    }
+    
+    // Setter
+    public void setEntityManager(EntityManager entityManager) {
+        this.em = entityManager;
     }
 
     @FXML
     private void onActionButtonAceptar(ActionEvent event) {
+
+        boolean errorFormato = false;
+        curso = new Curso();
+        
+        if(!textFieldNombre.getText().isEmpty()){
+            curso.setNombre(textFieldNombre.getText());
+        }
+        else{
+            errorFormato = true;
+        }
+        
+        if(!textFieldDuracion.getText().isEmpty()){
+            curso.setDuracion(Integer.parseInt(textFieldDuracion.getText()));
+        }
+        else{
+            errorFormato = true;
+        }
+        
+        if(!textFieldProveedor.getText().isEmpty()){
+            curso.setProveedor(textFieldProveedor.getText());
+        }
+        else{
+            errorFormato = true;
+        }
+        
+        if (comboBoxCategoria.getValue() != null){
+            curso.setCategoria(comboBoxCategoria.getValue());
+        } else {
+            errorFormato = true;
+        }
+        
+        if(!textFieldCertificacion.getText().isEmpty()){
+            curso.setCertificacion(textFieldCertificacion.getText());
+        }
+        else{
+            errorFormato = true;
+        }
+        
+        if (datePickerFechaInicio.getValue() != null){
+            LocalDate localDate = datePickerFechaInicio.getValue();
+            ZonedDateTime zonedDateTime =
+            localDate.atStartOfDay(ZoneId.systemDefault());
+            Instant instant = zonedDateTime.toInstant();
+            Date date = Date.from(instant);
+            curso.setFechaInicio(date);
+        } else {
+            errorFormato = true;
+        }
+        
+        if (datePickerFechaFin.getValue() != null){
+            LocalDate localDate = datePickerFechaFin.getValue();
+            ZonedDateTime zonedDateTime =
+            localDate.atStartOfDay(ZoneId.systemDefault());
+            Instant instant = zonedDateTime.toInstant();
+            Date date = Date.from(instant);
+            curso.setFechaFin(date);
+        } else {
+            errorFormato = true;
+        }
+        
+        curso.setNumAsistentes(spinnerAsistentes.getValue());
+        
+        
+        if (radioButtonOficial.isSelected()){
+            curso.setTipo("Oficial");
+        } else if (radioButtonOnline.isSelected()){
+            curso.setTipo("Online");
+        } else if (radioButtonVideoDemanda.isSelected()){
+            curso.setTipo("Video demanda");
+        }
+        
+        if(!textFieldImporte.getText().isEmpty()){
+            curso.setImporte(BigDecimal.valueOf(Double.parseDouble(textFieldImporte.getText())));
+        }
+        else{
+            errorFormato = true;
+        }      
+        
+        if (comboBoxInstructor.getValue() != null){
+            curso.setCategoria(comboBoxInstructor.getValue());
+        } else {
+            errorFormato = true;
+        }
+        
+        if (checkBoxBeca.isSelected()){
+            curso.setBeca(true);
+            
+        }else{
+             curso.setBeca(false);
+        }
+       
+        
+        if (!errorFormato) { // Los datos introducidos son correctos
+            try {
+                em.getTransaction().begin();
+                em.persist(curso);
+                em.getTransaction().commit();
+
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setContentText("Se han guardado los datos correctamente");
+                alert.showAndWait();
+
+            } catch (RollbackException ex) { // Los datos introducidos no cumplen requisitos de BD
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setHeaderText("No se han podido guardar los cambios. " + "Compruebe que los datos cumplen los requisitos");
+                alert.setContentText(ex.getLocalizedMessage());
+                alert.showAndWait();
+            }
+        }
+
+        // Cuando se presione el botón aceptar, se limpian los campos
+        limpiar();
     }
 
     @FXML
@@ -102,9 +236,9 @@ public class VistaCursoController implements Initializable {
 
     @FXML
     private void onActionButtonLimpiar(ActionEvent event) {
+        limpiar(); // Limpiar todos los campos de la pestaña
     }
 
-    
     // ------------------------------------------------------------------- MÉTODOS
     // Método para cargar los instructores a la lista
     private void cargarInstructoresComboBox() {
@@ -125,14 +259,14 @@ public class VistaCursoController implements Initializable {
         // Añadimos la lista de instructores al combobox
         comboBoxInstructor.setItems(instructoresObservableList);
     }
-    
+
     // Método para crear el número de asistentes (spinner)
     private void cargarSpinner() {
         // Value factory.
         SpinnerValueFactory<Integer> valueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 100, 0);
 
         spinnerAsistentes.setValueFactory(valueFactory);
-        spinnerAsistentes.setEditable(false);
+        spinnerAsistentes.setEditable(true);
     }
 
     // Método de control y restricción de los nodos de la vista
@@ -149,10 +283,54 @@ public class VistaCursoController implements Initializable {
         // Fecha por defecto del DatePicker Fecha de inicio 
         datePickerFechaInicio.setValue(LocalDate.now());
         // Spinner número de asistentes solo números
-
+        Modularizacion.soloNumeros(spinnerAsistentes);
         // Restricción del DatePicker Fecha de Inicio
         Modularizacion.restringirDatepicker(datePickerFechaInicio);
         // TextField Duración restricción solo números
         Modularizacion.soloNumerosYComa(textFieldImporte);
+    }
+
+    // Método para limpiar los campos
+    public void limpiar() {
+        // Detalles académicos del curso
+        Modularizacion.limpiarTextField(textFieldNombre);
+        Modularizacion.limpiarComboBox(comboBoxCategoria);
+        Modularizacion.limpiarTextField(textFieldDuracion);
+        Modularizacion.limpiarTextField(textFieldCertificacion);
+        Modularizacion.limpiarTextField(textFieldProveedor);
+        // Detalles adicionales
+        Modularizacion.fechaActualDatePicker(datePickerFechaInicio);
+        Modularizacion.limpiarDatePicker(datePickerFechaFin);
+        Modularizacion.limpiarSpinner(spinnerAsistentes);
+        Modularizacion.limpiarComboBox(comboBoxInstructor);
+        Modularizacion.limpiarTextField(textFieldImporte);
+        Modularizacion.porDefectRadioButton(radioButtonOficial);
+        Modularizacion.limpiarRadioButton(radioButtonOnline);
+        Modularizacion.limpiarRadioButton(radioButtonVideoDemanda);
+        Modularizacion.limpiarCheckBox(checkBoxBeca);
+    }
+    
+    private void cargarCategoriasComboBox() {
+
+        // Creamos la lista de las categorias
+        categorias = new ArrayList<>();
+
+        // Añadimos la lista creada anteriormente a ObservableList
+        ObservableList<String> categoriasObservableList = FXCollections.observableList(categorias);
+
+        // Indroducimos las categorias en la ObservableList
+        categoriasObservableList.add("BI / Big Data");
+        categoriasObservableList.add("Ciberseguridad");
+        categoriasObservableList.add("DevOps");
+        categoriasObservableList.add("ERP");
+        categoriasObservableList.add("IT");
+        categoriasObservableList.add("Int. Artificial");
+        categoriasObservableList.add("Ofimática");
+        categoriasObservableList.add("Programación");
+        categoriasObservableList.add("Testing");
+        
+
+        // Añadimos la lista de categorias al combobox
+        comboBoxCategoria.setItems(categoriasObservableList);
     }
 }

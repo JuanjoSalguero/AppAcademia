@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package appacademia.entidades;
+package entities;
 
 import java.io.Serializable;
 import java.util.Collection;
@@ -22,7 +22,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author usu2dam
+ * @author Juanjo
  */
 @Entity
 @Table(name = "PROVINCIA")
@@ -104,7 +104,7 @@ public class Provincia implements Serializable {
 
     @Override
     public String toString() {
-        return "appacademia.entidades.Provincia[ id=" + id + " ]";
+        return "appacademia.Provincia[ id=" + id + " ]";
     }
     
 }
