@@ -41,6 +41,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Curso.findByFechaInicio", query = "SELECT c FROM Curso c WHERE c.fechaInicio = :fechaInicio"),
     @NamedQuery(name = "Curso.findByFechaFin", query = "SELECT c FROM Curso c WHERE c.fechaFin = :fechaFin"),
     @NamedQuery(name = "Curso.findByProveedor", query = "SELECT c FROM Curso c WHERE c.proveedor = :proveedor"),
+    @NamedQuery(name = "Curso.findByInstructor", query = "SELECT c FROM Curso c WHERE c.instructor = :instructor"),
     @NamedQuery(name = "Curso.findByNumAsistentes", query = "SELECT c FROM Curso c WHERE c.numAsistentes = :numAsistentes"),
     @NamedQuery(name = "Curso.findByTipo", query = "SELECT c FROM Curso c WHERE c.tipo = :tipo"),
     @NamedQuery(name = "Curso.findByBeca", query = "SELECT c FROM Curso c WHERE c.beca = :beca"),
@@ -76,6 +77,8 @@ public class Curso implements Serializable {
     @Basic(optional = false)
     @Column(name = "PROVEEDOR")
     private String proveedor;
+    @Column(name = "INSTRUCTOR")
+    private String instructor;
     @Basic(optional = false)
     @Column(name = "NUM_ASISTENTES")
     private int numAsistentes;
@@ -178,6 +181,14 @@ public class Curso implements Serializable {
         this.proveedor = proveedor;
     }
 
+    public String getInstructor() {
+        return instructor;
+    }
+
+    public void setInstructor(String instructor) {
+        this.instructor = instructor;
+    }
+
     public int getNumAsistentes() {
         return numAsistentes;
     }
@@ -241,7 +252,7 @@ public class Curso implements Serializable {
 
     @Override
     public String toString() {
-        return "appacademia.Curso[ id=" + id + " ]";
+        return "entities.Curso[ id=" + id + " ]";
     }
     
 }

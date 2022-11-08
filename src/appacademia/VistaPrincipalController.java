@@ -18,7 +18,6 @@ import javafx.scene.Parent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 
 /**
  *
@@ -26,7 +25,6 @@ import javax.persistence.EntityManagerFactory;
  */
 public class VistaPrincipalController implements Initializable {
 
-    private EntityManagerFactory emf;
     private EntityManager em;
 
     @FXML
@@ -72,7 +70,7 @@ public class VistaPrincipalController implements Initializable {
             Parent rootVistaMatricula = fxmlLoader.load();
             VistaMatriculaController vistaMatriculaController = (VistaMatriculaController) fxmlLoader.getController();
             vistaMatriculaController.setRootVistaPrincipal(rootVistaPrincipal);
-             // Asociar objeto a la clase VistaMatriculaController
+            // Asociar objeto a la clase VistaMatriculaController
             vistaMatriculaController.setEntityManager(em);
             vistaMatriculaController.rellenarComboBoxProvincia();
             vistaMatriculaController.rellenarComboBoxCurso();

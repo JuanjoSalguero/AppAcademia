@@ -73,7 +73,7 @@ public class MatriculaPK implements Serializable {
 
     @Override
     public String toString() {
-        return "appacademia.MatriculaPK[ alumnoDni=" + alumnoDni + ", cursoId=" + cursoId + " ]";
+        return "entities.MatriculaPK[ alumnoDni=" + alumnoDni + ", cursoId=" + cursoId + " ]";
     }
     
 }

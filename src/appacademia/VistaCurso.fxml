@@ -53,7 +53,7 @@
             <Label text="Nombre:" GridPane.rowIndex="1" />
             <TextField fx:id="textFieldNombre" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <tooltip>
-                  <Tooltip text="Introduzca el nombre" />
+                  <Tooltip text="Introduzca el nombre del curso" />
                </tooltip>
                <GridPane.margin>
                   <Insets />
@@ -80,11 +80,7 @@
                   <Insets left="20.0" />
                </GridPane.margin>
             </Label>
-            <ComboBox fx:id="comboBoxCategoria" prefHeight="25.0" prefWidth="196.0" promptText="Seleccione una" GridPane.columnIndex="3" GridPane.rowIndex="1">
-               <tooltip>
-                  <Tooltip text="Seleccione una categoría" />
-               </tooltip>
-            </ComboBox>
+            <ComboBox fx:id="comboBoxCategoria" prefHeight="25.0" prefWidth="196.0" promptText="Seleccione una" GridPane.columnIndex="3" GridPane.rowIndex="1" />
             <Label text="Certificación:" GridPane.columnIndex="2" GridPane.rowIndex="2">
                <GridPane.margin>
                   <Insets left="20.0" />
@@ -92,7 +88,7 @@
             </Label>
             <TextField fx:id="textFieldCertificacion" GridPane.columnIndex="3" GridPane.rowIndex="2">
                <tooltip>
-                  <Tooltip text="Introduzca la certificación deseada" />
+                  <Tooltip text="Introduzca la certificación necesaria" />
                </tooltip></TextField>
             <Label prefHeight="35.0" prefWidth="289.0" text="Datos adicionales" underline="true" GridPane.columnSpan="2" GridPane.rowIndex="5">
                <font>
@@ -105,9 +101,6 @@
                </GridPane.margin>
             </Label>
             <DatePicker fx:id="datePickerFechaInicio" prefHeight="25.0" prefWidth="250.0" GridPane.columnSpan="2" GridPane.rowIndex="6" GridPane.valignment="BOTTOM">
-               <tooltip>
-                  <Tooltip text="Introduzca la fecha de inicio del curso" />
-               </tooltip>
                <GridPane.margin>
                   <Insets />
                </GridPane.margin>
@@ -121,19 +114,12 @@
                </GridPane.margin>
             </Label>
             <DatePicker fx:id="datePickerFechaFin" prefHeight="25.0" prefWidth="250.0" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="6" GridPane.valignment="BOTTOM">
-               <tooltip>
-                  <Tooltip text="Introduzca la fecha fin del curso" />
-               </tooltip>
                <GridPane.margin>
                   <Insets left="20.0" />
                </GridPane.margin>
             </DatePicker>
             <Label text="Número de asistentes:" GridPane.rowIndex="7" />
-            <Spinner fx:id="spinnerAsistentes" editable="true" prefHeight="25.0" prefWidth="116.0" GridPane.columnIndex="1" GridPane.rowIndex="7">
-               <tooltip>
-                  <Tooltip text="Introduzca el número de asistentes" />
-               </tooltip>
-            </Spinner>
+            <Spinner fx:id="spinnerAsistentes" editable="true" prefHeight="25.0" prefWidth="116.0" GridPane.columnIndex="1" GridPane.rowIndex="7" />
             <Label text="Instructor/a:" GridPane.columnIndex="2" GridPane.rowIndex="7">
                <GridPane.margin>
                   <Insets left="20.0" />
@@ -141,7 +127,7 @@
             </Label>
             <ComboBox fx:id="comboBoxInstructor" prefHeight="25.0" prefWidth="250.0" promptText="Selecione uno/a" GridPane.columnIndex="3" GridPane.rowIndex="7">
                <tooltip>
-                  <Tooltip text="Seleccione su instructor correspondiente" />
+                  <Tooltip text="Instructor que impartirá el curso" />
                </tooltip>
             </ComboBox>
             <Label text="Tipo de curso" GridPane.rowIndex="8">
@@ -151,21 +137,9 @@
             </Label>
             <VBox prefHeight="200.0" prefWidth="100.0" spacing="5.0" GridPane.rowIndex="9">
                <children>
-                  <RadioButton fx:id="radioButtonOficial" mnemonicParsing="false" text="Oficial">
-                     <tooltip>
-                        <Tooltip text="Oficial" />
-                     </tooltip>
-                  </RadioButton>
-                  <RadioButton fx:id="radioButtonOnline" mnemonicParsing="false" text="Online">
-                     <tooltip>
-                        <Tooltip text="Online" />
-                     </tooltip>
-                  </RadioButton>
-                  <RadioButton fx:id="radioButtonVideoDemanda" mnemonicParsing="false" text="Video bajo demanda">
-                     <tooltip>
-                        <Tooltip text="Video bajo demanda" />
-                     </tooltip>
-                  </RadioButton>
+                  <RadioButton fx:id="radioButtonOficial" mnemonicParsing="false" text="Oficial" />
+                  <RadioButton fx:id="radioButtonOnline" mnemonicParsing="false" text="Online" />
+                  <RadioButton fx:id="radioButtonVideoDemanda" mnemonicParsing="false" text="Vídeo bajo demanda" />
                </children>
             </VBox>
             <Label text="Importe:" GridPane.columnIndex="2" GridPane.rowIndex="8">
@@ -216,25 +190,16 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Button mnemonicParsing="false" onAction="#onActionButtonLimpiar" prefHeight="36.0" prefWidth="95.0" text="Limpiar">
-               <tooltip>
-                  <Tooltip text="Limpiar" />
-               </tooltip></Button>
+            <Button mnemonicParsing="false" onAction="#onActionButtonLimpiar" prefHeight="36.0" prefWidth="95.0" text="Limpiar" />
             <Button mnemonicParsing="false" onAction="#onActionButtonCancelar" prefHeight="36.0" prefWidth="95.0" text="Cancelar" GridPane.columnIndex="3" GridPane.halignment="RIGHT">
                <padding>
                   <Insets right="5.0" />
                </padding>
-               <tooltip>
-                  <Tooltip text="Cancelar" />
-               </tooltip>
             </Button>
             <Button mnemonicParsing="false" onAction="#onActionButtonAceptar" prefHeight="36.0" prefWidth="95.0" text="Aceptar" GridPane.columnIndex="3" GridPane.halignment="RIGHT">
                <GridPane.margin>
                   <Insets right="130.0" />
                </GridPane.margin>
-               <tooltip>
-                  <Tooltip text="Aceptar" />
-               </tooltip>
             </Button>
          </children>
       </GridPane>

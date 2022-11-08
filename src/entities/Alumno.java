@@ -153,7 +153,7 @@ public class Alumno implements Serializable {
 
     @Override
     public String toString() {
-        return "appacademia.Alumno[ dni=" + dni + " ]";
+        return "entities.Alumno[ dni=" + dni + " ]";
     }
     
 }

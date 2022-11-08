@@ -171,7 +171,7 @@ public class Matricula implements Serializable {
 
     @Override
     public String toString() {
-        return "appacademia.Matricula[ matriculaPK=" + matriculaPK + " ]";
+        return "entities.Matricula[ matriculaPK=" + matriculaPK + " ]";
     }
     
 }
