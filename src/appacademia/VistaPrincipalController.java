@@ -94,6 +94,9 @@ public class VistaPrincipalController implements Initializable {
             Parent rootVistaAlumnos = fxmlLoader.load();
             VistaAlumnosController vistaAlumnosController = (VistaAlumnosController) fxmlLoader.getController();
             vistaAlumnosController.setRootVistaPrincipal(rootVistaPrincipal);
+            // Asociar objeto a la clase VistaMatriculaController
+            vistaAlumnosController.setEntityManager(em);
+            vistaAlumnosController.cargarAlumnos();
 
             // Ocultar la vista de la lista
             rootVistaPrincipal.setVisible(false);

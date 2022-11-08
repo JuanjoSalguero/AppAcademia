@@ -287,6 +287,12 @@ public class VistaCursoController implements Initializable {
 
         spinnerAsistentes.setValueFactory(valueFactory);
         spinnerAsistentes.setEditable(true);
+
+        spinnerAsistentes.focusedProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue) {
+                spinnerAsistentes.increment(0); // No va a cambiar el valor pero si lo modificará
+            }
+        });
     }
 
     // Método de control y restricción de los nodos de la vista
@@ -351,5 +357,5 @@ public class VistaCursoController implements Initializable {
 
         // Añadimos la lista de categorias al combobox
         comboBoxCategoria.setItems(categoriasObservableList);
-    }
+    }    
 }
