@@ -1,8 +1,8 @@
 ----------------------------------------------------------------
-Tue Nov 08 18:46:08 CET 2022:
-Booting Derby version The Apache Software Foundation - Apache Derby - 10.14.2.0 - (1828579): instance a816c00e-0184-5859-72c0-000007c14ba0 
+Wed Nov 09 11:21:50 CET 2022:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.14.2.0 - (1828579): instance a816c00e-0184-5be9-0d94-000007915930 
 on database directory C:\Users\Juanjo\Documents\NetBeansProjects\appacademia-winball\BDAcademia with class loader sun.misc.Launcher$AppClassLoader@55f96302 
-Loaded from file:/C:/Users/Juanjo/Documents/NetBeansProjects/appacademia-winball/dist/run16935557/lib/derby.jar
+Loaded from file:/C:/Users/Juanjo/Documents/NetBeansProjects/appacademia-winball/dist/run2066314360/lib/derby.jar
 java.vendor=Oracle Corporation
 java.runtime.version=1.8.0_251-b08
 user.dir=C:\Users\Juanjo\Documents\NetBeansProjects\appacademia-winball

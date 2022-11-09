@@ -86,7 +86,7 @@
                               <Label layoutX="56.0" layoutY="30.0" text="Curso:" />
                               <ComboBox fx:id="comboBoxCurso" layoutX="132.0" layoutY="26.0" prefHeight="25.0" prefWidth="212.0" />
                               <CheckBox fx:id="checkBoxDocumentacion" layoutX="56.0" layoutY="80.0" mnemonicParsing="false" text="Necesito documentación" />
-                              <CheckBox fx:id="checkBoxCertificado" layoutX="56.0" layoutY="111.0" mnemonicParsing="false" text="Necesito Certificado" />
+                              <CheckBox fx:id="checkBoxCertificado" layoutX="56.0" layoutY="111.0" mnemonicParsing="false" text="Necesito certificado" />
                               <Label layoutX="59.0" layoutY="162.0" style="-fx-font-weight: bold;" text="Importe abonado:" />
                               <TextField fx:id="textFieldImporteAbonado" layoutX="195.0" layoutY="158.0" prefHeight="25.0" prefWidth="114.0" />
                            </children>

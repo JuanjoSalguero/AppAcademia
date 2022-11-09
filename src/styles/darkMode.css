@@ -1,0 +1,23 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : 08-nov-2022, 19:23:50
+    Author     : Juanjo
+*/
+.primary-color{
+    -fx-background-color: #383838;
+}
+
+.secondary-color{
+    -fx-background-color: #282828;
+}
+
+.round-border{
+    -fx-background-radius: 100;
+}
+
+.menu-bar{
+    -fx-base: forestgreen;
+}

@@ -5,6 +5,7 @@
  */
 package appacademia;
 
+
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -15,6 +16,9 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
+import javafx.scene.control.Button;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javax.persistence.EntityManager;
@@ -26,9 +30,13 @@ import javax.persistence.EntityManager;
 public class VistaPrincipalController implements Initializable {
 
     private EntityManager em;
+    private boolean isLightMode = true;
 
     @FXML
     private AnchorPane rootVistaPrincipal;
+    
+    @FXML
+    private ImageView imagenModo;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -109,4 +117,29 @@ public class VistaPrincipalController implements Initializable {
         }
     }
 
+    // Método para cambiar el modo de la vista (noche o dia)
+    public void cambiarModo(ActionEvent event){
+        isLightMode = !isLightMode;
+        if (isLightMode){
+            establecerModoDia();
+        } else {
+            establecerModoNoche();
+        }
+    }
+    
+    // Método para cambiar a modo diurno
+    private void establecerModoDia(){
+        rootVistaPrincipal.getStylesheets().remove("styles/darkMode.css");
+        rootVistaPrincipal.getStylesheets().add("styles/lightMode.css");
+        Image imagen = new Image("img/night-mode.png");
+        imagenModo.setImage(imagen);
+    }
+    
+        // Método para cambiar a modo nocturno
+    private void establecerModoNoche(){
+        rootVistaPrincipal.getStylesheets().remove("styles/lightMode.css");
+        rootVistaPrincipal.getStylesheets().add("styles/darkMode.css");
+        Image imagen = new Image("img/light-mode.png");
+        imagenModo.setImage(imagen);
+    }
 }
