@@ -138,6 +138,34 @@ public class Modularizacion {
         confirmationAlert.setContentText("¿Está seguro de que desea guardar el actual registro? Revise todos "
                 + "los campos antes de proceder con guardado del registro.");
     }
+    
+    // Método para combrobar que el dni introducido cumple los parametros(8 números y 1 letra)
+    public  static boolean comprobarDNI(String DNI) {
+        boolean dniCorrecto = true;
+        
+        DNI = DNI.toUpperCase();
+        
+        if(DNI.length() != 9 || !Character.isLetter(DNI.charAt(8)))
+            return false;
+        
+        int i = 0;
+        
+        while(i < 8 && dniCorrecto) {
+            if(!Character.isDigit(DNI.charAt(i)))
+                dniCorrecto = false;
+            
+            i++;
+        
+        }
+    
+        if(dniCorrecto) {
+            if(!(DNI.charAt(8) >= 65 && DNI.charAt(8) <= 90))
+                dniCorrecto = false;
+        }
+        
+        return dniCorrecto;
+    }
+    
 
     //  ***************************************** MÉTODOS PARA LIMPIAR *****************************************
     // Limpiar TextField

@@ -110,7 +110,7 @@ public class VistaMatriculaController implements Initializable {
                 if(oldValue) {
                     if(!textFieldDNI.getText().isEmpty()) {
                         textFieldDNI.setText(textFieldDNI.getText().toUpperCase());
-                        if(comprobarDNI(textFieldDNI.getText())) {
+                        if(Modularizacion.comprobarDNI(textFieldDNI.getText())) {
                             if(buscarDNI(textFieldDNI.getText())) {
                                 mostrarDatos(textFieldDNI.getText());
                             }
@@ -437,32 +437,6 @@ public class VistaMatriculaController implements Initializable {
         return importeFinal;
     }
     
-    // Método para combrobar que el dni introducido cumple los parametros(8 números y 1 letra)
-    private boolean comprobarDNI(String DNI) {
-        boolean dniCorrecto = true;
-        
-        DNI = DNI.toUpperCase();
-        
-        if(DNI.length() != 9 || !Character.isLetter(DNI.charAt(8)))
-            return false;
-        
-        int i = 0;
-        
-        while(i < 8 && dniCorrecto) {
-            if(!Character.isDigit(DNI.charAt(i)))
-                dniCorrecto = false;
-            
-            i++;
-        
-        }
-    
-        if(dniCorrecto) {
-            if(!(DNI.charAt(8) >= 65 && DNI.charAt(8) <= 90))
-                dniCorrecto = false;
-        }
-        
-        return dniCorrecto;
-    }
     
     // Método creado para comprobar si el DNI existe o no
     private boolean buscarDNI(String DNI) {
