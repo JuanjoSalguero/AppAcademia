@@ -16,6 +16,9 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 
 /**
  *
@@ -206,6 +209,26 @@ public class Modularizacion {
     // Limpiar CheckBox
     public static void limpiarCheckBox(CheckBox checkBox) {
         checkBox.setSelected(false);
+    }
+    
+    public static void cambiarModo(AnchorPane root, boolean isLightMode){
+        if (isLightMode){
+            Modularizacion.establecerModoDia(root);
+        } else {
+            Modularizacion.establecerModoNoche(root);
+        }
+    }
+    
+    public static void establecerModoDia(AnchorPane root){
+        root.getStylesheets().remove("styles/darkMode.css");
+        root.getStylesheets().add("styles/lightMode.css");
+        
+    }
+    
+        // Método para cambiar a modo nocturno
+    public static void establecerModoNoche(AnchorPane root){
+        root.getStylesheets().remove("styles/lightMode.css");
+        root.getStylesheets().add("styles/darkMode.css");       
     }
 
 }

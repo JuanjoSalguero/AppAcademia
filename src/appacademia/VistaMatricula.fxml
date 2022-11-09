@@ -7,6 +7,7 @@
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
@@ -15,54 +16,86 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" fx:id="rootVistaMatricula" nodeOrientation="LEFT_TO_RIGHT" prefHeight="802.0" prefWidth="1039.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="appacademia.VistaMatriculaController">
+<AnchorPane id="AnchorPane" fx:id="rootVistaMatricula" nodeOrientation="LEFT_TO_RIGHT" prefHeight="802.0" prefWidth="1039.0" styleClass="primary-color" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="appacademia.VistaMatriculaController">
     <children>
-      <Label alignment="CENTER" layoutX="226.0" layoutY="14.0" prefHeight="45.0" prefWidth="149.0" style="-fx-font-size: 30; -fx-font-weight: bold; -fx-font-style: italic;" text="Matrícula" AnchorPane.leftAnchor="80.0" AnchorPane.rightAnchor="80.0" AnchorPane.topAnchor="60.0" />
-      <HBox alignment="CENTER" layoutX="25.0" layoutY="143.0" prefHeight="537.0" prefWidth="1039.0" AnchorPane.bottomAnchor="122.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="143.0">
+      <Label id="header" alignment="CENTER" layoutX="80.0" layoutY="38.0" prefHeight="45.0" prefWidth="149.0" style="-fx-font-weight: bold;" text="Matrícula" AnchorPane.leftAnchor="80.0" AnchorPane.rightAnchor="80.0" AnchorPane.topAnchor="38.0">
+         <font>
+            <Font size="48.0" />
+         </font></Label>
+      <HBox alignment="CENTER" layoutX="25.0" layoutY="115.0" prefHeight="565.0" prefWidth="1039.0" AnchorPane.bottomAnchor="122.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="115.0">
          <children>
-            <GridPane alignment="CENTER_LEFT" prefHeight="480.0" prefWidth="688.0" vgap="20.0">
+            <GridPane id="celdaTipoDatos" alignment="CENTER_LEFT" prefHeight="597.0" prefWidth="960.0" vgap="20.0">
               <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
               </columnConstraints>
               <rowConstraints>
                 <RowConstraints maxHeight="53.99999084472656" minHeight="10.0" prefHeight="53.99999084472656" vgrow="SOMETIMES" />
                 <RowConstraints maxHeight="124.4" minHeight="10.0" prefHeight="124.4" vgrow="SOMETIMES" />
-                <RowConstraints maxHeight="114.0" minHeight="0.0" prefHeight="34.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="124.4" minHeight="10.0" prefHeight="124.4" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="114.0" minHeight="0.0" prefHeight="34.0" vgrow="SOMETIMES" />
                   <RowConstraints maxHeight="266.3999877929687" minHeight="10.0" prefHeight="266.3999877929687" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <Label style="-fx-font-size: 20; -fx-font-weight: bold; -fx-underline: true;" text="Datos del alumno" />
+                  <Label id="header" style="-fx-font-weight: bold;" text="DATOS DEL ALUMNO">
+                     <GridPane.margin>
+                        <Insets bottom="30.0" />
+                     </GridPane.margin>
+                     <font>
+                        <Font size="18.0" />
+                     </font></Label>
                   <VBox alignment="CENTER" prefHeight="115.0" prefWidth="688.0" spacing="30.0" GridPane.rowIndex="1">
                      <children>
                         <Pane prefHeight="200.0" prefWidth="200.0">
                            <children>
-                              <TextField fx:id="textFieldNombre" layoutX="356.0" layoutY="-4.0" prefHeight="25.0" prefWidth="327.0" />
-                              <Label text="DNI/CIF:" />
+                              <Label id="textoEstandar" text="DNI/CIF:" />
                               <TextField fx:id="textFieldDNI" layoutX="101.0" layoutY="-4.0" prefHeight="25.0" prefWidth="149.0" />
-                              <Label layoutX="284.0" text="Nombre:" />
+                              <TextField fx:id="textFieldLocalidad" layoutX="554.0" layoutY="-4.0" prefHeight="25.0" prefWidth="190.0" />
+                              <Label id="textoEstandar" layoutX="452.0" text="Localidad:" />
                            </children>
+                           <VBox.margin>
+                              <Insets left="10.0" />
+                           </VBox.margin>
+                           <padding>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </padding>
                         </Pane>
                         <Pane prefHeight="200.0" prefWidth="200.0">
                            <children>
-                              <Label layoutY="-2.0" text="Dirección:" />
-                              <Label layoutX="421.0" layoutY="-2.0" text="Teléfono:" />
-                              <TextField fx:id="textFieldTelefono" layoutX="487.0" layoutY="-6.0" prefHeight="25.0" prefWidth="197.0" />
+                              <Label id="textoEstandar" layoutY="-2.0" text="Dirección:" />
+                              <Label id="textoEstandar" layoutX="453.0" layoutY="-2.0" text="Teléfono:" />
+                              <TextField fx:id="textFieldTelefono" layoutX="554.0" layoutY="-1.0" prefHeight="25.0" prefWidth="190.0" />
                               <TextField fx:id="textFieldDireccion" layoutX="101.0" layoutY="-6.0" prefHeight="25.0" prefWidth="287.0" />
                            </children>
+                           <VBox.margin>
+                              <Insets left="10.0" />
+                           </VBox.margin>
+                           <padding>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </padding>
                         </Pane>
                         <Pane prefHeight="200.0" prefWidth="538.0">
                            <children>
-                              <Label text="Localidad:" />
-                              <Label layoutX="330.0" layoutY="-1.0" text="Provincia:" />
-                              <TextField fx:id="textFieldLocalidad" layoutX="101.0" layoutY="-4.0" prefHeight="25.0" prefWidth="190.0" />
-                              <ComboBox fx:id="comboBoxProvincia" layoutX="409.0" layoutY="-4.0" prefHeight="25.0" prefWidth="231.0" />
+                              <Label id="textoEstandar" layoutX="454.0" text="Provincia:" />
+                              <ComboBox fx:id="comboBoxProvincia" layoutX="554.0" layoutY="-1.0" prefHeight="25.0" prefWidth="190.0" />
+                              <TextField fx:id="textFieldNombre" layoutX="102.0" layoutY="-4.0" prefHeight="25.0" prefWidth="287.0" />
+                              <Label id="textoEstandar" text="Nombre:" />
                            </children>
+                           <VBox.margin>
+                              <Insets left="10.0" />
+                           </VBox.margin>
                         </Pane>
                      </children>
                   </VBox>
-                  <Label style="-fx-font-size: 20; -fx-font-weight: bold; -fx-underline: true;" text="Datos de matrícula" GridPane.rowIndex="2" />
-                  <GridPane prefHeight="242.0" prefWidth="688.0" GridPane.rowIndex="3">
+                  <Label id="header" ellipsisString="" style="-fx-font-weight: bold;" text="DATOS DE MATRÍCULA" GridPane.rowIndex="3">
+                     <padding>
+                        <Insets bottom="30.0" />
+                     </padding>
+                     <font>
+                        <Font size="18.0" />
+                     </font></Label>
+                  <GridPane prefHeight="242.0" prefWidth="904.0" GridPane.rowIndex="4">
                     <columnConstraints>
                       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -73,27 +106,64 @@
                      <children>
                         <Pane prefHeight="224.0" prefWidth="344.0">
                            <children>
-                              <Label style="-fx-font-weight: bold;" text="Tipo de matrícula" />
-                              <RadioButton fx:id="radioButtonOrdinaria" layoutY="43.0" mnemonicParsing="false" text="Ordinaria" />
-                              <RadioButton fx:id="radioButtonRepetidor" layoutY="69.0" mnemonicParsing="false" text="Repetidor/a" />
-                              <RadioButton fx:id="radioButtonFamNumerosa" layoutY="94.0" mnemonicParsing="false" text="Familia numerosa" />
-                              <DatePicker fx:id="datePickerFechaMatricula" layoutY="158.0" prefHeight="25.0" prefWidth="197.0" />
-                              <Label layoutX="2.0" layoutY="135.0" text="Fecha de matriculación:" />
+                              <Label id="header" style="-fx-font-weight: bold;" text="Tipo de matrícula">
+                                 <font>
+                                    <Font size="16.0" />
+                                 </font></Label>
+                              <RadioButton id="textoEstandar" fx:id="radioButtonOrdinaria" layoutY="43.0" mnemonicParsing="false" text="Ordinaria">
+                                 <padding>
+                                    <Insets left="10.0" />
+                                 </padding></RadioButton>
+                              <RadioButton id="textoEstandar" fx:id="radioButtonRepetidor" layoutY="69.0" mnemonicParsing="false" text="Repetidor/a">
+                                 <padding>
+                                    <Insets left="10.0" />
+                                 </padding></RadioButton>
+                              <RadioButton id="textoEstandar" fx:id="radioButtonFamNumerosa" layoutY="94.0" mnemonicParsing="false" text="Familia numerosa">
+                                 <padding>
+                                    <Insets left="10.0" />
+                                 </padding></RadioButton>
+                              <DatePicker fx:id="datePickerFechaMatricula" layoutX="14.0" layoutY="158.0" prefHeight="25.0" prefWidth="197.0" />
+                              <Label id="textoEstandar" layoutX="2.0" layoutY="135.0" text="Fecha de matriculación:">
+                                 <padding>
+                                    <Insets left="10.0" />
+                                 </padding></Label>
                            </children>
+                           <GridPane.margin>
+                              <Insets left="10.0" />
+                           </GridPane.margin>
                         </Pane>
                         <Pane prefHeight="222.0" prefWidth="344.0" GridPane.columnIndex="1">
                            <children>
-                              <Label layoutX="56.0" layoutY="30.0" text="Curso:" />
+                              <Label id="textoEstandar" layoutX="56.0" layoutY="30.0" text="Curso:" />
                               <ComboBox fx:id="comboBoxCurso" layoutX="132.0" layoutY="26.0" prefHeight="25.0" prefWidth="212.0" />
-                              <CheckBox fx:id="checkBoxDocumentacion" layoutX="56.0" layoutY="80.0" mnemonicParsing="false" text="Necesito documentación" />
-                              <CheckBox fx:id="checkBoxCertificado" layoutX="56.0" layoutY="111.0" mnemonicParsing="false" text="Necesito certificado" />
-                              <Label layoutX="59.0" layoutY="162.0" style="-fx-font-weight: bold;" text="Importe abonado:" />
-                              <TextField fx:id="textFieldImporteAbonado" layoutX="195.0" layoutY="158.0" prefHeight="25.0" prefWidth="114.0" />
+                              <CheckBox id="textoEstandar" fx:id="checkBoxDocumentacion" layoutX="56.0" layoutY="80.0" mnemonicParsing="false" text="Necesito documentación">
+                                 <padding>
+                                    <Insets left="20.0" />
+                                 </padding></CheckBox>
+                              <CheckBox id="textoEstandar" fx:id="checkBoxCertificado" layoutX="56.0" layoutY="111.0" mnemonicParsing="false" text="Necesito certificado">
+                                 <padding>
+                                    <Insets left="20.0" />
+                                 </padding></CheckBox>
+                              <Label id="header" layoutX="56.0" layoutY="175.0" style="-fx-font-weight: bold;" text="Importe abonado:">
+                                 <padding>
+                                    <Insets left="20.0" />
+                                 </padding>
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font></Label>
+                              <TextField fx:id="textFieldImporteAbonado" layoutX="208.0" layoutY="171.0" prefHeight="25.0" prefWidth="114.0" />
                            </children>
                         </Pane>
                      </children>
                   </GridPane>
+                  <Separator prefWidth="200.0" GridPane.rowIndex="2" />
                </children>
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+               <padding>
+                  <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+               </padding>
             </GridPane>
          </children>
       </HBox>
@@ -121,5 +191,6 @@
             </Button>
          </children>
       </GridPane>
+      <Button layoutX="959.0" layoutY="36.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="26.0" text="?" />
    </children>
 </AnchorPane>

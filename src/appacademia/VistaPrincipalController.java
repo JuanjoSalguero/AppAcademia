@@ -11,17 +11,21 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.animation.Interpolator;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
-import javafx.scene.control.Button;
+import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
-import javax.persistence.EntityManager;
+import javafx.animation.KeyValue;
+import javafx.util.Duration;
 
 /**
  *
@@ -29,8 +33,8 @@ import javax.persistence.EntityManager;
  */
 public class VistaPrincipalController implements Initializable {
 
-    private EntityManager em;
-    private boolean isLightMode = true;
+    //private EntityManager em;
+    private static boolean isLightMode = true;
 
     @FXML
     private AnchorPane rootVistaPrincipal;
@@ -44,9 +48,9 @@ public class VistaPrincipalController implements Initializable {
     }
 
     // Setter
-    public void setEntityManager(EntityManager entityManager) {
-        this.em = entityManager;
-    }
+//    public void setEntityManager(EntityManager entityManager) {
+//        this.em = entityManager;
+//    }
 
     @FXML
     private void onActionMenuItemNuevo(ActionEvent event) {
@@ -57,14 +61,29 @@ public class VistaPrincipalController implements Initializable {
             VistaCursoController vistaCursoController = (VistaCursoController) fxmlLoader.getController();
             vistaCursoController.setRootVistaPrincipal(rootVistaPrincipal);
             // Asociar objeto a la clase VistaCursoController
-            vistaCursoController.setEntityManager(em);
+            //vistaCursoController.setEntityManager(em);
+            vistaCursoController.cambiarModo(isLightMode);
             
             // Ocultar la vista de la lista
-            rootVistaPrincipal.setVisible(false);
+            
+            // Transición
+            Scene scene = rootVistaPrincipal.getScene();
+            rootVistaCurso.translateXProperty().set(scene.getWidth());
 
             //Añadir la vista Curso al StackPane principal para que se muestre
             StackPane rootMain = (StackPane) rootVistaPrincipal.getScene().getRoot();
             rootMain.getChildren().add(rootVistaCurso);
+            
+            Timeline timeline = new Timeline();
+            KeyValue kv = new KeyValue(rootVistaCurso.translateXProperty(), 0, Interpolator.EASE_BOTH);
+            KeyFrame kf = new KeyFrame(Duration.seconds(1.6), kv);
+            
+            timeline.getKeyFrames().add(kf);
+            timeline.setOnFinished(timelineEvent -> {
+                rootVistaPrincipal.setVisible(false);
+            });
+            timeline.play();
+            
         } catch (IOException ex) {
             Logger.getLogger(VistaCursoController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -79,9 +98,10 @@ public class VistaPrincipalController implements Initializable {
             VistaMatriculaController vistaMatriculaController = (VistaMatriculaController) fxmlLoader.getController();
             vistaMatriculaController.setRootVistaPrincipal(rootVistaPrincipal);
             // Asociar objeto a la clase VistaMatriculaController
-            vistaMatriculaController.setEntityManager(em);
-            vistaMatriculaController.rellenarComboBoxProvincia();
-            vistaMatriculaController.rellenarComboBoxCurso();
+            //vistaMatriculaController.setEntityManager(em);
+//            vistaMatriculaController.rellenarComboBoxProvincia();
+//            vistaMatriculaController.rellenarComboBoxCurso();
+            vistaMatriculaController.cambiarModo(isLightMode);
 
             // Ocultar la vista de la lista
             rootVistaPrincipal.setVisible(false);
@@ -103,8 +123,9 @@ public class VistaPrincipalController implements Initializable {
             VistaAlumnosController vistaAlumnosController = (VistaAlumnosController) fxmlLoader.getController();
             vistaAlumnosController.setRootVistaPrincipal(rootVistaPrincipal);
             // Asociar objeto a la clase VistaMatriculaController
-            vistaAlumnosController.setEntityManager(em);
-            vistaAlumnosController.cargarAlumnos();
+            //vistaAlumnosController.setEntityManager(em);
+            //vistaAlumnosController.cargarAlumnos();
+            vistaAlumnosController.cambiarModo(isLightMode);
 
             // Ocultar la vista de la lista
             rootVistaPrincipal.setVisible(false);
@@ -118,28 +139,18 @@ public class VistaPrincipalController implements Initializable {
     }
 
     // Método para cambiar el modo de la vista (noche o dia)
+    @FXML
     public void cambiarModo(ActionEvent event){
         isLightMode = !isLightMode;
+        
         if (isLightMode){
-            establecerModoDia();
+            Image imagen = new Image("img/night-mode.png");
+            imagenModo.setImage(imagen);
         } else {
-            establecerModoNoche();
+            Image imagen = new Image("img/light-mode.png");
+            imagenModo.setImage(imagen);
         }
+        Modularizacion.cambiarModo(rootVistaPrincipal, isLightMode);
     }
     
-    // Método para cambiar a modo diurno
-    private void establecerModoDia(){
-        rootVistaPrincipal.getStylesheets().remove("styles/darkMode.css");
-        rootVistaPrincipal.getStylesheets().add("styles/lightMode.css");
-        Image imagen = new Image("img/night-mode.png");
-        imagenModo.setImage(imagen);
-    }
-    
-        // Método para cambiar a modo nocturno
-    private void establecerModoNoche(){
-        rootVistaPrincipal.getStylesheets().remove("styles/lightMode.css");
-        rootVistaPrincipal.getStylesheets().add("styles/darkMode.css");
-        Image imagen = new Image("img/light-mode.png");
-        imagenModo.setImage(imagen);
-    }
 }

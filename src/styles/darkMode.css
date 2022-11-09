@@ -6,6 +6,17 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to ed
     Created on : 08-nov-2022, 19:23:50
     Author     : Juanjo
 */
+
+*{
+    -fx-textfield-background-color: rgba(180, 180, 180, 0.3);
+    -fx-textfield-readonly-background-color: rgba(221, 221, 221, 0.3);
+    -fx-textfield-border-color: rgba(221, 221, 221, 0.9);
+    -fx-celdaDatos-background-color: rgba(72, 72, 72, 0.3);
+    -fx-text-fill-estandar: rgba(180, 180, 180);
+    -fx-text-fill-header: rgba(243, 243, 243, 0.9);
+    -fx-button-background: rgba(243, 243, 243, 0.6);
+}
+
 .primary-color{
     -fx-background-color: #383838;
 }
@@ -20,4 +31,72 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to ed
 
 .menu-bar{
     -fx-base: forestgreen;
+}
+.text-field{
+    -fx-background-color: -fx-textfield-background-color;
+    -fx-padding: 7;
+    -fx-background-radius: 30;
+    -fx-focus-color: transparent;
+    -fx-border-width: 0.5;
+    -fx-border-radius: 30;
+    -fx-border-color: -fx-textfield-border-color;
+}
+.text-input:disabled{
+    -fx-background-color: -fx-textfield-readonly-background-color;
+    -fx-padding: 7;
+    -fx-background-radius: 30;
+    -fx-focus-color: transparent;
+    -fx-border-width: 0.5;
+    -fx-border-radius: 30;
+    -fx-border-color: -fx-textfield-border-color;
+}
+#textoEstandar{
+    -fx-font-size: 14px;
+    -fx-text-fill: -fx-text-fill-estandar;
+}
+#header{
+    -fx-text-fill: -fx-text-fill-header;
+}
+#celdaTipoDatos{
+    -fx-background-color: -fx-celdaDatos-background-color;
+    -fx-padding: 40;
+}
+#info{
+    -fx-background-radius: 30;
+    -fx-font-size: 14px;
+    -fx-background-color:-fx-button-background;
+    -fx-text-fill: white;
+}
+.combo-box{
+    -fx-background-color: -fx-textfield-background-color;
+    -fx-padding: 4;
+    -fx-background-radius: 30;
+    -fx-focus-color: transparent;
+    -fx-border-width: 0.5;
+    -fx-border-radius: 30;
+    -fx-border-color: -fx-textfield-border-color;
+    -fx-text-fill: rgba(24, 66, 36, 0.9);
+}
+.date-picker{
+    -fx-background-color: transparent;
+    -fx-background-radius: 30;
+    -fx-focus-color: transparent;
+}
+.spinner{
+    -fx-background-color: transparent;
+    -fx-background-radius: 30;    
+    -fx-focus-color: transparent;
+}
+.button{
+    -fx-background-radius: 20;
+    -fx-font-size: 14px;
+    -fx-background-color:-fx-button-background;
+    -fx-text-fill: white;
+}
+.button:hover {
+    -fx-background-color:
+            linear-gradient(from 0% 93% to 0% 100%, #9b9d9e 0%, #7a7c7d 100%),
+            #7a7c7d,
+            #9b9d9e,
+            radial-gradient(center 50% 50%, radius 100%, #9b9d9e, #7a7c7d);
 }
