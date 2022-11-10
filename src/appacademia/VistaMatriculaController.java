@@ -328,57 +328,60 @@ public class VistaMatriculaController implements Initializable {
     }
     
     private void listenerCurso() {
-        comboBoxCurso.valueProperty().addListener((options, oldValue, newValue) -> {
-                if(!comboBoxCurso.getValue().equals(null)) {
-                    Query queryMatricula = em.createNamedQuery("Matricula.findAll");
-                    List<Matricula> listMatricula = queryMatricula.getResultList();
+        comboBoxCurso.getSelectionModel().selectedItemProperty().addListener((options, oldValue, newValue) -> {
+            Query queryMatricula = em.createNamedQuery("Matricula.findAll");
+            List<Matricula> listMatricula = queryMatricula.getResultList();
 
-                    int i = 0;
-                    boolean encontrado = false;
+            int i = 0;
+            boolean encontrado = false;
 
-                    while(i < listMatricula.size() && !encontrado) {
-                        Matricula m = listMatricula.get(i);
-                        MatriculaPK mpk = m.getMatriculaPK();
+            while(i < listMatricula.size() && !encontrado) {
+                Matricula m = listMatricula.get(i);
+                MatriculaPK mpk = m.getMatriculaPK();
 
-                        if(mpk.getAlumnoDni().equals(textFieldDNI.getText()) && mpk.getCursoId() == comboBoxCurso.getSelectionModel().getSelectedItem().getId()) {
-                            encontrado = true;
-                            ButtonType si = new ButtonType("Si", ButtonBar.ButtonData.OK_DONE);
-                            ButtonType no = new ButtonType("No", ButtonBar.ButtonData.CANCEL_CLOSE);
-                            Alert alert = new Alert(Alert.AlertType.CONFIRMATION,  
-                            "El alumno introducido ya está matriculado en el curso seleccionado. ¿Quiere modificar la matricula?", si, no);
-                            Optional<ButtonType> result = alert.showAndWait();
+                if(mpk.getAlumnoDni().equals(textFieldDNI.getText()) && mpk.getCursoId() == comboBoxCurso.getSelectionModel().getSelectedItem().getId()) {
+                    encontrado = true;
+                    ButtonType si = new ButtonType("Si", ButtonBar.ButtonData.OK_DONE);
+                    ButtonType no = new ButtonType("No", ButtonBar.ButtonData.CANCEL_CLOSE);
+                    Alert alert = new Alert(Alert.AlertType.CONFIRMATION,  
+                    "El alumno introducido ya está matriculado en el curso seleccionado. ¿Quiere modificar la matricula?", si, no);
+                    Optional<ButtonType> result = alert.showAndWait();
 
-                            if(result.get() == si) {
-                                if(m.getTipoMatricula().equals("Ordinaria"))
-                                    radioButtonOrdinaria.setSelected(true);
+                    if(m.getTipoMatricula().equals("Ordinaria"))
+                            radioButtonOrdinaria.setSelected(true);
 
-                                else if(m.getTipoMatricula().equals("Repetidor"))
-                                    radioButtonRepetidor.setSelected(true);
+                        else if(m.getTipoMatricula().equals("Repetidor"))
+                            radioButtonRepetidor.setSelected(true);
 
-                                else
-                                    radioButtonFamNumerosa.setSelected(true);
+                        else
+                            radioButtonFamNumerosa.setSelected(true);
 
-                                datePickerFechaMatricula.setValue(m.getFecha().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
-                                comboBoxCurso.getSelectionModel().select(m.getCurso());
-                                checkBoxDocumentacion.setSelected(m.getDocumentacion());
-                                checkBoxCertificado.setSelected(m.getCertificado());
-                                textFieldImporteAbonado.setText(String.valueOf(m.getImporteAbonado()));
+                        radioButtonOrdinaria.setDisable(false);
+                        radioButtonRepetidor.setDisable(false);
+                        radioButtonFamNumerosa.setDisable(false);
+                        datePickerFechaMatricula.setDisable(false);
+                        checkBoxDocumentacion.setDisable(false);
+                        checkBoxCertificado.setDisable(false);
+                        datePickerFechaMatricula.setValue(m.getFecha().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+                        comboBoxCurso.getSelectionModel().select(m.getCurso());
+                        checkBoxDocumentacion.setSelected(m.getDocumentacion());
+                        checkBoxCertificado.setSelected(m.getCertificado());
+                        textFieldImporteAbonado.setText(String.valueOf(m.getImporteAbonado()));
 
-
-                            }
-
-                            else {
-                                comboBoxCurso.getSelectionModel().clearSelection();
-
-                            }
-
-                        }
-
-                        i++;
-
+                    if(result.get() == no) {
+                        radioButtonOrdinaria.setDisable(true);
+                        radioButtonRepetidor.setDisable(true);
+                        radioButtonFamNumerosa.setDisable(true);
+                        datePickerFechaMatricula.setDisable(true);
+                        checkBoxDocumentacion.setDisable(true);
+                        checkBoxCertificado.setDisable(true);
                     }
-                    
+
                 }
+
+                i++;
+
+            }
         
         }); 
         
