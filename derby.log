@@ -1,11 +1,11 @@
 ----------------------------------------------------------------
-Thu Nov 10 14:54:49 CET 2022:
-Booting Derby version The Apache Software Foundation - Apache Derby - 10.14.2.0 - (1828579): instance a816c00e-0184-61d2-6758-000009e7d298 
-on database directory C:\Users\usuario\Documents\NetBeansProjects\appacademia-winball\BDAcademia with class loader sun.misc.Launcher$AppClassLoader@55f96302 
-Loaded from file:/C:/Users/usuario/Documents/NetBeansProjects/appacademia-winball/dist/run706428798/lib/derby.jar
+Thu Nov 10 20:06:43 CET 2022:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.14.2.0 - (1828579): instance a816c00e-0184-62ef-f541-00000a2f9140 
+on database directory C:\Users\Adrian\Documents\NetBeansProjects\appacademia-winball\BDAcademia with class loader sun.misc.Launcher$AppClassLoader@55f96302 
+Loaded from file:/C:/Users/Adrian/Documents/NetBeansProjects/appacademia-winball/dist/run1324877419/lib/derby.jar
 java.vendor=Oracle Corporation
 java.runtime.version=1.8.0_202-b08
-user.dir=C:\Users\usuario\Documents\NetBeansProjects\appacademia-winball
+user.dir=C:\Users\Adrian\Documents\NetBeansProjects\appacademia-winball
 os.name=Windows 10
 os.arch=amd64
 os.version=10.0

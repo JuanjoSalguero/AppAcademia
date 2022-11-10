@@ -25,6 +25,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.CheckBox;
@@ -91,6 +92,8 @@ public class VistaMatriculaController implements Initializable {
     private MatriculaPK idMatriculaNueva;
     private Alumno alumnoNuevo;
     private ToggleGroup tipo;
+    @FXML
+    private Button buttonModificarMatricula;
      
     /**
      * Initializes the controller class.
@@ -100,8 +103,8 @@ public class VistaMatriculaController implements Initializable {
         // Control de errores y restricciones de los objetos
         controlYRestriccionErrores();
         
-        desactivarCampos(); // Desactivar campos relativos al DNI
-        //calcularImporte();  // Calcular importe del abono
+        desactivarCamposAlumno(); // Desactivar campos relativos al DNI
+        calcularImporte();  // Calcular importe del abono
         
         // ToggleGroup
         Modularizacion.TipoToggleGroup(tipo, radioButtonOrdinaria, radioButtonRepetidor, radioButtonFamNumerosa);
@@ -277,6 +280,7 @@ public class VistaMatriculaController implements Initializable {
     
     // Método para el control de los campos y restricciones de los mismos
     private void controlYRestriccionErrores() {
+        buttonModificarMatricula.setVisible(false);
         datePickerFechaMatricula.setValue(LocalDate.now());
         Modularizacion.soloLetras(textFieldNombre);
         Modularizacion.soloNumeros(textFieldTelefono);
@@ -306,7 +310,7 @@ public class VistaMatriculaController implements Initializable {
                     }
                     
                     else {
-                        desactivarCampos();
+                        desactivarCamposAlumno();
                         borrarCampos();
                         
                     }
@@ -315,7 +319,7 @@ public class VistaMatriculaController implements Initializable {
                 
                 else {
                     borrarCampos();
-                    desactivarCampos();
+                    desactivarCamposAlumno();
                     
                 }
                 
@@ -331,6 +335,10 @@ public class VistaMatriculaController implements Initializable {
         comboBoxCurso.getSelectionModel().selectedItemProperty().addListener((options, oldValue, newValue) -> {
             Query queryMatricula = em.createNamedQuery("Matricula.findAll");
             List<Matricula> listMatricula = queryMatricula.getResultList();
+            buttonModificarMatricula.setVisible(false);
+            
+            activarCamposMatricula();
+            limpiarCamposMatricula();
 
             int i = 0;
             boolean encontrado = false;
@@ -356,12 +364,7 @@ public class VistaMatriculaController implements Initializable {
                         else
                             radioButtonFamNumerosa.setSelected(true);
 
-                        radioButtonOrdinaria.setDisable(false);
-                        radioButtonRepetidor.setDisable(false);
-                        radioButtonFamNumerosa.setDisable(false);
-                        datePickerFechaMatricula.setDisable(false);
-                        checkBoxDocumentacion.setDisable(false);
-                        checkBoxCertificado.setDisable(false);
+                        activarCamposMatricula();
                         datePickerFechaMatricula.setValue(m.getFecha().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
                         comboBoxCurso.getSelectionModel().select(m.getCurso());
                         checkBoxDocumentacion.setSelected(m.getDocumentacion());
@@ -369,12 +372,8 @@ public class VistaMatriculaController implements Initializable {
                         textFieldImporteAbonado.setText(String.valueOf(m.getImporteAbonado()));
 
                     if(result.get() == no) {
-                        radioButtonOrdinaria.setDisable(true);
-                        radioButtonRepetidor.setDisable(true);
-                        radioButtonFamNumerosa.setDisable(true);
-                        datePickerFechaMatricula.setDisable(true);
-                        checkBoxDocumentacion.setDisable(true);
-                        checkBoxCertificado.setDisable(true);
+                        desactivarCamposMatricula();
+                        buttonModificarMatricula.setVisible(true);
                     }
 
                 }
@@ -418,7 +417,7 @@ public class VistaMatriculaController implements Initializable {
     }
     
     // Método para desactivarl los campos del alumno
-    private void desactivarCampos() {
+    private void desactivarCamposAlumno() {
         textFieldNombre.setDisable(true);
         textFieldDireccion.setDisable(true);
         textFieldTelefono.setDisable(true);
@@ -428,12 +427,45 @@ public class VistaMatriculaController implements Initializable {
     }
     
     // Método para activar los campos del alumno
-    private void activarCampos() {
+    private void activarCamposAlumno() {
         textFieldNombre.setDisable(false);
         textFieldDireccion.setDisable(false);
         textFieldTelefono.setDisable(false);
         textFieldLocalidad.setDisable(false);
         comboBoxProvincia.setDisable(false);
+    }
+    
+    //Método para desactivar los campos de la matrícula
+    private void desactivarCamposMatricula() {
+        radioButtonOrdinaria.setDisable(true);
+        radioButtonRepetidor.setDisable(true);
+        radioButtonFamNumerosa.setDisable(true);
+        datePickerFechaMatricula.setDisable(true);
+        checkBoxDocumentacion.setDisable(true);
+        checkBoxCertificado.setDisable(true);
+        
+    }
+    
+    //Metodo para activar los campos de la matrícula
+    private void activarCamposMatricula() {
+        radioButtonOrdinaria.setDisable(false);
+        radioButtonRepetidor.setDisable(false);
+        radioButtonFamNumerosa.setDisable(false);
+        datePickerFechaMatricula.setDisable(false);
+        checkBoxDocumentacion.setDisable(false);
+        checkBoxCertificado.setDisable(false);
+        
+    }
+    
+    //Metodo para borrar los campos de matricula
+    private void limpiarCamposMatricula() {
+        radioButtonOrdinaria.setSelected(true);
+        radioButtonRepetidor.setSelected(false);
+        radioButtonFamNumerosa.setSelected(false);
+        datePickerFechaMatricula.setValue(LocalDate.now());
+        checkBoxDocumentacion.setSelected(false);
+        checkBoxCertificado.setSelected(false);
+        
     }
     
     // Método para borrar los campos del alumno
@@ -647,6 +679,13 @@ public class VistaMatriculaController implements Initializable {
 
     public void cambiarModo(boolean isLightMode){
         Modularizacion.cambiarModo(rootVistaMatricula, isLightMode);
+    }
+
+    @FXML
+    private void onActionButtonModificarMatricula(ActionEvent event) {
+        activarCamposMatricula();
+        buttonModificarMatricula.setVisible(false);
+        
     }
 
 }
