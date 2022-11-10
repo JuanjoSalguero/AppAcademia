@@ -31,6 +31,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Matricula.findAll", query = "SELECT m FROM Matricula m"),
     @NamedQuery(name = "Matricula.findByAlumnoDni", query = "SELECT m FROM Matricula m WHERE m.matriculaPK.alumnoDni = :alumnoDni"),
     @NamedQuery(name = "Matricula.findByCursoId", query = "SELECT m FROM Matricula m WHERE m.matriculaPK.cursoId = :cursoId"),
+    @NamedQuery(name = "Matricula.findByPK", query = "SELECT m FROM Matricula m WHERE m.matriculaPK.cursoId = :cursoId AND m.matriculaPK.alumnoDni = :alumnoDni"),
     @NamedQuery(name = "Matricula.findByTipoMatricula", query = "SELECT m FROM Matricula m WHERE m.tipoMatricula = :tipoMatricula"),
     @NamedQuery(name = "Matricula.findByFecha", query = "SELECT m FROM Matricula m WHERE m.fecha = :fecha"),
     @NamedQuery(name = "Matricula.findByDocumentacion", query = "SELECT m FROM Matricula m WHERE m.documentacion = :documentacion"),

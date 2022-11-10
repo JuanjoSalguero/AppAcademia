@@ -55,7 +55,7 @@ public class Main extends Application {
         em.close();
         emf.close();
         try{
-            DriverManager.getConnection("jdbc:derby://localhost/BDAcademia;shutdown=true");
+            DriverManager.getConnection("jdbc:derby:C:\\Users\\usuario\\Documents\\NetBeansProjects\\appacademia-winball\\BDAcademia;create=true");
         } catch(SQLException ex) {
         }
     }

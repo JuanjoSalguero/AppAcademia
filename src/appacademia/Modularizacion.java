@@ -135,11 +135,27 @@ public class Modularizacion {
 
     // Método para confirmar que deseamos enviar los datos
     public static void confirmationTab(String tituloVentana) {
-        confirmationAlert = new Alert(Alert.AlertType.CONFIRMATION);
-        confirmationAlert.setHeaderText(null);
-        confirmationAlert.setTitle(tituloVentana + " - Confirmación de guardado de registro.");
-        confirmationAlert.setContentText("¿Está seguro de que desea guardar el actual registro? Revise todos "
-                + "los campos antes de proceder con guardado del registro.");
+        if(tituloVentana.equals("Nueva Matrícula y Nuevo Alumno")){
+            confirmationAlert = new Alert(Alert.AlertType.CONFIRMATION);
+            confirmationAlert.setHeaderText(null);
+            confirmationAlert.setTitle(tituloVentana + " - Confirmación de guardado de registro.");
+            confirmationAlert.setContentText("¿Está seguro de que desea guardar el actual registro? Revise todos "
+                    + "los campos antes de proceder con guardado del registro.");
+        }
+        else if(tituloVentana.equals("Nueva Matrícula y Actualizar Alumno")){
+            confirmationAlert = new Alert(Alert.AlertType.CONFIRMATION);
+            confirmationAlert.setHeaderText(null);
+            confirmationAlert.setTitle(tituloVentana + " - Confirmación de guardado de registro y acualización de alumno.");
+            confirmationAlert.setContentText("¿Está seguro de que desea guardar el actual registro? Revise todos "
+                    + "los campos antes de proceder con guardado del registro.");
+        }
+        else if(tituloVentana.equals("Actualizar Matrícula")){
+            confirmationAlert = new Alert(Alert.AlertType.CONFIRMATION);
+            confirmationAlert.setHeaderText(null);
+            confirmationAlert.setTitle(tituloVentana + " - Confirmación de acualización de matrícula.");
+            confirmationAlert.setContentText("¿Está seguro de que desea guardar el actual registro? Revise todos "
+                    + "los campos antes de proceder con guardado del registro.");
+        }
     }
     
     // Método para combrobar que el dni introducido cumple los parametros(8 números y 1 letra)
