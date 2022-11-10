@@ -170,6 +170,24 @@ public class Modularizacion {
     }
     
 
+    //Metodo para comprobar que el DNI introducido es válido. Letra correcta
+    public static boolean validarDNI(String DNI) {
+        boolean dniValido;
+        char[] letras = {'T', 'R', 'W', 'A', 'G', 'M', 'Y', 'F', 'P', 'D', 'X', 'B', 'N', 'J', 'Z', 'S', 'Q', 'V', 'H', 'L', 'C', 'K', 'E'};
+        
+        String numerosDNI = DNI.substring(0, 7);
+        
+        int numero = Integer.parseInt(numerosDNI) % 23;
+        
+        if(letras[numero] == DNI.charAt(8))
+            dniValido = true;
+        
+        else
+            dniValido = false;
+        
+        return dniValido;
+    }
+    
     //  ***************************************** MÉTODOS PARA LIMPIAR *****************************************
     // Limpiar TextField
     public static void limpiarTextField(TextField textField) {
