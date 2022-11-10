@@ -4,7 +4,7 @@
  */
 package appacademia;
 
-//import entities.Curso;
+import entities.Curso;
 import java.math.BigDecimal;
 import java.net.URL;
 import java.time.Instant;
@@ -50,7 +50,7 @@ public class VistaCursoController implements Initializable {
     private List<String> categorias;
     private ToggleGroup tipo;
     private EntityManager em;
-    //private Curso curso;
+    private Curso curso;
 
     // ------------------------------------------------------------------- NODOS
     @FXML
@@ -111,132 +111,132 @@ public class VistaCursoController implements Initializable {
     @FXML
     private void onActionButtonAceptar(ActionEvent event) {
 
-//        boolean errorFormato = false;
-//        curso = new Curso();
-//
-//        // Nombre del curso
-//        if (!textFieldNombre.getText().isEmpty()) {
-//            curso.setNombre(textFieldNombre.getText());
-//        } else {
-//            errorFormato = true;
-//        }
-//
-//        // Duración del curso
-//        if (!textFieldDuracion.getText().isEmpty()) {
-//            curso.setDuracion(Integer.parseInt(textFieldDuracion.getText()));
-//        } else {
-//            errorFormato = true;
-//        }
-//
-//        // Proveedor
-//        if (!textFieldProveedor.getText().isEmpty()) {
-//            curso.setProveedor(textFieldProveedor.getText());
-//        } else {
-//            errorFormato = true;
-//        }
-//
-//        // Categoria
-//        if (comboBoxCategoria.getValue() != null) {
-//            curso.setCategoria(comboBoxCategoria.getValue());
-//        } else {
-//            errorFormato = true;
-//        }
-//
-//        // Certificación
-//        if (!textFieldCertificacion.getText().isEmpty()) {
-//            curso.setCertificacion(textFieldCertificacion.getText());
-//        } else {
-//            errorFormato = true;
-//        }
-//
-//        // Fecha inicio
-//        if (datePickerFechaInicio.getValue() != null) {
-//            LocalDate localDate = datePickerFechaInicio.getValue();
-//            ZonedDateTime zonedDateTime
-//                    = localDate.atStartOfDay(ZoneId.systemDefault());
-//            Instant instant = zonedDateTime.toInstant();
-//            Date date = Date.from(instant);
-//            curso.setFechaInicio(date);
-//        } else {
-//            errorFormato = true;
-//        }
-//
-//        // Fecha fin
-//        if (datePickerFechaFin.getValue() != null) {
-//            LocalDate localDate = datePickerFechaFin.getValue();
-//            ZonedDateTime zonedDateTime
-//                    = localDate.atStartOfDay(ZoneId.systemDefault());
-//            Instant instant = zonedDateTime.toInstant();
-//            Date date = Date.from(instant);
-//            curso.setFechaFin(date);
-//        } else {
-//            errorFormato = true;
-//        }
-//
-//        // Número de asistentes
-//        if (!spinnerAsistentes.getValue().equals(0)) {
-//            curso.setNumAsistentes(spinnerAsistentes.getValue());
-//        } else {
-//            errorFormato = true;
-//        }
-//
-//        // Tipo de curso 
-//        if (radioButtonOficial.isSelected()) {  // Oficial
-//            curso.setTipo("Oficial");
-//        } else if (radioButtonOnline.isSelected()) {    // Online
-//            curso.setTipo("Online");
-//        } else if (radioButtonVideoDemanda.isSelected()) {    // Video bajo demanda
-//            curso.setTipo("Vídeo bajo demanda");
-//        }
-//
-//        // Importe
-//        if (!textFieldImporte.getText().isEmpty()) {
-//            curso.setImporte(BigDecimal.valueOf(Double.parseDouble(textFieldImporte.getText())));
-//        } else {
-//            errorFormato = true;
-//        }
-//
-//        // Instructor
-//        if (comboBoxInstructor.getValue() != null) {
-//            curso.setInstructor(comboBoxInstructor.getValue());
-//        } else {
-//            errorFormato = true;
-//        }
-//
-//        // Beca
-//        if (checkBoxBeca.isSelected()) {
-//            curso.setBeca(true);
-//        } else {
-//            curso.setBeca(false);
-//        }
-//
-//        if (!errorFormato) { // Los datos introducidos son correctos
-//            try {
-//                Modularizacion.confirmationTab("Nuevo Curso");
-//                Optional<ButtonType> action = Modularizacion.confirmationAlert.showAndWait();
-//                // Si clickamos aceptar, los datos se guardarán
-//                if (action.get() == ButtonType.OK) {
-//                    em.getTransaction().begin();
-//                    em.persist(curso);
-//                    em.getTransaction().commit();
-//
-//                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
-//                    alert.setContentText("Se han guardado los datos correctamente.");
-//                    alert.showAndWait();
-//                    // Cuando se presione el botón aceptar, se limpian los campos
-//                    limpiar();
-//                }
-//            } catch (RollbackException ex) { // Los datos introducidos no cumplen requisitos de BD
-//                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-//                alert.setHeaderText("No se han podido guardar los cambios. " + "Compruebe que los datos cumplen los requisitos.");
-//                alert.setContentText(ex.getLocalizedMessage());
-//                alert.showAndWait();
-//            }
-//        } else {
-//            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-//            alert.setHeaderText("No se han podido guardar los cambios. " + "Compruebe que los datos cumplen los requisitos.");
-//            alert.showAndWait();
-//        }
+        boolean errorFormato = false;
+        curso = new Curso();
+
+        // Nombre del curso
+        if (!textFieldNombre.getText().isEmpty()) {
+            curso.setNombre(textFieldNombre.getText());
+        } else {
+            errorFormato = true;
+        }
+
+        // Duración del curso
+        if (!textFieldDuracion.getText().isEmpty()) {
+            curso.setDuracion(Integer.parseInt(textFieldDuracion.getText()));
+        } else {
+            errorFormato = true;
+        }
+
+        // Proveedor
+        if (!textFieldProveedor.getText().isEmpty()) {
+            curso.setProveedor(textFieldProveedor.getText());
+        } else {
+            errorFormato = true;
+        }
+
+        // Categoria
+        if (comboBoxCategoria.getValue() != null) {
+            curso.setCategoria(comboBoxCategoria.getValue());
+        } else {
+            errorFormato = true;
+        }
+
+        // Certificación
+        if (!textFieldCertificacion.getText().isEmpty()) {
+            curso.setCertificacion(textFieldCertificacion.getText());
+        } else {
+            errorFormato = true;
+        }
+
+        // Fecha inicio
+        if (datePickerFechaInicio.getValue() != null) {
+            LocalDate localDate = datePickerFechaInicio.getValue();
+            ZonedDateTime zonedDateTime
+                    = localDate.atStartOfDay(ZoneId.systemDefault());
+            Instant instant = zonedDateTime.toInstant();
+            Date date = Date.from(instant);
+            curso.setFechaInicio(date);
+        } else {
+            errorFormato = true;
+        }
+
+        // Fecha fin
+        if (datePickerFechaFin.getValue() != null) {
+            LocalDate localDate = datePickerFechaFin.getValue();
+            ZonedDateTime zonedDateTime
+                    = localDate.atStartOfDay(ZoneId.systemDefault());
+            Instant instant = zonedDateTime.toInstant();
+            Date date = Date.from(instant);
+            curso.setFechaFin(date);
+        } else {
+            errorFormato = true;
+        }
+
+        // Número de asistentes
+        if (!spinnerAsistentes.getValue().equals(0)) {
+            curso.setNumAsistentes(spinnerAsistentes.getValue());
+        } else {
+            errorFormato = true;
+        }
+
+        // Tipo de curso 
+        if (radioButtonOficial.isSelected()) {  // Oficial
+            curso.setTipo("Oficial");
+        } else if (radioButtonOnline.isSelected()) {    // Online
+            curso.setTipo("Online");
+        } else if (radioButtonVideoDemanda.isSelected()) {    // Video bajo demanda
+            curso.setTipo("Vídeo bajo demanda");
+        }
+
+        // Importe
+        if (!textFieldImporte.getText().isEmpty()) {
+            curso.setImporte(BigDecimal.valueOf(Double.parseDouble(textFieldImporte.getText())));
+        } else {
+            errorFormato = true;
+        }
+
+        // Instructor
+        if (comboBoxInstructor.getValue() != null) {
+            curso.setInstructor(comboBoxInstructor.getValue());
+        } else {
+            errorFormato = true;
+        }
+
+        // Beca
+        if (checkBoxBeca.isSelected()) {
+            curso.setBeca(true);
+        } else {
+            curso.setBeca(false);
+        }
+
+        if (!errorFormato) { // Los datos introducidos son correctos
+            try {
+                Modularizacion.confirmationTab("Nuevo Curso");
+                Optional<ButtonType> action = Modularizacion.confirmationAlert.showAndWait();
+                // Si clickamos aceptar, los datos se guardarán
+                if (action.get() == ButtonType.OK) {
+                    em.getTransaction().begin();
+                    em.persist(curso);
+                    em.getTransaction().commit();
+
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setContentText("Se han guardado los datos correctamente.");
+                    alert.showAndWait();
+                    // Cuando se presione el botón aceptar, se limpian los campos
+                    limpiar();
+                }
+            } catch (RollbackException ex) { // Los datos introducidos no cumplen requisitos de BD
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setHeaderText("No se han podido guardar los cambios. " + "Compruebe que los datos cumplen los requisitos.");
+                alert.setContentText(ex.getLocalizedMessage());
+                alert.showAndWait();
+            }
+        } else {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setHeaderText("No se han podido guardar los cambios. " + "Compruebe que los datos cumplen los requisitos.");
+            alert.showAndWait();
+        }
     }
 
     @FXML

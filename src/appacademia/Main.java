@@ -23,9 +23,9 @@ import javax.persistence.Persistence;
  */
 public class Main extends Application {
     
-    // Entity manager y StackPane como root de las vistas
-//    private EntityManagerFactory emf;
-//    private EntityManager em;
+    //Entity manager y StackPane como root de las vistas
+    private EntityManagerFactory emf;
+    private EntityManager em;
     StackPane rootMain = new StackPane();
     
     @Override
@@ -34,12 +34,12 @@ public class Main extends Application {
         Pane rootAgendaView = fxmlLoader.load();
         rootMain.getChildren().add(rootAgendaView);
         
-//        emf = Persistence.createEntityManagerFactory("AppAcademiaPU");
-//        em = emf.createEntityManager();
+        emf = Persistence.createEntityManagerFactory("AppAcademiaPU");
+        em = emf.createEntityManager();
         
         // Asocial objeto a la clase VistaPrincipalController
         VistaPrincipalController vistaPrincipalController = (VistaPrincipalController) fxmlLoader.getController();
-        //vistaPrincipalController.setEntityManager(em);
+        vistaPrincipalController.setEntityManager(em);
 
                 
         Scene scene = new Scene(rootMain, 1080, 800);
@@ -49,16 +49,16 @@ public class Main extends Application {
     }
     
     // Método para cerrar la conexión
-//    @Override
-//    public void stop() throws Exception {
-//        // Al acabar la conexión cerramos tanto el entity manager como el EM factory
-//        em.close();
-//        emf.close();
-//        try{
-//            DriverManager.getConnection("jdbc:derby://localhost/BDAcademia;shutdown=true");
-//        } catch(SQLException ex) {
-//        }
-//    }
+    @Override
+    public void stop() throws Exception {
+        // Al acabar la conexión cerramos tanto el entity manager como el EM factory
+        em.close();
+        emf.close();
+        try{
+            DriverManager.getConnection("jdbc:derby://localhost/BDAcademia;shutdown=true");
+        } catch(SQLException ex) {
+        }
+    }
 
     /**
      * @param args the command line arguments

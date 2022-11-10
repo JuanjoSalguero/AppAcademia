@@ -26,6 +26,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.animation.KeyValue;
 import javafx.util.Duration;
+import javax.persistence.EntityManager;
 
 /**
  *
@@ -33,7 +34,7 @@ import javafx.util.Duration;
  */
 public class VistaPrincipalController implements Initializable {
 
-    //private EntityManager em;
+    private EntityManager em;
     private static boolean isLightMode = true;
 
     @FXML
@@ -48,9 +49,9 @@ public class VistaPrincipalController implements Initializable {
     }
 
     // Setter
-//    public void setEntityManager(EntityManager entityManager) {
-//        this.em = entityManager;
-//    }
+    public void setEntityManager(EntityManager entityManager) {
+        this.em = entityManager;
+    }
 
     @FXML
     private void onActionMenuItemNuevo(ActionEvent event) {
@@ -61,7 +62,7 @@ public class VistaPrincipalController implements Initializable {
             VistaCursoController vistaCursoController = (VistaCursoController) fxmlLoader.getController();
             vistaCursoController.setRootVistaPrincipal(rootVistaPrincipal);
             // Asociar objeto a la clase VistaCursoController
-            //vistaCursoController.setEntityManager(em);
+            vistaCursoController.setEntityManager(em);
             vistaCursoController.cambiarModo(isLightMode);
             
             // Ocultar la vista de la lista
@@ -76,7 +77,7 @@ public class VistaPrincipalController implements Initializable {
             
             Timeline timeline = new Timeline();
             KeyValue kv = new KeyValue(rootVistaCurso.translateXProperty(), 0, Interpolator.EASE_BOTH);
-            KeyFrame kf = new KeyFrame(Duration.seconds(1.6), kv);
+            KeyFrame kf = new KeyFrame(Duration.seconds(1), kv);
             
             timeline.getKeyFrames().add(kf);
             timeline.setOnFinished(timelineEvent -> {
@@ -98,9 +99,9 @@ public class VistaPrincipalController implements Initializable {
             VistaMatriculaController vistaMatriculaController = (VistaMatriculaController) fxmlLoader.getController();
             vistaMatriculaController.setRootVistaPrincipal(rootVistaPrincipal);
             // Asociar objeto a la clase VistaMatriculaController
-            //vistaMatriculaController.setEntityManager(em);
-//            vistaMatriculaController.rellenarComboBoxProvincia();
-//            vistaMatriculaController.rellenarComboBoxCurso();
+            vistaMatriculaController.setEntityManager(em);
+            vistaMatriculaController.rellenarComboBoxProvincia();
+            vistaMatriculaController.rellenarComboBoxCurso();
             vistaMatriculaController.cambiarModo(isLightMode);
 
             // Ocultar la vista de la lista
@@ -123,8 +124,8 @@ public class VistaPrincipalController implements Initializable {
             VistaAlumnosController vistaAlumnosController = (VistaAlumnosController) fxmlLoader.getController();
             vistaAlumnosController.setRootVistaPrincipal(rootVistaPrincipal);
             // Asociar objeto a la clase VistaMatriculaController
-            //vistaAlumnosController.setEntityManager(em);
-            //vistaAlumnosController.cargarAlumnos();
+            vistaAlumnosController.setEntityManager(em);
+            vistaAlumnosController.cargarAlumnos();
             vistaAlumnosController.cambiarModo(isLightMode);
 
             // Ocultar la vista de la lista
