@@ -14,6 +14,8 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to ed
     -fx-text-fill-estandar: black;
     -fx-text-fill-header: black;
     -fx-button-background: rgba(100, 100, 100, 0.6);
+    -fx-hbox-background: rgba(243, 243, 243);
+    -fx-hbox-border: rgba(86, 86, 86);
 }
 
 .primary-color{
@@ -49,18 +51,27 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to ed
     -fx-font-size: 14px;
     -fx-text-fill: -fx-text-fill-estandar;
 }
+#title {
+    -fx-text-fill: -fx-text-fill-header;
+}
 #header{
     -fx-text-fill: -fx-text-fill-header;
 }
 #celdaTipoDatos{
     -fx-background-color: -fx-celdaDatos-background-color;
     -fx-padding: 40;
+    -fx-background-radius: 20;
 }
-#info{
-    -fx-background-radius: 30;
-    -fx-font-size: 14px;
-    -fx-background-color:-fx-button-background;
-    -fx-text-fill: white;
+#hBoxBoton{
+    -fx-background-radius: 20;
+    -fx-background-color:-fx-hbox-background;
+    -fx-border-width: 1;
+    -fx-border-radius: 20;
+    -fx-border-color: -fx-hbox-border;
+}
+#conf{
+    -fx-background-radius: 20;
+    -fx-background-color:-fx-hbox-background;
 }
 .combo-box{
     -fx-background-color: -fx-textfield-background-color;

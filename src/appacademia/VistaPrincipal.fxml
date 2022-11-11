@@ -1,43 +1,145 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import java.lang.String?>
+<?import javafx.geometry.Insets?>
 <?import javafx.geometry.Rectangle2D?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Menu?>
-<?import javafx.scene.control.MenuBar?>
-<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" fx:id="rootVistaPrincipal" prefHeight="400.0" prefWidth="602.0" styleClass="primary-color" stylesheets="@../styles/lightMode.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="appacademia.VistaPrincipalController">
+<AnchorPane id="AnchorPane" fx:id="rootVistaPrincipal" prefHeight="802.0" prefWidth="1039.0" styleClass="primary-color" stylesheets="@../styles/lightMode.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="appacademia.VistaPrincipalController">
    <children>
-      <MenuBar layoutY="2.0" prefHeight="28.0" prefWidth="600.0" styleClass="secondary-color" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-        <menus>
-          <Menu mnemonicParsing="false" text="Curso">
-            <items>
-                  <MenuItem fx:id="menuItemCurso" mnemonicParsing="false" onAction="#onActionMenuItemNuevo" text="Nuevo" />
-              <MenuItem mnemonicParsing="false" onAction="#onActionMenuItemMatricula" text="Matricula" />
-            </items>
-          </Menu>
-          <Menu mnemonicParsing="false" text="Alumnos">
-            <items>
-              <MenuItem mnemonicParsing="false" onAction="#onActionMenuItemTablaAlumnos" text="Vista Tabular" />
-            </items>
-          </Menu>
-          <Menu mnemonicParsing="false" text="Help">
-            <items>
-              <MenuItem mnemonicParsing="false" text="About" />
-            </items>
-          </Menu>
-        </menus>
-      </MenuBar>
-      <HBox alignment="CENTER_RIGHT" layoutX="14.0" layoutY="28.0" prefHeight="41.0" prefWidth="602.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="50.0">
+      <HBox alignment="CENTER_RIGHT" layoutX="14.0" layoutY="28.0" prefHeight="41.0" prefWidth="602.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="50.0" />
+      <HBox id="hBoxBoton" fx:id="hBoxNuevoCurso" alignment="CENTER_LEFT" layoutX="25.0" layoutY="127.0" onMouseClicked="#setOnMouseClickedCurso" onMouseEntered="#hoverIn" onMouseExited="#hoverOut" prefHeight="132.0" prefWidth="500.0">
          <children>
-            <Button mnemonicParsing="false" onAction="#cambiarModo">
+            <ImageView fitHeight="89.0" fitWidth="94.0" pickOnBounds="true" preserveRatio="true">
+               <HBox.margin>
+                  <Insets left="20.0" right="20.0" />
+               </HBox.margin>
+               <image>
+                  <Image url="@../img/curso.png" />
+               </image>
+            </ImageView>
+            <VBox prefHeight="130.0" prefWidth="344.0">
+               <children>
+                  <Label id="header" prefHeight="40.0" prefWidth="217.0" text="NUEVO CURSO">
+                     <VBox.margin>
+                        <Insets left="20.0" right="40.0" top="20.0" />
+                     </VBox.margin>
+                     <font>
+                        <Font name="System Bold" size="25.0" />
+                     </font>
+                  </Label>
+                  <Label prefHeight="53.0" prefWidth="255.0" text="Añadir nuevo curso al sistema.">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets left="20.0" />
+                     </VBox.margin>
+                  </Label>
+               </children>
+            </VBox>
+         </children>
+      </HBox>
+      <HBox id="hBoxBoton" fx:id="hBoxNuevaMatricula" alignment="CENTER_LEFT" layoutX="514.0" layoutY="277.0" onMouseClicked="#setOnMouseClickedMatricula" prefHeight="132.0" prefWidth="500.0">
+         <children>
+            <ImageView fitHeight="89.0" fitWidth="94.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../img/matricula.png" />
+               </image>
+               <HBox.margin>
+                  <Insets left="25.0" right="15.0" />
+               </HBox.margin>
+            </ImageView>
+            <VBox prefHeight="130.0" prefWidth="344.0">
+               <children>
+                  <Label id="header" prefHeight="35.0" prefWidth="240.0" text="NUEVA MATRÍCULA">
+                     <VBox.margin>
+                        <Insets left="20.0" right="40.0" top="20.0" />
+                     </VBox.margin>
+                     <font>
+                        <Font name="System Bold" size="25.0" />
+                     </font>
+                  </Label>
+                  <Label prefHeight="58.0" prefWidth="315.0" text="Añadir y actualizar tanto alumnos como matrículas." wrapText="true">
+                     <VBox.margin>
+                        <Insets left="20.0" />
+                     </VBox.margin>
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+               </children>
+            </VBox>
+         </children>
+      </HBox>
+      <HBox id="hBoxBoton" fx:id="hBoxVistaAlumno" alignment="CENTER_LEFT" layoutX="25.0" layoutY="427.0" onMouseClicked="#setOnMouseClickedAlumnos" prefHeight="132.0" prefWidth="500.0">
+         <children>
+            <ImageView fitHeight="89.0" fitWidth="94.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../img/lista-corta.png" />
+               </image>
+               <HBox.margin>
+                  <Insets left="20.0" right="20.0" />
+               </HBox.margin>
+            </ImageView>
+            <VBox prefHeight="130.0" prefWidth="344.0">
+               <children>
+                  <Label id="header" prefHeight="35.0" prefWidth="311.0" text="ALUMNOS REGISTRADOS">
+                     <VBox.margin>
+                        <Insets left="20.0" right="20.0" top="20.0" />
+                     </VBox.margin>
+                     <font>
+                        <Font name="System Bold" size="25.0" />
+                     </font>
+                  </Label>
+                  <Label prefHeight="59.0" prefWidth="317.0" text="Visualizar y editar alumnos en formato tabular." wrapText="true">
+                     <VBox.margin>
+                        <Insets left="20.0" />
+                     </VBox.margin>
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+               </children>
+            </VBox>
+         </children>
+      </HBox>
+      <HBox id="hBoxBoton" fx:id="hBoxAbout" alignment="CENTER_LEFT" layoutX="514.0" layoutY="577.0" prefHeight="132.0" prefWidth="500.0">
+         <children>
+            <ImageView fitHeight="79.0" fitWidth="67.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../img/informacion.png" />
+               </image>
+               <HBox.margin>
+                  <Insets left="30.0" right="20.0" />
+               </HBox.margin>
+            </ImageView>
+            <VBox alignment="CENTER" prefHeight="130.0" prefWidth="344.0">
+               <children>
+                  <Label id="header" prefHeight="35.0" prefWidth="93.0" text="ABOUT">
+                     <VBox.margin>
+                        <Insets bottom="20.0" left="20.0" right="30.0" top="15.0" />
+                     </VBox.margin>
+                     <font>
+                        <Font name="System Bold" size="24.0" />
+                     </font>
+                  </Label>
+               </children>
+            </VBox>
+         </children>
+      </HBox>
+      <VBox id="conf" fx:id="configuracion" alignment="TOP_CENTER" layoutX="-78.0" layoutY="136.0" prefHeight="585.0" prefWidth="47.0">
+         <children>
+            <Button mnemonicParsing="false" onAction="#cambiarModo" prefHeight="30.0" prefWidth="30.0">
                <graphic>
-                  <ImageView fx:id="imagenModo" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="imagenModo" fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../img/night-mode.png" />
                      </image>
@@ -50,8 +152,19 @@
                   <String fx:value="round-border" />
                   <String fx:value="secondary-color" />
                </styleClass>
+               <VBox.margin>
+                  <Insets bottom="20.0" left="20.0" top="20.0" />
+               </VBox.margin>
             </Button>
          </children>
-      </HBox>
+         <padding>
+            <Insets right="10.0" />
+         </padding>
+      </VBox>
+      <ImageView fx:id="botonConfiguracion" fitHeight="40.0" fitWidth="38.0" layoutX="6.0" layoutY="410.0" onMouseClicked="#desplegarConfiguracion" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../img/ajuste.png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>

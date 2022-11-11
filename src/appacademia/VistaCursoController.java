@@ -35,6 +35,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.text.Font;
 import javax.persistence.EntityManager;
 import javax.persistence.RollbackException;
 
@@ -93,7 +94,7 @@ public class VistaCursoController implements Initializable {
 
         // Control de errores y restricciones de los objetos
         controlYRestriccionErrores();
-
+        //Font.loadFont(getClass().getResourceAsStream("styles/KronaOneRegular.ttf"), 14);
         // Nº asistentes Spinner
         cargarSpinner();
         // Instructores ComboBox
