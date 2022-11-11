@@ -86,6 +86,21 @@ public class Modularizacion {
         });
     }
 
+    // Método para la restricción de caracteres de un textfield DIRECCIÓN
+    public static void caracteresValidosDireccion(TextField textField) {
+
+        textField.textProperty().addListener(new ChangeListener<String>() {
+
+            @Override
+            public void changed(
+                    ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                if (!newValue.matches("[a-zA-Z0-9\\sñÑáéíóúÁÉÍÓÚ.,/ºª]")) {
+                    textField.setText(newValue.replaceAll("[^a-zA-Z0-9\\sñÑáéíóúÁÉÍÓÚ.,/ºª]", ""));
+                }
+            }
+        });
+    }
+    
     // Método para restringir TextField a solo números con coma
     public static void soloNumerosYComa(TextField textField) {
 
@@ -217,12 +232,13 @@ public class Modularizacion {
             }
         };
 
+    }
     //Metodo para comprobar que el DNI introducido es válido. Letra correcta
     public static boolean validarDNI(String DNI) {
         boolean dniValido;
         char[] letras = {'T', 'R', 'W', 'A', 'G', 'M', 'Y', 'F', 'P', 'D', 'X', 'B', 'N', 'J', 'Z', 'S', 'Q', 'V', 'H', 'L', 'C', 'K', 'E'};
         
-        String numerosDNI = DNI.substring(0, 7);
+        String numerosDNI = DNI.substring(0, 8);
         
         int numero = Integer.parseInt(numerosDNI) % 23;
         

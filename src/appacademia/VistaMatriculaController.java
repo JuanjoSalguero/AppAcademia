@@ -130,7 +130,7 @@ public class VistaMatriculaController implements Initializable {
         matriculaNueva = new Matricula();
         alumnoNuevo = new Alumno();
         boolean yaExisteAlumno = buscarDNI(textFieldDNI.getText());
-        boolean yaExisteMatricula = buscarMatricula(textFieldDNI.getText(),comboBoxCurso.getValue().getId());
+        boolean yaExisteMatricula =false;
 
         // Datos del alumnoNuevo
         if (!textFieldDNI.getText().isEmpty()) {
@@ -232,15 +232,16 @@ public class VistaMatriculaController implements Initializable {
         }
 
         if (comboBoxCurso.getValue() != null && !textFieldDNI.getText().isEmpty()) {
+            yaExisteMatricula = buscarMatricula(textFieldDNI.getText(),comboBoxCurso.getValue().getId());
             matriculaNueva.setMatriculaPK(idMatriculaNueva);
         } else {
-            errorFormato = true;
+            errorFormatoAlumno = true;
         }
 
         if (!textFieldImporteAbonado.getText().isEmpty()) {
             matriculaNueva.setImporteAbonado(BigDecimal.valueOf(Double.parseDouble(textFieldImporteAbonado.getText())));
         } else {
-            errorFormato = true;
+            errorFormatoAlumno = true;
         }
  
         if (!errorFormatoAlumno) { // Los datos introducidos son correctos
@@ -320,6 +321,7 @@ public class VistaMatriculaController implements Initializable {
     @FXML
     private void onActionButtonLimpiar(ActionEvent event) {
         limpiar();  // Limpiar todos los campos
+        desactivarCamposAlumno();
     }
 
     public void setEntityManager(EntityManager em) {
@@ -329,13 +331,13 @@ public class VistaMatriculaController implements Initializable {
 
     // Método para el control de los campos y restricciones de los mismos
     private void controlYRestriccionErrores() {
-        buttonModificarMatricula.setVisible(false);
+        buttonModificarMatricula.setDisable(true);
         datePickerFechaMatricula.setValue(LocalDate.now());
         Modularizacion.soloLetras(textFieldNombre);
         numeroYMas(textFieldTelefono);
         Modularizacion.soloLetras(textFieldLocalidad);
         soloNumerosYLetras(textFieldDNI);
-        caracteresValidosDireccion(textFieldDireccion);
+        Modularizacion.caracteresValidosDireccion(textFieldDireccion);
     }
 
     // Método para restringir TextField a solo números sin coma
@@ -361,6 +363,7 @@ public class VistaMatriculaController implements Initializable {
                     if(!textFieldDNI.getText().isEmpty()) {
                         textFieldDNI.setText(textFieldDNI.getText().toUpperCase());
                         if(Modularizacion.comprobarDNI(textFieldDNI.getText()) && Modularizacion.validarDNI(textFieldDNI.getText())) {
+                            Modularizacion.resetearError(textFieldDNI);
                             if(buscarDNI(textFieldDNI.getText())) {
                                 mostrarDatos(textFieldDNI.getText());
                             }
@@ -370,6 +373,11 @@ public class VistaMatriculaController implements Initializable {
                             textFieldTelefono.setDisable(false);
                             textFieldLocalidad.setDisable(false);
                             comboBoxProvincia.setDisable(false);
+                        }
+                        
+                        else {
+                            Modularizacion.errorTextField(textFieldDNI);
+                            
                         }
                     }
                     
@@ -397,53 +405,56 @@ public class VistaMatriculaController implements Initializable {
     
     private void listenerCurso() {
         comboBoxCurso.getSelectionModel().selectedItemProperty().addListener((options, oldValue, newValue) -> {
-            Query queryMatricula = em.createNamedQuery("Matricula.findAll");
-            List<Matricula> listMatricula = queryMatricula.getResultList();
-            buttonModificarMatricula.setVisible(false);
-            
-            activarCamposMatricula();
-            limpiarCamposMatricula();
+            if(!textFieldDNI.getText().isEmpty()) {
+                Query queryMatricula = em.createNamedQuery("Matricula.findByAlumnoDni");
+                queryMatricula.setParameter("alumnoDni", textFieldDNI.getText());
+                List<Matricula> listMatricula = queryMatricula.getResultList();
+                buttonModificarMatricula.setDisable(true);
 
-            int i = 0;
-            boolean encontrado = false;
+                activarCamposMatricula();
 
-            while(i < listMatricula.size() && !encontrado) {
-                Matricula m = listMatricula.get(i);
-                MatriculaPK mpk = m.getMatriculaPK();
+                int i = 0;
+                boolean encontrado = false;
 
-                if(mpk.getAlumnoDni().equals(textFieldDNI.getText()) && mpk.getCursoId() == comboBoxCurso.getSelectionModel().getSelectedItem().getId()) {
-                    encontrado = true;
-                    ButtonType si = new ButtonType("Si", ButtonBar.ButtonData.OK_DONE);
-                    ButtonType no = new ButtonType("No", ButtonBar.ButtonData.CANCEL_CLOSE);
-                    Alert alert = new Alert(Alert.AlertType.CONFIRMATION,  
-                    "El alumno introducido ya está matriculado en el curso seleccionado. ¿Quiere modificar la matricula?", si, no);
-                    Optional<ButtonType> result = alert.showAndWait();
+                while(i < listMatricula.size() && !encontrado) {
+                    Matricula m = listMatricula.get(i);
+                    MatriculaPK mpk = m.getMatriculaPK();
 
-                    if(m.getTipoMatricula().equals("Ordinaria"))
-                            radioButtonOrdinaria.setSelected(true);
+                    if(mpk.getCursoId() == comboBoxCurso.getSelectionModel().getSelectedItem().getId()) {
+                        encontrado = true;
+                        ButtonType si = new ButtonType("Si", ButtonBar.ButtonData.OK_DONE);
+                        ButtonType no = new ButtonType("No", ButtonBar.ButtonData.CANCEL_CLOSE);
+                        Alert alert = new Alert(Alert.AlertType.CONFIRMATION,  
+                        "El alumno introducido ya está matriculado en el curso seleccionado. ¿Quiere modificar la matricula?", si, no);
+                        Optional<ButtonType> result = alert.showAndWait();
 
-                        else if(m.getTipoMatricula().equals("Repetidor"))
-                            radioButtonRepetidor.setSelected(true);
+                        if(m.getTipoMatricula().equals("Ordinaria"))
+                                radioButtonOrdinaria.setSelected(true);
 
-                        else
-                            radioButtonFamNumerosa.setSelected(true);
+                            else if(m.getTipoMatricula().equals("Repetidor"))
+                                radioButtonRepetidor.setSelected(true);
 
-                        activarCamposMatricula();
-                        datePickerFechaMatricula.setValue(m.getFecha().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
-                        comboBoxCurso.getSelectionModel().select(m.getCurso());
-                        checkBoxDocumentacion.setSelected(m.getDocumentacion());
-                        checkBoxCertificado.setSelected(m.getCertificado());
-                        textFieldImporteAbonado.setText(String.valueOf(m.getImporteAbonado()));
+                            else
+                                radioButtonFamNumerosa.setSelected(true);
 
-                    if(result.get() == no) {
-                        desactivarCamposMatricula();
-                        buttonModificarMatricula.setVisible(true);
+                            activarCamposMatricula();
+                            datePickerFechaMatricula.setValue(m.getFecha().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+                            //comboBoxCurso.getSelectionModel().select(m.getCurso());
+                            checkBoxDocumentacion.setSelected(m.getDocumentacion());
+                            checkBoxCertificado.setSelected(m.getCertificado());
+                            textFieldImporteAbonado.setText(String.valueOf(m.getImporteAbonado()));
+
+                        if(result.get() == no) {
+                            desactivarCamposMatricula();
+                            buttonModificarMatricula.setDisable(false);
+                        }
+
                     }
 
+                    i++;
+
                 }
-
-                i++;
-
+                
             }
         
         }); 
@@ -460,21 +471,6 @@ public class VistaMatriculaController implements Initializable {
                     ObservableValue<? extends String> observable, String oldValue, String newValue) {
                 if (!newValue.matches("[a-zA-Z1234567890*]")) {
                     textField.setText(newValue.replaceAll("[^a-zA-Z1234567890]", ""));
-                }
-            }
-        });
-    }
-
-    // Método para la restricción de caracteres de un textfield DIRECCIÓN
-    private static void caracteresValidosDireccion(TextField textField) {
-
-        textField.textProperty().addListener(new ChangeListener<String>() {
-
-            @Override
-            public void changed(
-                    ObservableValue<? extends String> observable, String oldValue, String newValue) {
-                if (!newValue.matches("[a-zA-Z0-9\\sñÑáéíóúÁÉÍÓÚ.,/ºª]")) {
-                    textField.setText(newValue.replaceAll("[^a-zA-Z0-9\\sñÑáéíóúÁÉÍÓÚ.,/ºª]", ""));
                 }
             }
         });
@@ -546,10 +542,13 @@ public class VistaMatriculaController implements Initializable {
         comboBoxCurso.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Curso>() {
             @Override
             public void changed(ObservableValue<? extends Curso> observable, Curso oldValue, Curso newValue) {
-                double importe = newValue.getImporte().doubleValue();
-                importe = calcularExtras(importe);
-                importe = Math.round(importe * 100) / 100;
-                textFieldImporteAbonado.setText(String.valueOf(importe));
+                if(newValue != null) {
+                    double importe = newValue.getImporte().doubleValue();
+                    importe = calcularExtras(importe);
+                    importe = Math.round(importe * 100) / 100;
+                    textFieldImporteAbonado.setText(String.valueOf(importe));
+                    
+                }
                 
             }
         });
@@ -557,7 +556,7 @@ public class VistaMatriculaController implements Initializable {
         radioButtonOrdinaria.selectedProperty().addListener(new ChangeListener<Boolean>() {
             @Override
             public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
-                if (!textFieldImporteAbonado.getText().isEmpty()) {
+                if (!textFieldImporteAbonado.getText().isEmpty() && comboBoxCurso.getValue() != null) {
                     double importe = comboBoxCurso.getValue().getImporte().doubleValue();
                     importe = calcularExtras(importe);
                     importe = Math.round(importe * 100) / 100;
@@ -569,7 +568,7 @@ public class VistaMatriculaController implements Initializable {
         radioButtonRepetidor.selectedProperty().addListener(new ChangeListener<Boolean>() {
             @Override
             public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
-                if (!textFieldImporteAbonado.getText().isEmpty()) {
+                if (!textFieldImporteAbonado.getText().isEmpty() && comboBoxCurso.getValue() != null) {
                     double importe = comboBoxCurso.getValue().getImporte().doubleValue();
                     importe = calcularExtras(importe);
                     importe = Math.round(importe * 100) / 100;
@@ -581,7 +580,7 @@ public class VistaMatriculaController implements Initializable {
         radioButtonFamNumerosa.selectedProperty().addListener(new ChangeListener<Boolean>() {
             @Override
             public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
-                if (!textFieldImporteAbonado.getText().isEmpty()) {
+                if (!textFieldImporteAbonado.getText().isEmpty() && comboBoxCurso.getValue() != null) {
                     double importe = comboBoxCurso.getValue().getImporte().doubleValue();
                     importe = calcularExtras(importe);
                     importe = Math.round(importe * 100) / 100;
@@ -593,7 +592,7 @@ public class VistaMatriculaController implements Initializable {
         checkBoxDocumentacion.selectedProperty().addListener(new ChangeListener<Boolean>() {
             @Override
             public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
-                if (!textFieldImporteAbonado.getText().isEmpty()) {
+                if (!textFieldImporteAbonado.getText().isEmpty() && comboBoxCurso.getValue() != null) {
                     double importe = comboBoxCurso.getValue().getImporte().doubleValue();
                     importe = calcularExtras(importe);
                     importe = Math.round(importe * 100) / 100;
@@ -782,7 +781,7 @@ public class VistaMatriculaController implements Initializable {
     @FXML
     private void onActionButtonModificarMatricula(ActionEvent event) {
         activarCamposMatricula();
-        buttonModificarMatricula.setVisible(false);
+        buttonModificarMatricula.setDisable(true);
         
     }
 
