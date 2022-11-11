@@ -31,6 +31,7 @@ import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
@@ -117,35 +118,45 @@ public class VistaCursoController implements Initializable {
         // Nombre del curso
         if (!textFieldNombre.getText().isEmpty()) {
             curso.setNombre(textFieldNombre.getText());
+            Modularizacion.resetearError(textFieldNombre);
         } else {
+            Modularizacion.errorTextField(textFieldNombre);
             errorFormato = true;
         }
 
         // Duración del curso
         if (!textFieldDuracion.getText().isEmpty()) {
             curso.setDuracion(Integer.parseInt(textFieldDuracion.getText()));
+            Modularizacion.resetearError(textFieldDuracion);
         } else {
+            Modularizacion.errorTextField(textFieldDuracion);
             errorFormato = true;
         }
 
         // Proveedor
         if (!textFieldProveedor.getText().isEmpty()) {
             curso.setProveedor(textFieldProveedor.getText());
+            Modularizacion.resetearError(textFieldProveedor);
         } else {
+            Modularizacion.errorTextField(textFieldProveedor);
             errorFormato = true;
         }
 
         // Categoria
         if (comboBoxCategoria.getValue() != null) {
             curso.setCategoria(comboBoxCategoria.getValue());
+            Modularizacion.resetearError(comboBoxCategoria);
         } else {
+            Modularizacion.errorComboBox(comboBoxCategoria);
             errorFormato = true;
         }
 
         // Certificación
         if (!textFieldCertificacion.getText().isEmpty()) {
             curso.setCertificacion(textFieldCertificacion.getText());
+            Modularizacion.resetearError(textFieldCertificacion);
         } else {
+            Modularizacion.errorTextField(textFieldCertificacion);
             errorFormato = true;
         }
 
@@ -157,7 +168,9 @@ public class VistaCursoController implements Initializable {
             Instant instant = zonedDateTime.toInstant();
             Date date = Date.from(instant);
             curso.setFechaInicio(date);
+            Modularizacion.resetearError(datePickerFechaInicio);
         } else {
+            Modularizacion.errorDatePicker(datePickerFechaInicio);
             errorFormato = true;
         }
 
@@ -169,14 +182,18 @@ public class VistaCursoController implements Initializable {
             Instant instant = zonedDateTime.toInstant();
             Date date = Date.from(instant);
             curso.setFechaFin(date);
+            Modularizacion.resetearError(datePickerFechaFin);
         } else {
+            Modularizacion.errorDatePicker(datePickerFechaFin);
             errorFormato = true;
         }
 
         // Número de asistentes
         if (!spinnerAsistentes.getValue().equals(0)) {
             curso.setNumAsistentes(spinnerAsistentes.getValue());
+            Modularizacion.resetearError(spinnerAsistentes);
         } else {
+            Modularizacion.errorSpinner(spinnerAsistentes);
             errorFormato = true;
         }
 
@@ -192,14 +209,18 @@ public class VistaCursoController implements Initializable {
         // Importe
         if (!textFieldImporte.getText().isEmpty()) {
             curso.setImporte(BigDecimal.valueOf(Double.parseDouble(textFieldImporte.getText())));
+            Modularizacion.resetearError(textFieldImporte);
         } else {
+            Modularizacion.errorTextField(textFieldImporte);
             errorFormato = true;
         }
 
         // Instructor
         if (comboBoxInstructor.getValue() != null) {
             curso.setInstructor(comboBoxInstructor.getValue());
+            Modularizacion.resetearError(comboBoxInstructor);
         } else {
+            Modularizacion.errorComboBox(comboBoxInstructor);
             errorFormato = true;
         }
 
@@ -227,13 +248,13 @@ public class VistaCursoController implements Initializable {
                     limpiar();
                 }
             } catch (RollbackException ex) { // Los datos introducidos no cumplen requisitos de BD
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setHeaderText("No se han podido guardar los cambios. " + "Compruebe que los datos cumplen los requisitos.");
                 alert.setContentText(ex.getLocalizedMessage());
                 alert.showAndWait();
             }
         } else {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setHeaderText("No se han podido guardar los cambios. " + "Compruebe que los datos cumplen los requisitos.");
             alert.showAndWait();
         }
@@ -331,6 +352,17 @@ public class VistaCursoController implements Initializable {
         Modularizacion.limpiarRadioButton(radioButtonOnline);
         Modularizacion.limpiarRadioButton(radioButtonVideoDemanda);
         Modularizacion.limpiarCheckBox(checkBoxBeca);
+        // Resetear tambien el color de los nodos en caso de que esté coloreado en rojo por algún error
+        Modularizacion.resetearError(textFieldNombre);
+        Modularizacion.resetearError(textFieldDuracion);
+        Modularizacion.resetearError(textFieldProveedor);
+        Modularizacion.resetearError(comboBoxCategoria);
+        Modularizacion.resetearError(textFieldCertificacion);
+        Modularizacion.resetearError(datePickerFechaInicio);
+        Modularizacion.resetearError(datePickerFechaFin);
+        Modularizacion.resetearError(spinnerAsistentes);
+        Modularizacion.resetearError(textFieldImporte);
+        Modularizacion.resetearError(comboBoxInstructor);
     }
 
     private void cargarCategoriasComboBox() {
@@ -354,5 +386,17 @@ public class VistaCursoController implements Initializable {
 
         // Añadimos la lista de categorias al combobox
         comboBoxCategoria.setItems(categoriasObservableList);
-    }    
+    }
+
+    public void cambiarModo(boolean isLightMode) {
+        Modularizacion.cambiarModo(rootVistaCurso, isLightMode);
+    }
+
+    public void limitarCamposMatricula() {
+
+        textFieldNombre.addEventFilter(KeyEvent.KEY_TYPED, Modularizacion.longitudMaxima(50));
+        textFieldCertificacion.addEventFilter(KeyEvent.KEY_TYPED, Modularizacion.longitudMaxima(100));
+        textFieldProveedor.addEventFilter(KeyEvent.KEY_TYPED, Modularizacion.longitudMaxima(100));
+        textFieldImporte.addEventFilter(KeyEvent.KEY_TYPED, Modularizacion.longitudMaxima(8));
+    }
 }

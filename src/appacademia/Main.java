@@ -23,7 +23,7 @@ import javax.persistence.Persistence;
  */
 public class Main extends Application {
     
-    // Entity manager y StackPane como root de las vistas
+    //Entity manager y StackPane como root de las vistas
     private EntityManagerFactory emf;
     private EntityManager em;
     StackPane rootMain = new StackPane();
@@ -55,7 +55,7 @@ public class Main extends Application {
         em.close();
         emf.close();
         try{
-            DriverManager.getConnection("jdbc:derby://localhost/BDAcademia;shutdown=true");
+            DriverManager.getConnection("jdbc:derby:C:\\Users\\usuario\\Documents\\NetBeansProjects\\appacademia-winball\\BDAcademia;create=true");
         } catch(SQLException ex) {
         }
     }

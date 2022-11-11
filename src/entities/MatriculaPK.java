@@ -11,7 +11,7 @@ import javax.persistence.Embeddable;
 
 /**
  *
- * @author Juanjo
+ * @author usuario
  */
 @Embeddable
 public class MatriculaPK implements Serializable {

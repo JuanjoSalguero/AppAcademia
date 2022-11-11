@@ -249,6 +249,7 @@ public class VistaAlumnosController implements Initializable {
         this.em = entityManager;
     }
 
+
     // Método para rellenar la provincia
     public void rellenarComboBoxProvincia() {
         Query queryProvinciaFindAll = em.createNamedQuery("Provincia.findAll");
@@ -331,3 +332,9 @@ public class VistaAlumnosController implements Initializable {
     }
 
 }
+
+    public void cambiarModo(boolean isLightMode){
+        Modularizacion.cambiarModo(rootVistaAlumnos, isLightMode);
+    }
+}
+
