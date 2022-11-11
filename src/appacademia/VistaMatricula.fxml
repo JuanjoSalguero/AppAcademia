@@ -18,7 +18,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" fx:id="rootVistaMatricula" nodeOrientation="LEFT_TO_RIGHT" prefHeight="802.0" prefWidth="1039.0" styleClass="primary-color" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="appacademia.VistaMatriculaController">
+<AnchorPane id="AnchorPane" fx:id="rootVistaMatricula" nodeOrientation="LEFT_TO_RIGHT" prefHeight="802.0" prefWidth="1039.0" styleClass="primary-color" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="appacademia.VistaMatriculaController">
     <children>
       <Label id="header" alignment="CENTER" layoutX="80.0" layoutY="38.0" prefHeight="45.0" prefWidth="149.0" style="-fx-font-weight: bold;" text="Matrícula" AnchorPane.leftAnchor="80.0" AnchorPane.rightAnchor="80.0" AnchorPane.topAnchor="38.0">
          <font>
@@ -50,7 +50,7 @@
                         <Pane prefHeight="200.0" prefWidth="200.0">
                            <children>
                               <Label id="textoEstandar" text="DNI/CIF:" />
-                              <TextField fx:id="textFieldDNI" layoutX="101.0" layoutY="-4.0" prefHeight="25.0" prefWidth="149.0" />
+                              <TextField fx:id="textFieldDNI" layoutX="101.0" layoutY="-4.0" prefHeight="25.0" prefWidth="146.0" />
                               <TextField fx:id="textFieldLocalidad" layoutX="554.0" layoutY="-4.0" prefHeight="25.0" prefWidth="190.0" />
                               <Label id="textoEstandar" layoutX="452.0" text="Localidad:" />
                            </children>
@@ -63,10 +63,10 @@
                         </Pane>
                         <Pane prefHeight="200.0" prefWidth="200.0">
                            <children>
-                              <Label id="textoEstandar" layoutY="-2.0" text="Dirección:" />
+                              <Label id="textoEstandar" layoutY="-2.0" text="Nombre:" />
                               <Label id="textoEstandar" layoutX="453.0" layoutY="-2.0" text="Teléfono:" />
                               <TextField fx:id="textFieldTelefono" layoutX="554.0" layoutY="-1.0" prefHeight="25.0" prefWidth="190.0" />
-                              <TextField fx:id="textFieldDireccion" layoutX="101.0" layoutY="-6.0" prefHeight="25.0" prefWidth="287.0" />
+                              <TextField fx:id="textFieldNombre" layoutX="101.0" layoutY="-6.0" prefHeight="25.0" prefWidth="287.0" />
                            </children>
                            <VBox.margin>
                               <Insets left="10.0" />
@@ -79,8 +79,8 @@
                            <children>
                               <Label id="textoEstandar" layoutX="454.0" text="Provincia:" />
                               <ComboBox fx:id="comboBoxProvincia" layoutX="554.0" layoutY="-1.0" prefHeight="25.0" prefWidth="190.0" />
-                              <TextField fx:id="textFieldNombre" layoutX="102.0" layoutY="-4.0" prefHeight="25.0" prefWidth="287.0" />
-                              <Label id="textoEstandar" text="Nombre:" />
+                              <TextField fx:id="textFieldDireccion" layoutX="102.0" layoutY="-4.0" prefHeight="25.0" prefWidth="287.0" />
+                              <Label id="textoEstandar" text="Dirección:" />
                            </children>
                            <VBox.margin>
                               <Insets left="10.0" />
@@ -136,8 +136,8 @@
                            <children>
                               <Label id="textoEstandar" layoutX="56.0" layoutY="30.0" text="Curso:" />
                               <ComboBox fx:id="comboBoxCurso" layoutX="132.0" layoutY="26.0" prefHeight="25.0" prefWidth="212.0" />
-                              <CheckBox id="textoEstandar" fx:id="checkBoxDocumentacion" layoutX="56.0" layoutY="80.0" mnemonicParsing="false" text="Necesito documentación" />
-                              <CheckBox id="textoEstandar" fx:id="checkBoxCertificado" layoutX="56.0" layoutY="111.0" mnemonicParsing="false" text="Necesito certificado" />
+                              <CheckBox id="textoEstandar" fx:id="checkBoxDocumentacion" layoutX="56.0" layoutY="80.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="197.0" text="Necesito documentación" />
+                              <CheckBox id="textoEstandar" fx:id="checkBoxCertificado" layoutX="56.0" layoutY="111.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="190.0" text="Necesito certificado" />
                               <Label id="header" layoutX="56.0" layoutY="175.0" style="-fx-font-weight: bold;" text="Importe abonado:">
                                  <padding>
                                     <Insets left="20.0" />
@@ -181,6 +181,11 @@
             <Button mnemonicParsing="false" onAction="#onActionButtonAceptar" prefHeight="36.0" prefWidth="95.0" text="Aceptar" GridPane.columnIndex="3" GridPane.halignment="RIGHT">
                <GridPane.margin>
                   <Insets right="130.0" />
+               </GridPane.margin>
+            </Button>
+            <Button fx:id="buttonModificarMatricula" mnemonicParsing="false" onAction="#onActionButtonModificarMatricula" prefHeight="36.0" prefWidth="146.0" text="Modificar matrícula" GridPane.columnIndex="1">
+               <GridPane.margin>
+                  <Insets />
                </GridPane.margin>
             </Button>
          </children>
