@@ -7,7 +7,7 @@
     <class>entities.Provincia</class>
     <class>entities.Curso</class>
     <properties>
-      <property name="javax.persistence.jdbc.url" value="jdbc:derby:C:\Users\Adrian\Documents\NetBeansProjects\appacademia-winball\BDAcademia;create=true"/>
+      <property name="javax.persistence.jdbc.url" value="jdbc:derby:C:\Users\usuario\Documents\NetBeansProjects\appacademia-winball\BDAcademia"/>
       <property name="javax.persistence.jdbc.user" value=""/>
       <property name="javax.persistence.jdbc.driver" value="org.apache.derby.jdbc.EmbeddedDriver"/>
       <property name="javax.persistence.jdbc.password" value=""/>
