@@ -121,48 +121,49 @@ public class VistaMatriculaController implements Initializable {
     @FXML
     private void onActionButtonAceptar(ActionEvent event) {
         
-        boolean errorFormatoAlumno = false;
+        boolean errorFormato = false;
         idMatriculaNueva = new MatriculaPK();
         matriculaNueva = new Matricula();
         alumnoNuevo = new Alumno();
         boolean yaExisteAlumno = buscarDNI(textFieldDNI.getText());
+        boolean yaExisteMatricula = buscarMatricula(textFieldDNI.getText(),comboBoxCurso.getValue().getId());
         
         // Datos del alumnoNuevo
         if (!textFieldDNI.getText().isEmpty()){
             idMatriculaNueva.setAlumnoDni(textFieldDNI.getText());
             alumnoNuevo.setDni(textFieldDNI.getText());
         }else{
-            errorFormatoAlumno = true;
+            errorFormato = true;
         }
         
         if (!textFieldNombre.getText().isEmpty()){
             alumnoNuevo.setNombre(textFieldNombre.getText());
         }else{
-            errorFormatoAlumno = true;
+            errorFormato = true;
         }
         
         if (!textFieldDireccion.getText().isEmpty()){
             alumnoNuevo.setDireccion(textFieldDireccion.getText());
         }else{
-            errorFormatoAlumno = true;
+            errorFormato = true;
         }
         
         if (!textFieldTelefono.getText().isEmpty()){
             alumnoNuevo.setTelefono(textFieldTelefono.getText());
         }else{
-            errorFormatoAlumno = true;
+            errorFormato = true;
         }
         
         if (!textFieldLocalidad.getText().isEmpty()){
             alumnoNuevo.setLocalidad(textFieldLocalidad.getText());
         }else{
-            errorFormatoAlumno = true;
+            errorFormato = true;
         }
         
         if (comboBoxProvincia.getValue() != null){
             alumnoNuevo.setProvinciaid(comboBoxProvincia.getValue());
         } else {
-            errorFormatoAlumno = true;
+            errorFormato = true;
         }
         
         if (radioButtonRepetidor.isSelected()){
@@ -181,13 +182,13 @@ public class VistaMatriculaController implements Initializable {
             Date date = Date.from(instant);
             matriculaNueva.setFecha(date);
         } else {
-            errorFormatoAlumno = true;
+            errorFormato = true;
         }
         
         if (comboBoxCurso.getValue() != null){
             idMatriculaNueva.setCursoId(comboBoxCurso.getValue().getId());
         } else {
-            errorFormatoAlumno = true;
+            errorFormato = true;
         }
         
         if(checkBoxDocumentacion.isSelected()){
@@ -205,40 +206,63 @@ public class VistaMatriculaController implements Initializable {
         if (comboBoxCurso.getValue() != null && !textFieldDNI.getText().isEmpty()){
             matriculaNueva.setMatriculaPK(idMatriculaNueva);
         } else {
-            errorFormatoAlumno = true;
+            errorFormato = true;
         }
         
         if(!textFieldImporteAbonado.getText().isEmpty()){
             matriculaNueva.setImporteAbonado(BigDecimal.valueOf(Double.parseDouble(textFieldImporteAbonado.getText())));
         } else {
-            errorFormatoAlumno = true;
+            errorFormato = true;
         }
         
-        if (!errorFormatoAlumno) { // Los datos introducidos son correctos
+        
+        if (!errorFormato) { // Los datos introducidos son correctos
             try {   
-                Modularizacion.confirmationTab("Nueva Matrícula");
-                Optional<ButtonType> action = Modularizacion.confirmationAlert.showAndWait();
-                // Si clickamos aceptar, los datos se guardarán
-                if (action.get() == ButtonType.OK) {
-                    
+                // Si clickamos aceptar, los datos se guardarán   
                     em.getTransaction().begin();
-                    
-                    if(!yaExisteAlumno){
-                        em.persist(alumnoNuevo);
+                    if(yaExisteMatricula){
+                        Modularizacion.confirmationTab("Actualizar Matrícula");
+                        Optional<ButtonType> action1 = Modularizacion.confirmationAlert.showAndWait();
+                        if (action1.get() == ButtonType.OK){
+                            em.merge(alumnoNuevo);
+                            em.merge(matriculaNueva);
+                            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                            alert.setContentText("Se han guardado los datos correctamente.");
+                            alert.showAndWait();
+                            // Cuando se presione el botón aceptar, se limpian los campos
+                            limpiar();
+                        }
+                    }
+                    else if(!yaExisteAlumno){
+                        Modularizacion.confirmationTab("Nueva Matrícula y Nuevo Alumno");
+                        Optional<ButtonType> action = Modularizacion.confirmationAlert.showAndWait();
+                        if (action.get() == ButtonType.OK) {
+                            em.persist(alumnoNuevo);
+                            em.persist(matriculaNueva);
+                            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                            alert.setContentText("Se han guardado los datos correctamente.");
+                            alert.showAndWait();
+                            // Cuando se presione el botón aceptar, se limpian los campos
+                            limpiar();
+                        }
                     }
                     else{
-                        em.merge(alumnoNuevo);
+                        Modularizacion.confirmationTab("Nueva Matrícula y Actualizar Alumno");
+                        Optional<ButtonType> action1 = Modularizacion.confirmationAlert.showAndWait();
+                        if (action1.get() == ButtonType.OK){
+                            em.merge(alumnoNuevo);
+                            em.persist(matriculaNueva);
+                            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                            alert.setContentText("Se han guardado los datos correctamente.");
+                            alert.showAndWait();
+                            // Cuando se presione el botón aceptar, se limpian los campos
+                            limpiar();
+                        }
                     }
-                    em.persist(matriculaNueva);
-
+                    
                     em.getTransaction().commit();
                     
-                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                    alert.setContentText("Se han guardado los datos correctamente.");
-                    alert.showAndWait();
-                    // Cuando se presione el botón aceptar, se limpian los campos
-                    limpiar();
-                }
+                
             } catch (RollbackException ex) { // Los datos introducidos no cumplen requisitos de BD
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setHeaderText("No se han podido guardar los cambios. " + "Compruebe que los datos cumplen los requisitos");
@@ -572,6 +596,23 @@ public class VistaMatriculaController implements Initializable {
         }
         return dniEncontrado;
     }
+    
+    private boolean buscarMatricula(String DNI, int id) {
+        boolean matriculaEncontrada;
+        Query queryMatricula = em.createNamedQuery("Matricula.findByPK");
+        queryMatricula.setParameter("alumnoDni", DNI);
+        queryMatricula.setParameter("cursoId", id);
+        List<String> listDNIAlumno = queryMatricula.getResultList();
+        
+        if(listDNIAlumno.isEmpty()){
+            matriculaEncontrada = false;
+        }
+        else{
+            matriculaEncontrada = true;
+        }
+        return matriculaEncontrada;
+    }
+    
     
     // Método para rellenar los datos de los campos asociados al DNI
     private void mostrarDatos(String DNI) {
