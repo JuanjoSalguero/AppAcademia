@@ -31,6 +31,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
@@ -49,7 +50,7 @@ public class VistaMatriculaController implements Initializable {
 
     @FXML
     private AnchorPane rootVistaMatricula;
-    
+
     private Pane rootVistaPrincipal;
     @FXML
     private TextField textFieldNombre;
@@ -81,42 +82,42 @@ public class VistaMatriculaController implements Initializable {
     private TextField textFieldImporteAbonado;
 
     private EntityManager em;
-    
+
     private boolean dniCorrecto;
     private Matricula matriculaNueva;
     private MatriculaPK idMatriculaNueva;
     private Alumno alumnoNuevo;
     private ToggleGroup tipo;
-     
+
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
+
         //Prueba
         textFieldNombre.setDisable(true);
         // Control de errores y restricciones de los objetos
         controlYRestriccionErrores();
-        
+
         desactivarCampos(); // Desactivar campos relativos al DNI
         calcularImporte();  // Calcular importe del abono
-        
+
         // ToggleGroup
         Modularizacion.TipoToggleGroup(tipo, radioButtonOrdinaria, radioButtonRepetidor, radioButtonFamNumerosa);
-        
+
         // Listener para el correcto funcionamiento de los campos del alumno dependiendo de si el DNI existe, de si se cambia o si no existe
         textFieldDNI.focusedProperty().addListener(new ChangeListener<Boolean>() {
             @Override
             public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
-                if(oldValue) {
-                    if(!textFieldDNI.getText().isEmpty()) {
+                if (oldValue) {
+                    if (!textFieldDNI.getText().isEmpty()) {
                         textFieldDNI.setText(textFieldDNI.getText().toUpperCase());
-                        if(Modularizacion.comprobarDNI(textFieldDNI.getText())) {
-                            if(buscarDNI(textFieldDNI.getText())) {
+                        if (Modularizacion.comprobarDNI(textFieldDNI.getText())) {
+                            if (buscarDNI(textFieldDNI.getText())) {
                                 mostrarDatos(textFieldDNI.getText());
                             }
-                                
+
                             textFieldNombre.setDisable(false);
                             textFieldDireccion.setDisable(false);
                             textFieldTelefono.setDisable(false);
@@ -127,127 +128,145 @@ public class VistaMatriculaController implements Initializable {
                 }
             }
         });
-        
+
         rootVistaMatricula.addEventFilter(MouseEvent.MOUSE_PRESSED, event -> {
-                        rootVistaMatricula.requestFocus();
-                    });
-    }    
+            rootVistaMatricula.requestFocus();
+        });
+
+        // Método para limitar la longitud de los campos a introducir
+        limitarCamposMatricula();
+    }
 
     @FXML
     private void onActionButtonAceptar(ActionEvent event) {
-        
+
         boolean errorFormatoAlumno = false;
         idMatriculaNueva = new MatriculaPK();
         matriculaNueva = new Matricula();
         alumnoNuevo = new Alumno();
         boolean yaExisteAlumno = buscarDNI(textFieldDNI.getText());
-        
+
         // Datos del alumnoNuevo
-        if (!textFieldDNI.getText().isEmpty()){
+        if (!textFieldDNI.getText().isEmpty()) {
             idMatriculaNueva.setAlumnoDni(textFieldDNI.getText());
             alumnoNuevo.setDni(textFieldDNI.getText());
-        }else{
-            errorFormatoAlumno = true;
-        }
-        
-        if (!textFieldNombre.getText().isEmpty()){
-            alumnoNuevo.setNombre(textFieldNombre.getText());
-        }else{
-            errorFormatoAlumno = true;
-        }
-        
-        if (!textFieldDireccion.getText().isEmpty()){
-            alumnoNuevo.setDireccion(textFieldDireccion.getText());
-        }else{
-            errorFormatoAlumno = true;
-        }
-        
-        if (!textFieldTelefono.getText().isEmpty()){
-            alumnoNuevo.setTelefono(textFieldTelefono.getText());
-        }else{
-            errorFormatoAlumno = true;
-        }
-        
-        if (!textFieldLocalidad.getText().isEmpty()){
-            alumnoNuevo.setLocalidad(textFieldLocalidad.getText());
-        }else{
-            errorFormatoAlumno = true;
-        }
-        
-        if (comboBoxProvincia.getValue() != null){
-            alumnoNuevo.setProvinciaid(comboBoxProvincia.getValue());
+            Modularizacion.resetearError(textFieldDNI);
         } else {
+            Modularizacion.errorTextField(textFieldDNI);
             errorFormatoAlumno = true;
         }
-        
-        if (radioButtonRepetidor.isSelected()){
+
+        if (!textFieldNombre.getText().isEmpty()) {
+            alumnoNuevo.setNombre(textFieldNombre.getText());
+            Modularizacion.resetearError(textFieldNombre);
+        } else {
+            Modularizacion.errorTextField(textFieldNombre);
+            errorFormatoAlumno = true;
+        }
+
+        if (!textFieldDireccion.getText().isEmpty()) {
+            alumnoNuevo.setDireccion(textFieldDireccion.getText());
+            Modularizacion.resetearError(textFieldDireccion);
+        } else {
+            Modularizacion.errorTextField(textFieldDireccion);
+            errorFormatoAlumno = true;
+        }
+
+        if (!textFieldTelefono.getText().isEmpty()) {
+            alumnoNuevo.setTelefono(textFieldTelefono.getText());
+            Modularizacion.resetearError(textFieldTelefono);
+        } else {
+            Modularizacion.errorTextField(textFieldTelefono);
+            errorFormatoAlumno = true;
+        }
+
+        if (!textFieldLocalidad.getText().isEmpty()) {
+            alumnoNuevo.setLocalidad(textFieldLocalidad.getText());
+            Modularizacion.resetearError(textFieldLocalidad);
+        } else {
+            Modularizacion.errorTextField(textFieldLocalidad);
+            errorFormatoAlumno = true;
+        }
+
+        if (comboBoxProvincia.getValue() != null) {
+            alumnoNuevo.setProvinciaid(comboBoxProvincia.getValue());
+            Modularizacion.resetearError(comboBoxProvincia);
+        } else {
+            Modularizacion.errorComboBox(comboBoxProvincia);
+            errorFormatoAlumno = true;
+        }
+
+        if (radioButtonRepetidor.isSelected()) {
             matriculaNueva.setTipoMatricula("Repetidor");
-        } else if (radioButtonOrdinaria.isSelected()){
+        } else if (radioButtonOrdinaria.isSelected()) {
             matriculaNueva.setTipoMatricula("Ordinaria");
-        } else if (radioButtonFamNumerosa.isSelected()){
+        } else if (radioButtonFamNumerosa.isSelected()) {
             matriculaNueva.setTipoMatricula("Familia numerosa");
         }
-        
-        if (datePickerFechaMatricula.getValue() != null){
+
+        if (datePickerFechaMatricula.getValue() != null) {
             LocalDate localDate = datePickerFechaMatricula.getValue();
-            ZonedDateTime zonedDateTime =
-            localDate.atStartOfDay(ZoneId.systemDefault());
+            ZonedDateTime zonedDateTime
+                    = localDate.atStartOfDay(ZoneId.systemDefault());
             Instant instant = zonedDateTime.toInstant();
             Date date = Date.from(instant);
             matriculaNueva.setFecha(date);
+            Modularizacion.resetearError(datePickerFechaMatricula);
         } else {
+            Modularizacion.errorDatePicker(datePickerFechaMatricula);
             errorFormatoAlumno = true;
         }
-        
-        if (comboBoxCurso.getValue() != null){
+
+        if (comboBoxCurso.getValue() != null) {
             idMatriculaNueva.setCursoId(comboBoxCurso.getValue().getId());
+            Modularizacion.resetearError(comboBoxCurso);
         } else {
+            Modularizacion.errorComboBox(comboBoxCurso);
             errorFormatoAlumno = true;
         }
-        
-        if(checkBoxDocumentacion.isSelected()){
+
+        if (checkBoxDocumentacion.isSelected()) {
             matriculaNueva.setDocumentacion(true);
-        }else {
+        } else {
             matriculaNueva.setDocumentacion(false);
         }
-        
-        if(checkBoxCertificado.isSelected()){
+
+        if (checkBoxCertificado.isSelected()) {
             matriculaNueva.setCertificado(true);
-        }else {
+        } else {
             matriculaNueva.setCertificado(false);
         }
-        
-        if (comboBoxCurso.getValue() != null && !textFieldDNI.getText().isEmpty()){
+
+        if (comboBoxCurso.getValue() != null && !textFieldDNI.getText().isEmpty()) {
             matriculaNueva.setMatriculaPK(idMatriculaNueva);
         } else {
             errorFormatoAlumno = true;
         }
-        
-        if(!textFieldImporteAbonado.getText().isEmpty()){
+
+        if (!textFieldImporteAbonado.getText().isEmpty()) {
             matriculaNueva.setImporteAbonado(BigDecimal.valueOf(Double.parseDouble(textFieldImporteAbonado.getText())));
         } else {
             errorFormatoAlumno = true;
         }
-        
+
         if (!errorFormatoAlumno) { // Los datos introducidos son correctos
-            try {   
+            try {
                 Modularizacion.confirmationTab("Nueva Matrícula");
                 Optional<ButtonType> action = Modularizacion.confirmationAlert.showAndWait();
                 // Si clickamos aceptar, los datos se guardarán
                 if (action.get() == ButtonType.OK) {
-                    
+
                     em.getTransaction().begin();
-                    
-                    if(!yaExisteAlumno){
+
+                    if (!yaExisteAlumno) {
                         em.persist(alumnoNuevo);
-                    }
-                    else{
+                    } else {
                         em.merge(alumnoNuevo);
                     }
                     em.persist(matriculaNueva);
 
                     em.getTransaction().commit();
-                    
+
                     Alert alert = new Alert(Alert.AlertType.INFORMATION);
                     alert.setContentText("Se han guardado los datos correctamente.");
                     alert.showAndWait();
@@ -255,18 +274,17 @@ public class VistaMatriculaController implements Initializable {
                     limpiar();
                 }
             } catch (RollbackException ex) { // Los datos introducidos no cumplen requisitos de BD
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setHeaderText("No se han podido guardar los cambios. " + "Compruebe que los datos cumplen los requisitos");
                 alert.setContentText(ex.getLocalizedMessage());
                 alert.showAndWait();
             }
-        }
-        else{
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        } else {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setHeaderText("No se han podido guardar los cambios. " + "Compruebe que los datos cumplen los requisitos");
             alert.showAndWait();
         }
-        
+
     }
 
     @FXML
@@ -274,35 +292,50 @@ public class VistaMatriculaController implements Initializable {
         StackPane rootMain = (StackPane) rootVistaMatricula.getScene().getRoot();
         rootMain.getChildren().remove(rootVistaMatricula);
         rootVistaPrincipal.setVisible(true);
-        
+
     }
-    
+
     // Vista
-    public void setRootVistaPrincipal(Pane rootVistaPrincipal){
+    public void setRootVistaPrincipal(Pane rootVistaPrincipal) {
         this.rootVistaPrincipal = rootVistaPrincipal;
     }
 
     @FXML
     private void onActionButtonLimpiar(ActionEvent event) {
-        //limpiar();  // Limpiar todos los campos
+        limpiar();  // Limpiar todos los campos
     }
 
 //
     public void setEntityManager(EntityManager em) {
         this.em = em;
-    
+
     }
-    
+
     // Método para el control de los campos y restricciones de los mismos
     private void controlYRestriccionErrores() {
         datePickerFechaMatricula.setValue(LocalDate.now());
         Modularizacion.soloLetras(textFieldNombre);
-        Modularizacion.soloNumeros(textFieldTelefono);
+        numeroYMas(textFieldTelefono);
         Modularizacion.soloLetras(textFieldLocalidad);
         soloNumerosYLetras(textFieldDNI);
         caracteresValidosDireccion(textFieldDireccion);
     }
-    
+
+    // Método para restringir TextField a solo números sin coma
+    public static void numeroYMas(TextField textField) {
+
+        textField.textProperty().addListener(new ChangeListener<String>() {
+
+            @Override
+            public void changed(
+                    ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                if (!newValue.matches("[0-9+*]")) {
+                    textField.setText(newValue.replaceAll("[^0-9+]", ""));
+                }
+            }
+        });
+    }
+
     // Método de restricción de textField solo letras y números
     private static void soloNumerosYLetras(TextField textField) {
 
@@ -317,7 +350,7 @@ public class VistaMatriculaController implements Initializable {
             }
         });
     }
-    
+
     // Método para la restricción de caracteres de un textfield DIRECCIÓN
     private static void caracteresValidosDireccion(TextField textField) {
 
@@ -332,7 +365,7 @@ public class VistaMatriculaController implements Initializable {
             }
         });
     }
-    
+
     // Método para desactivarl los campos del alumno
     private void desactivarCampos() {
         textFieldNombre.setDisable(true);
@@ -342,7 +375,7 @@ public class VistaMatriculaController implements Initializable {
         comboBoxProvincia.setDisable(true);
         textFieldImporteAbonado.setEditable(false);
     }
-    
+
     // Método para activar los campos del alumno
     private void activarCampos() {
         textFieldNombre.setDisable(false);
@@ -351,7 +384,7 @@ public class VistaMatriculaController implements Initializable {
         textFieldLocalidad.setDisable(false);
         comboBoxProvincia.setDisable(false);
     }
-    
+
     // Método para borrar los campos del alumno
     private void borrarCampos() {
         textFieldNombre.setText("");
@@ -360,10 +393,10 @@ public class VistaMatriculaController implements Initializable {
         textFieldLocalidad.setText("");
         comboBoxProvincia.setValue(null);
     }
-    
+
     // Método para el cálculo de los importes de la matricula
     private void calcularImporte() {
-        
+
         comboBoxCurso.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Curso>() {
             @Override
             public void changed(ObservableValue<? extends Curso> observable, Curso oldValue, Curso newValue) {
@@ -373,11 +406,11 @@ public class VistaMatriculaController implements Initializable {
                 textFieldImporteAbonado.setText(String.valueOf(importe));
             }
         });
-    
+
         radioButtonOrdinaria.selectedProperty().addListener(new ChangeListener<Boolean>() {
             @Override
             public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
-                if(!textFieldImporteAbonado.getText().isEmpty()) {
+                if (!textFieldImporteAbonado.getText().isEmpty()) {
                     double importe = comboBoxCurso.getValue().getImporte().doubleValue();
                     importe = calcularExtras(importe);
                     importe = Math.round(importe * 100) / 100;
@@ -385,23 +418,23 @@ public class VistaMatriculaController implements Initializable {
                 }
             }
         });
-        
+
         radioButtonRepetidor.selectedProperty().addListener(new ChangeListener<Boolean>() {
             @Override
             public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
-                if(!textFieldImporteAbonado.getText().isEmpty()) {
+                if (!textFieldImporteAbonado.getText().isEmpty()) {
                     double importe = comboBoxCurso.getValue().getImporte().doubleValue();
                     importe = calcularExtras(importe);
                     importe = Math.round(importe * 100) / 100;
-                    textFieldImporteAbonado.setText(String.valueOf(importe));   
+                    textFieldImporteAbonado.setText(String.valueOf(importe));
                 }
             }
         });
-       
+
         radioButtonFamNumerosa.selectedProperty().addListener(new ChangeListener<Boolean>() {
             @Override
             public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
-                if(!textFieldImporteAbonado.getText().isEmpty()) {
+                if (!textFieldImporteAbonado.getText().isEmpty()) {
                     double importe = comboBoxCurso.getValue().getImporte().doubleValue();
                     importe = calcularExtras(importe);
                     importe = Math.round(importe * 100) / 100;
@@ -409,11 +442,11 @@ public class VistaMatriculaController implements Initializable {
                 }
             }
         });
-        
+
         checkBoxDocumentacion.selectedProperty().addListener(new ChangeListener<Boolean>() {
             @Override
             public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
-                if(!textFieldImporteAbonado.getText().isEmpty()) {
+                if (!textFieldImporteAbonado.getText().isEmpty()) {
                     double importe = comboBoxCurso.getValue().getImporte().doubleValue();
                     importe = calcularExtras(importe);
                     importe = Math.round(importe * 100) / 100;
@@ -421,62 +454,61 @@ public class VistaMatriculaController implements Initializable {
                 }
             }
         });
-        
+
     }
-    
+
     // Método para calcular el importe a abonar de la matricula
     private double calcularExtras(double importe) {
         double importeFinal = importe;
-        
-        if(radioButtonRepetidor.isSelected())
+
+        if (radioButtonRepetidor.isSelected()) {
             importeFinal += (importe * 0.1);
-        
-        else if(radioButtonFamNumerosa.isSelected())
+        } else if (radioButtonFamNumerosa.isSelected()) {
             importeFinal -= (importe * 0.1);
-        
-        if(checkBoxDocumentacion.isSelected())
+        }
+
+        if (checkBoxDocumentacion.isSelected()) {
             importeFinal += (importe * 0.05);
-    
+        }
+
         return importeFinal;
     }
-    
-    
+
     // Método creado para comprobar si el DNI existe o no
     private boolean buscarDNI(String DNI) {
         boolean dniEncontrado;
         Query queryDNIAlumnos = em.createNamedQuery("Alumno.findByDni");
         queryDNIAlumnos.setParameter("dni", DNI);
         List<String> listDNIAlumnos = queryDNIAlumnos.getResultList();
-        
-        if(listDNIAlumnos.isEmpty()){
+
+        if (listDNIAlumnos.isEmpty()) {
             dniEncontrado = false;
-        }
-        else{
+        } else {
             dniEncontrado = true;
         }
         return dniEncontrado;
     }
-    
+
     // Método para rellenar los datos de los campos asociados al DNI
     private void mostrarDatos(String DNI) {
         Query queryAlumnos = em.createNamedQuery("Alumno.findByDni");
         queryAlumnos.setParameter("dni", DNI);
         List<Alumno> listAlumnos = queryAlumnos.getResultList();
         Alumno alumno = listAlumnos.get(0);
-       
+
         textFieldNombre.setText(alumno.getNombre());
         textFieldDireccion.setText(alumno.getDireccion());
         textFieldTelefono.setText(alumno.getTelefono());
         textFieldLocalidad.setText(alumno.getLocalidad());
         comboBoxProvincia.setValue(alumno.getProvinciaid());
     }
-    
+
     // Método para rellenar la provincia
     public void rellenarComboBoxProvincia() {
         Query queryProvinciaFindAll = em.createNamedQuery("Provincia.findAll");
         List<Provincia> listProvincia = queryProvinciaFindAll.getResultList();
         comboBoxProvincia.setItems(FXCollections.observableList(listProvincia));
-        
+
         comboBoxProvincia.setCellFactory(
                 (ListView<Provincia> l) -> new ListCell<Provincia>() {
             @Override
@@ -504,13 +536,13 @@ public class VistaMatriculaController implements Initializable {
                 return null;
             }
         });
-    
+
     }
-    
+
     // Método para rellenar el combobox
     public void rellenarComboBoxCurso() {
         Query queryCursoFindAll = em.createNamedQuery("Curso.findAll");
-        List <Curso> listCurso = queryCursoFindAll.getResultList();
+        List<Curso> listCurso = queryCursoFindAll.getResultList();
         comboBoxCurso.setItems(FXCollections.observableList(listCurso));
 
         comboBoxCurso.setCellFactory(
@@ -541,9 +573,9 @@ public class VistaMatriculaController implements Initializable {
             }
         });
     }
-    
+
     // Método para limpiar todos los campos
-    public void limpiar(){
+    public void limpiar() {
         Modularizacion.limpiarTextField(textFieldDNI);
         Modularizacion.limpiarTextField(textFieldNombre);
         Modularizacion.limpiarTextField(textFieldDireccion);
@@ -553,15 +585,34 @@ public class VistaMatriculaController implements Initializable {
         Modularizacion.limpiarRadioButton(radioButtonOrdinaria);
         Modularizacion.limpiarRadioButton(radioButtonRepetidor);
         Modularizacion.limpiarRadioButton(radioButtonFamNumerosa);
+        Modularizacion.porDefectRadioButton(radioButtonOrdinaria);
         Modularizacion.fechaActualDatePicker(datePickerFechaMatricula);
         Modularizacion.limpiarComboBox(comboBoxCurso);
         Modularizacion.limpiarCheckBox(checkBoxCertificado);
         Modularizacion.limpiarCheckBox(checkBoxDocumentacion);
         Modularizacion.limpiarTextField(textFieldImporteAbonado);
-    }
-    
 
-    public void cambiarModo(boolean isLightMode){
+         // Resetear tambien el color de los nodos en caso de que esté coloreado en rojo por algún error
+        Modularizacion.resetearError(textFieldDNI);
+        Modularizacion.resetearError(textFieldNombre);
+        Modularizacion.resetearError(textFieldDireccion);
+        Modularizacion.resetearError(textFieldTelefono);
+        Modularizacion.resetearError(textFieldLocalidad);
+        Modularizacion.resetearError(comboBoxProvincia);
+        Modularizacion.resetearError(datePickerFechaMatricula);
+        Modularizacion.resetearError(comboBoxCurso);
+    }
+
+    public void cambiarModo(boolean isLightMode) {
         Modularizacion.cambiarModo(rootVistaMatricula, isLightMode);
+    }
+
+    public void limitarCamposMatricula() {
+
+        textFieldDNI.addEventFilter(KeyEvent.KEY_TYPED, Modularizacion.longitudMaxima(9));
+        textFieldNombre.addEventFilter(KeyEvent.KEY_TYPED, Modularizacion.longitudMaxima(50));
+        textFieldDireccion.addEventFilter(KeyEvent.KEY_TYPED, Modularizacion.longitudMaxima(150));
+        textFieldTelefono.addEventFilter(KeyEvent.KEY_TYPED, Modularizacion.longitudMaxima(12));
+        textFieldLocalidad.addEventFilter(KeyEvent.KEY_TYPED, Modularizacion.longitudMaxima(50));
     }
 }

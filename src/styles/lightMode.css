@@ -77,10 +77,18 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to ed
     -fx-background-radius: 30;
     -fx-focus-color: transparent;
 }
+.date-picker .arrow-button{
+    -fx-background-radius: 50;
+    -fx-border-width: 0.5;
+}
 .spinner{
     -fx-background-color: transparent;
     -fx-background-radius: 30;    
     -fx-focus-color: transparent;
+}
+.spinner .arrow-button, .increment-arrow-button, .decrement-arrow-button{
+    -fx-background-radius: 50;
+    -fx-border-width: 0.5;
 }
 .button{
     -fx-background-radius: 20;

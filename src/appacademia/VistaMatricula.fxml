@@ -136,14 +136,8 @@
                            <children>
                               <Label id="textoEstandar" layoutX="56.0" layoutY="30.0" text="Curso:" />
                               <ComboBox fx:id="comboBoxCurso" layoutX="132.0" layoutY="26.0" prefHeight="25.0" prefWidth="212.0" />
-                              <CheckBox id="textoEstandar" fx:id="checkBoxDocumentacion" layoutX="56.0" layoutY="80.0" mnemonicParsing="false" text="Necesito documentación">
-                                 <padding>
-                                    <Insets left="20.0" />
-                                 </padding></CheckBox>
-                              <CheckBox id="textoEstandar" fx:id="checkBoxCertificado" layoutX="56.0" layoutY="111.0" mnemonicParsing="false" text="Necesito certificado">
-                                 <padding>
-                                    <Insets left="20.0" />
-                                 </padding></CheckBox>
+                              <CheckBox id="textoEstandar" fx:id="checkBoxDocumentacion" layoutX="56.0" layoutY="80.0" mnemonicParsing="false" text="Necesito documentación" />
+                              <CheckBox id="textoEstandar" fx:id="checkBoxCertificado" layoutX="56.0" layoutY="111.0" mnemonicParsing="false" text="Necesito certificado" />
                               <Label id="header" layoutX="56.0" layoutY="175.0" style="-fx-font-weight: bold;" text="Importe abonado:">
                                  <padding>
                                     <Insets left="20.0" />
