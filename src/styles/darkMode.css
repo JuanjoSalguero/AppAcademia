@@ -15,7 +15,14 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to ed
     -fx-text-fill-estandar: rgba(180, 180, 180);
     -fx-text-fill-header: rgba(243, 243, 243, 0.9);
     -fx-button-background: rgba(243, 243, 243, 0.6);
+    -fx-hbox-background: rgba(100, 100, 100);
+    -fx-hbox-border: white;
 }
+@font-face {
+    font-family: 'KronaOne';
+    src: url('KronaOne-Regular.ttf');
+}
+
 
 .primary-color{
     -fx-background-color: #383838;
@@ -53,6 +60,10 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to ed
 #textoEstandar{
     -fx-font-size: 14px;
     -fx-text-fill: -fx-text-fill-estandar;
+    -fx-font-family: 'KronaOne';
+}
+#title {
+    -fx-text-fill: -fx-text-fill-header;
 }
 #header{
     -fx-text-fill: -fx-text-fill-header;
@@ -60,12 +71,14 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to ed
 #celdaTipoDatos{
     -fx-background-color: -fx-celdaDatos-background-color;
     -fx-padding: 40;
+    -fx-background-radius: 20;
 }
-#info{
-    -fx-background-radius: 30;
-    -fx-font-size: 14px;
+#hBoxBoton{
+    -fx-background-radius: 20;
     -fx-background-color:-fx-button-background;
-    -fx-text-fill: white;
+    -fx-border-width: 1;
+    -fx-border-radius: 20;
+    -fx-border-color: -fx-hbox-border;
 }
 .combo-box{
     -fx-background-color: -fx-textfield-background-color;
