@@ -12,7 +12,6 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane id="AnchorPane" fx:id="rootVistaAlumnos" pickOnBounds="false" prefHeight="802.0" prefWidth="1039.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="appacademia.VistaAlumnosController">
 
    <children>
@@ -73,7 +72,7 @@
             <Label text="Teléfono:" GridPane.halignment="LEFT" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
             <TextField fx:id="textFieldLocalidad" GridPane.columnIndex="1" />
             <TextField fx:id="textFieldTelefono" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <ComboBox fx:id="comboBoxProvincia" prefHeight="25.0" prefWidth="171.0" promptText="Seleciona una provincia" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <ComboBox fx:id="comboBoxProvincia" prefHeight="26.0" prefWidth="254.0" promptText="Seleciona una provincia" GridPane.columnIndex="1" GridPane.rowIndex="1" />
          </children>
       </GridPane>
    </children>

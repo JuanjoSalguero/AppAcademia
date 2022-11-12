@@ -5,6 +5,7 @@
 package appacademia;
 
 import entities.Curso;
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.net.URL;
 import java.time.Instant;
@@ -16,16 +17,21 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.Dialog;
+import javafx.scene.control.DialogPane;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
@@ -52,6 +58,7 @@ public class VistaCursoController implements Initializable {
     private ToggleGroup tipo;
     private EntityManager em;
     private Curso curso;
+    private static boolean isLightMode = true;
 
     // ------------------------------------------------------------------- NODOS
     @FXML
@@ -107,6 +114,10 @@ public class VistaCursoController implements Initializable {
     // Setter
     public void setEntityManager(EntityManager entityManager) {
         this.em = entityManager;
+    }
+
+    public void setRootVistaPrincipal(Pane rootVistaPrincipal) {
+        this.rootVistaPrincipal = rootVistaPrincipal;
     }
 
     @FXML
@@ -267,14 +278,32 @@ public class VistaCursoController implements Initializable {
         rootVistaPrincipal.setVisible(true);
     }
 
-    // Luego se implementa en clase de métodos generales
-    public void setRootVistaPrincipal(Pane rootVistaPrincipal) {
-        this.rootVistaPrincipal = rootVistaPrincipal;
-    }
-
     @FXML
     private void onActionButtonLimpiar(ActionEvent event) {
         limpiar(); // Limpiar todos los campos de la pestaña
+    }
+
+    @FXML
+    private void onActionButtonInfo(ActionEvent event) {
+        try {
+            // Cargar la vista de detalle
+            FXMLLoader fxmlLoader = new FXMLLoader();
+            fxmlLoader.setLocation(getClass().getResource("VistaInfoCurso.fxml"));
+            DialogPane dialogPane = fxmlLoader.load();
+
+            VistaInfoCursoController vistaInfoCursoController = fxmlLoader.getController();
+
+            Dialog<ButtonType> dialog = new Dialog();
+            dialog.setDialogPane(dialogPane);
+            //dialog.initStyle(StageStyle.UNIFIED);
+            Optional<ButtonType> clickedButton = dialog.showAndWait();
+            if(clickedButton.get() == ButtonType.CLOSE) dialog.close();
+            
+            
+
+        } catch (IOException ex) {
+            Logger.getLogger(VistaCursoController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     // ------------------------------------------------------------------- MÉTODOS
@@ -392,6 +421,7 @@ public class VistaCursoController implements Initializable {
         Modularizacion.cambiarModo(rootVistaCurso, isLightMode);
     }
 
+    // Método para limitar la longitud de los campos
     public void limitarCamposMatricula() {
 
         textFieldNombre.addEventFilter(KeyEvent.KEY_TYPED, Modularizacion.longitudMaxima(50));

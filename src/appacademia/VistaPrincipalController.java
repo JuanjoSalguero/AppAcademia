@@ -81,7 +81,7 @@ public class VistaPrincipalController implements Initializable {
             
             timeline.getKeyFrames().add(kf);
             timeline.setOnFinished(timelineEvent -> {
-                rootVistaPrincipal.setVisible(false);
+            rootVistaPrincipal.setVisible(false);
             });
             timeline.play();
             
@@ -125,6 +125,7 @@ public class VistaPrincipalController implements Initializable {
             vistaAlumnosController.setRootVistaPrincipal(rootVistaPrincipal);
             // Asociar objeto a la clase VistaMatriculaController
             vistaAlumnosController.setEntityManager(em);
+            vistaAlumnosController.rellenarComboBoxProvincia();
             vistaAlumnosController.cargarAlumnos();
             vistaAlumnosController.cambiarModo(isLightMode);
 
