@@ -6,6 +6,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to ed
     Created on : 08-nov-2022, 19:23:39
     Author     : Juanjo
 */
+
 *{
     -fx-textfield-background-color: rgba(180, 180, 180, 0.3);
     -fx-textfield-readonly-background-color: rgba(221, 221, 221, 0.3);

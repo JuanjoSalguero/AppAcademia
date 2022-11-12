@@ -41,6 +41,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.text.Font;
 import javafx.util.StringConverter;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
@@ -102,6 +103,7 @@ public class VistaMatriculaController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        
         // Control de errores y restricciones de los objetos
         controlYRestriccionErrores();
         
@@ -373,6 +375,8 @@ public class VistaMatriculaController implements Initializable {
                             textFieldTelefono.setDisable(false);
                             textFieldLocalidad.setDisable(false);
                             comboBoxProvincia.setDisable(false);
+                            textFieldLocalidad.requestFocus();
+                            
                         }
                         
                         else {
