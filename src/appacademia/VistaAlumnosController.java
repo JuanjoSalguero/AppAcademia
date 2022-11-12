@@ -331,9 +331,12 @@ public class VistaAlumnosController implements Initializable {
         Modularizacion.soloLetras(textFieldLocalidad);
     }
 
-
     public void cambiarModo(boolean isLightMode){
         Modularizacion.cambiarModo(rootVistaAlumnos, isLightMode);
     }
+    
 }
+
+    
+
 
