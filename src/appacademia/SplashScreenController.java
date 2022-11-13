@@ -14,8 +14,10 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
+import javafx.scene.effect.DropShadow;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javax.persistence.EntityManager;
@@ -29,6 +31,8 @@ public class SplashScreenController implements Initializable {
 
     private EntityManager em;
     StackPane rootMain = new StackPane();
+    private double xOffset = 0;
+    private double yOffset = 0;
     
     @FXML
     private StackPane rootPane;
@@ -56,18 +60,29 @@ public class SplashScreenController implements Initializable {
                             Logger.getLogger(SplashScreenController.class.getName()).log(Level.SEVERE, null, ex);
                         }
 
+                        
                         rootMain.getChildren().add(rootPrincipalView);
 
                         // Asocial objeto a la clase SplashScreenController
                         VistaPrincipalController vistaPrincipalController = (VistaPrincipalController) fxmlLoader.getController();
                         vistaPrincipalController.setEntityManager(em);
-
+                        
 
                         Scene scene = new Scene(rootMain);
                         Stage stage = new Stage();
-                        //stage.initStyle(StageStyle.UTILITY);
+                        stage.initStyle(StageStyle.TRANSPARENT);
                         stage.setScene(scene);
                         stage.show();
+                        
+                        rootPrincipalView.setOnMousePressed(event -> {
+                            xOffset = event.getSceneX();
+                            yOffset = event.getSceneY();
+                        });
+                        rootPrincipalView.setOnMouseDragged(event -> {
+                            stage.setX(event.getScreenX() - xOffset);
+                            stage.setY(event.getScreenY() - yOffset);
+                        });
+                        
                         rootPane.getScene().getWindow().hide();
                         
                     }

@@ -41,6 +41,9 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to ed
     -fx-border-color: -fx-header-color;
     -fx-border-radius: 30;
 }
+#AnchorPane{
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 10, 0.5, 0.0, 0.0);
+}
 .text-field:focused{
     -fx-background-color: -fx-textfield-focused-background-color;
     -fx-padding: 7;
@@ -107,12 +110,35 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to ed
     -fx-background-color:-fx-header-color;
     -fx-text-fill: -fx-header-text;
 }
+#footer{
+    -fx-background-color:-fx-header-color;
+    -fx-text-fill: -fx-header-text;
+}
 #homeTitleText{
+    -fx-text-fill: white;
+}
+#aboutTitle{
+    -fx-background-radius: 20px 20px 0px 0px;
+    -fx-background-color:-fx-header-color;
     -fx-text-fill: white;
 }
 #hBoxLabel{
     -fx-text-fill: #4f5f7f;
 }
+#marker{
+    -fx-background-radius: 0px 20px 20px 0px;
+    -fx-background-color: black;
+}
+#botonAbout{
+    -fx-background-radius: 0px 0px 20px 20px;
+    -fx-font-size: 14px;
+    -fx-background-color:-fx-header-color;
+    -fx-text-fill: white;
+}
+#botonAbout:hover {
+    -fx-background-color: #a6d7f7;
+}
+
 .combo-box{
     -fx-background-color: -fx-textfield-background-color;
     -fx-padding: 4;

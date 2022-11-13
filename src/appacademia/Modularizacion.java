@@ -174,13 +174,6 @@ public class Modularizacion {
             confirmationAlert.setContentText("¿Está seguro de que desea guardar el actual registro? Revise todos "
                     + "los campos antes de proceder con el guardado del registro.");
         }
-        else{
-            confirmationAlert = new Alert(Alert.AlertType.CONFIRMATION);
-            confirmationAlert.setHeaderText(null);
-            confirmationAlert.setTitle(tituloVentana + " - Confirmación de guardado de registro.");
-            confirmationAlert.setContentText("¿Está seguro de que desea guardar el actual registro? Revise todos "
-                    + "los campos antes de proceder con guardado del registro.");
-        }
     }
 
     // Método para combrobar que el dni introducido cumple los parametros(8 números y 1 letra)
@@ -363,4 +356,5 @@ public class Modularizacion {
     public static void resetearError(Spinner spinner) {
         spinner.setStyle("-fx-background-color: transparent");
     }
+    
 }

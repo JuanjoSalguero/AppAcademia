@@ -104,16 +104,16 @@ public class VistaMatriculaController implements Initializable {
     private Button buttonModificarMatricula;
     @FXML
     private ImageView icono;
-    
+
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
+
         // Control de errores y restricciones de los objetos
         controlYRestriccionErrores();
-        
+
         desactivarCamposAlumno(); // Desactivar campos relativos al DNI
         calcularImporte();  // Calcular importe del abono
 
@@ -123,7 +123,7 @@ public class VistaMatriculaController implements Initializable {
         // Listener para el correcto funcionamiento de los campos del alumno dependiendo de si el DNI existe, de si se cambia o si no existe
         listenerDNI();
         listenerCurso();
-        
+
         rootVistaMatricula.addEventFilter(MouseEvent.MOUSE_PRESSED, event -> {
             rootVistaMatricula.requestFocus();
         });
@@ -139,7 +139,7 @@ public class VistaMatriculaController implements Initializable {
         matriculaNueva = new Matricula();
         alumnoNuevo = new Alumno();
         boolean yaExisteAlumno = buscarDNI(textFieldDNI.getText());
-        boolean yaExisteMatricula =false;
+        boolean yaExisteMatricula = false;
 
         // Datos del alumnoNuevo
         if (!textFieldDNI.getText().isEmpty()) {
@@ -241,7 +241,7 @@ public class VistaMatriculaController implements Initializable {
         }
 
         if (comboBoxCurso.getValue() != null && !textFieldDNI.getText().isEmpty()) {
-            yaExisteMatricula = buscarMatricula(textFieldDNI.getText(),comboBoxCurso.getValue().getId());
+            yaExisteMatricula = buscarMatricula(textFieldDNI.getText(), comboBoxCurso.getValue().getId());
             matriculaNueva.setMatriculaPK(idMatriculaNueva);
         } else {
             errorFormatoAlumno = true;
@@ -252,53 +252,51 @@ public class VistaMatriculaController implements Initializable {
         } else {
             errorFormatoAlumno = true;
         }
- 
-        if (!errorFormatoAlumno) { // Los datos introducidos son correctos
-            try {   
-                // Si clickamos aceptar, los datos se guardarán   
-                    em.getTransaction().begin();
-                    if(yaExisteMatricula){
-                        Modularizacion.confirmationTab("Actualizar Matrícula");
-                        Optional<ButtonType> action1 = Modularizacion.confirmationAlert.showAndWait();
-                        if (action1.get() == ButtonType.OK){
-                            em.merge(alumnoNuevo);
-                            em.merge(matriculaNueva);
-                            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                            alert.setContentText("Se han guardado los datos correctamente.");
-                            alert.showAndWait();
-                            // Cuando se presione el botón aceptar, se limpian los campos
-                            limpiar();
-                        }
-                    }
-                    else if(!yaExisteAlumno){
-                        Modularizacion.confirmationTab("Nueva Matrícula y Nuevo Alumno");
-                        Optional<ButtonType> action = Modularizacion.confirmationAlert.showAndWait();
-                        if (action.get() == ButtonType.OK) {
-                            em.persist(alumnoNuevo);
-                            em.persist(matriculaNueva);
-                            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                            alert.setContentText("Se han guardado los datos correctamente.");
-                            alert.showAndWait();
-                            // Cuando se presione el botón aceptar, se limpian los campos
-                            limpiar();
-                        }
-                    }
-                    else{
-                        Modularizacion.confirmationTab("Nueva Matrícula y Actualizar Alumno");
-                        Optional<ButtonType> action1 = Modularizacion.confirmationAlert.showAndWait();
-                        if (action1.get() == ButtonType.OK){
-                            em.merge(alumnoNuevo);
-                            em.persist(matriculaNueva);
-                            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                            alert.setContentText("Se han guardado los datos correctamente.");
-                            alert.showAndWait();
-                            // Cuando se presione el botón aceptar, se limpian los campos
-                            limpiar();
-                        }
 
+        if (!errorFormatoAlumno) { // Los datos introducidos son correctos
+            try {
+                // Si clickamos aceptar, los datos se guardarán   
+                em.getTransaction().begin();
+                if (yaExisteMatricula) {
+                    Modularizacion.confirmationTab("Actualizar Matrícula");
+                    Optional<ButtonType> action1 = Modularizacion.confirmationAlert.showAndWait();
+                    if (action1.get() == ButtonType.OK) {
+                        em.merge(alumnoNuevo);
+                        em.merge(matriculaNueva);
+                        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                        alert.setContentText("Se han guardado los datos correctamente.");
+                        alert.showAndWait();
+                        // Cuando se presione el botón aceptar, se limpian los campos
+                        limpiar();
                     }
-                    
-                    em.getTransaction().commit();
+                } else if (!yaExisteAlumno) {
+                    Modularizacion.confirmationTab("Nueva Matrícula y Nuevo Alumno");
+                    Optional<ButtonType> action = Modularizacion.confirmationAlert.showAndWait();
+                    if (action.get() == ButtonType.OK) {
+                        em.persist(alumnoNuevo);
+                        em.persist(matriculaNueva);
+                        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                        alert.setContentText("Se han guardado los datos correctamente.");
+                        alert.showAndWait();
+                        // Cuando se presione el botón aceptar, se limpian los campos
+                        limpiar();
+                    }
+                } else {
+                    Modularizacion.confirmationTab("Nueva Matrícula y Actualizar Alumno");
+                    Optional<ButtonType> action1 = Modularizacion.confirmationAlert.showAndWait();
+                    if (action1.get() == ButtonType.OK) {
+                        em.merge(alumnoNuevo);
+                        em.persist(matriculaNueva);
+                        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                        alert.setContentText("Se han guardado los datos correctamente.");
+                        alert.showAndWait();
+                        // Cuando se presione el botón aceptar, se limpian los campos
+                        limpiar();
+                    }
+
+                }
+
+                em.getTransaction().commit();
 
             } catch (RollbackException ex) { // Los datos introducidos no cumplen requisitos de BD
                 Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -332,10 +330,10 @@ public class VistaMatriculaController implements Initializable {
         limpiar();  // Limpiar todos los campos
         desactivarCamposAlumno();
     }
-    
-        @FXML
+
+    @FXML
     private void onActionButtonInfo(ActionEvent event) {
-        try{
+        try {
             // Cargar la vista de detalle
             FXMLLoader fxmlLoader = new FXMLLoader();
             fxmlLoader.setLocation(getClass().getResource("VistaInfoMatricula.fxml"));
@@ -347,7 +345,9 @@ public class VistaMatriculaController implements Initializable {
             dialog.setDialogPane(dialogPane);
             //dialog.initStyle(StageStyle.UNIFIED);
             Optional<ButtonType> clickedButton = dialog.showAndWait();
-            if(clickedButton.get() == ButtonType.CLOSE) dialog.close();
+            if (clickedButton.get() == ButtonType.CLOSE) {
+                dialog.close();
+            }
 
         } catch (IOException ex) {
             Logger.getLogger(VistaMatriculaController.class.getName()).log(Level.SEVERE, null, ex);
@@ -370,50 +370,46 @@ public class VistaMatriculaController implements Initializable {
         Modularizacion.caracteresValidosDireccion(textFieldDireccion);
     }
 
-    
     private void listenerDNI() {
-       textFieldDNI.focusedProperty().addListener(new ChangeListener<Boolean>() {
+        textFieldDNI.focusedProperty().addListener(new ChangeListener<Boolean>() {
             @Override
             public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
 
-                if(!textFieldDNI.getText().isEmpty()) {
+                if (!textFieldDNI.getText().isEmpty()) {
                     textFieldDNI.setText(textFieldDNI.getText().toUpperCase());
-                    if(Modularizacion.comprobarDNI(textFieldDNI.getText()) && Modularizacion.validarDNI(textFieldDNI.getText())) {
+                    if (Modularizacion.comprobarDNI(textFieldDNI.getText()) && Modularizacion.validarDNI(textFieldDNI.getText())) {
                         Modularizacion.resetearError(textFieldDNI);
-                        if(buscarDNI(textFieldDNI.getText()))
+                        if (buscarDNI(textFieldDNI.getText())) {
                             mostrarDatos(textFieldDNI.getText());
- 
+                        }
+
                         textFieldNombre.setDisable(false);
                         textFieldDireccion.setDisable(false);
                         textFieldTelefono.setDisable(false);
                         textFieldLocalidad.setDisable(false);
                         comboBoxProvincia.setDisable(false);
-                        textFieldLocalidad.requestFocus()
-                    }
- 
-                    else {
+                        //textFieldLocalidad.requestFocus();
+                    } else {
                         Modularizacion.errorTextField(textFieldDNI);
                         desactivarCamposAlumno();
                         borrarCampos();
- 
+
                     }
- 
-                }
- 
-                else {
+
+                } else {
                     desactivarCamposAlumno();
                     borrarCampos();
- 
+
                 }
- 
+
             }
         });
-        
+
     }
-    
+
     private void listenerCurso() {
         comboBoxCurso.getSelectionModel().selectedItemProperty().addListener((options, oldValue, newValue) -> {
-            if(!textFieldDNI.getText().isEmpty()) {
+            if (!textFieldDNI.getText().isEmpty()) {
                 Query queryMatricula = em.createNamedQuery("Matricula.findByAlumnoDni");
                 queryMatricula.setParameter("alumnoDni", textFieldDNI.getText());
                 List<Matricula> listMatricula = queryMatricula.getResultList();
@@ -424,35 +420,34 @@ public class VistaMatriculaController implements Initializable {
                 int i = 0;
                 boolean encontrado = false;
 
-                while(i < listMatricula.size() && !encontrado) {
+                while (i < listMatricula.size() && !encontrado) {
                     Matricula m = listMatricula.get(i);
                     MatriculaPK mpk = m.getMatriculaPK();
 
-                    if(mpk.getCursoId() == comboBoxCurso.getSelectionModel().getSelectedItem().getId()) {
+                    if (mpk.getCursoId() == comboBoxCurso.getSelectionModel().getSelectedItem().getId()) {
                         encontrado = true;
                         ButtonType si = new ButtonType("Si", ButtonBar.ButtonData.OK_DONE);
                         ButtonType no = new ButtonType("No", ButtonBar.ButtonData.CANCEL_CLOSE);
-                        Alert alert = new Alert(Alert.AlertType.CONFIRMATION,  
-                        "El alumno introducido ya está matriculado en el curso seleccionado. ¿Quiere modificar la matricula?", si, no);
+                        Alert alert = new Alert(Alert.AlertType.CONFIRMATION,
+                                "El alumno introducido ya está matriculado en el curso seleccionado. ¿Quiere modificar la matricula?", si, no);
                         Optional<ButtonType> result = alert.showAndWait();
 
-                        if(m.getTipoMatricula().equals("Ordinaria"))
-                                radioButtonOrdinaria.setSelected(true);
+                        if (m.getTipoMatricula().equals("Ordinaria")) {
+                            radioButtonOrdinaria.setSelected(true);
+                        } else if (m.getTipoMatricula().equals("Repetidor")) {
+                            radioButtonRepetidor.setSelected(true);
+                        } else {
+                            radioButtonFamNumerosa.setSelected(true);
+                        }
 
-                            else if(m.getTipoMatricula().equals("Repetidor"))
-                                radioButtonRepetidor.setSelected(true);
+                        activarCamposMatricula();
+                        datePickerFechaMatricula.setValue(m.getFecha().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+                        //comboBoxCurso.getSelectionModel().select(m.getCurso());
+                        checkBoxDocumentacion.setSelected(m.getDocumentacion());
+                        checkBoxCertificado.setSelected(m.getCertificado());
+                        textFieldImporteAbonado.setText(String.valueOf(m.getImporteAbonado()));
 
-                            else
-                                radioButtonFamNumerosa.setSelected(true);
-
-                            activarCamposMatricula();
-                            datePickerFechaMatricula.setValue(m.getFecha().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
-                            //comboBoxCurso.getSelectionModel().select(m.getCurso());
-                            checkBoxDocumentacion.setSelected(m.getDocumentacion());
-                            checkBoxCertificado.setSelected(m.getCertificado());
-                            textFieldImporteAbonado.setText(String.valueOf(m.getImporteAbonado()));
-
-                        if(result.get() == no) {
+                        if (result.get() == no) {
                             desactivarCamposMatricula();
                             buttonModificarMatricula.setDisable(false);
                         }
@@ -462,13 +457,13 @@ public class VistaMatriculaController implements Initializable {
                     i++;
 
                 }
-                
+
             }
-        
-        }); 
-        
+
+        });
+
     }
-    
+
     // Método de restricción de textField solo letras y números
     private static void soloNumerosYLetras(TextField textField) {
 
@@ -511,9 +506,9 @@ public class VistaMatriculaController implements Initializable {
         datePickerFechaMatricula.setDisable(true);
         checkBoxDocumentacion.setDisable(true);
         checkBoxCertificado.setDisable(true);
-        
+
     }
-    
+
     //Metodo para activar los campos de la matrícula
     private void activarCamposMatricula() {
         radioButtonOrdinaria.setDisable(false);
@@ -522,9 +517,9 @@ public class VistaMatriculaController implements Initializable {
         datePickerFechaMatricula.setDisable(false);
         checkBoxDocumentacion.setDisable(false);
         checkBoxCertificado.setDisable(false);
-        
+
     }
-    
+
     //Metodo para borrar los campos de matricula
     private void limpiarCamposMatricula() {
         radioButtonOrdinaria.setSelected(true);
@@ -533,7 +528,7 @@ public class VistaMatriculaController implements Initializable {
         datePickerFechaMatricula.setValue(LocalDate.now());
         checkBoxDocumentacion.setSelected(false);
         checkBoxCertificado.setSelected(false);
-        
+
     }
 
     // Método para borrar los campos del alumno
@@ -550,7 +545,7 @@ public class VistaMatriculaController implements Initializable {
         comboBoxCurso.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Curso>() {
             @Override
             public void changed(ObservableValue<? extends Curso> observable, Curso oldValue, Curso newValue) {
-                if(newValue != null) {
+                if (newValue != null) {
                     double importe = newValue.getImporte().doubleValue();
                     importe = calcularExtras(importe);
                     importe = Math.round(importe * 100) / 100;
@@ -647,11 +642,10 @@ public class VistaMatriculaController implements Initializable {
         queryMatricula.setParameter("alumnoDni", DNI);
         queryMatricula.setParameter("cursoId", id);
         List<String> listDNIAlumno = queryMatricula.getResultList();
-        
-        if(listDNIAlumno.isEmpty()){
+
+        if (listDNIAlumno.isEmpty()) {
             matriculaEncontrada = false;
-        }
-        else{
+        } else {
             matriculaEncontrada = true;
         }
         return matriculaEncontrada;
@@ -760,7 +754,7 @@ public class VistaMatriculaController implements Initializable {
         Modularizacion.limpiarCheckBox(checkBoxDocumentacion);
         Modularizacion.limpiarTextField(textFieldImporteAbonado);
 
-         // Resetear tambien el color de los nodos en caso de que esté coloreado en rojo por algún error
+        // Resetear tambien el color de los nodos en caso de que esté coloreado en rojo por algún error
         Modularizacion.resetearError(textFieldDNI);
         Modularizacion.resetearError(textFieldNombre);
         Modularizacion.resetearError(textFieldDireccion);
@@ -772,7 +766,7 @@ public class VistaMatriculaController implements Initializable {
     }
 
     public void cambiarModo(boolean isLightMode) {
-        if (isLightMode){
+        if (isLightMode) {
             Image imagen = new Image("img/formulario1.png");
             icono.setImage(imagen);
         } else {
@@ -796,6 +790,6 @@ public class VistaMatriculaController implements Initializable {
     private void onActionButtonModificarMatricula(ActionEvent event) {
         activarCamposMatricula();
         buttonModificarMatricula.setDisable(true);
-        
+
     }
 }

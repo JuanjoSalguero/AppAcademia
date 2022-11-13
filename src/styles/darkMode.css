@@ -131,6 +131,15 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to ed
 #ayuda:hover {
     -fx-background-color: #a6d7f7;
 }
+#botonAbout{
+    -fx-background-radius: 0px 0px 20px 20px;
+    -fx-font-size: 14px;
+    -fx-background-color:-fx-button-background;
+    -fx-text-fill: white;
+}
+#botonAbout:hover {
+    -fx-background-color: #a6d7f7;
+}
 .combo-box{
     -fx-background-color: -fx-textfield-background-color;
     -fx-padding: 4;

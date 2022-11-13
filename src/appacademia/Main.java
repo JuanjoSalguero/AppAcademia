@@ -32,8 +32,8 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("SplashScreen.fxml"));
-        Pane rootAgendaView = fxmlLoader.load();
-        rootMain.getChildren().add(rootAgendaView);
+        Pane rootSplashView = fxmlLoader.load();
+        rootMain.getChildren().add(rootSplashView);
         
         emf = Persistence.createEntityManagerFactory("AppAcademiaPU");
         em = emf.createEntityManager();
@@ -42,6 +42,7 @@ public class Main extends Application {
         SplashScreenController splashScreenController = (SplashScreenController) fxmlLoader.getController();
         splashScreenController.setEntityManager(em);
 
+        
                 
         Scene scene = new Scene(rootMain);
         stage.initStyle(StageStyle.UNDECORATED);
