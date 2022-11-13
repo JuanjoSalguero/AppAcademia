@@ -297,9 +297,7 @@ public class VistaCursoController implements Initializable {
             dialog.setDialogPane(dialogPane);
             //dialog.initStyle(StageStyle.UNIFIED);
             Optional<ButtonType> clickedButton = dialog.showAndWait();
-            if(clickedButton.get() == ButtonType.CLOSE) dialog.close();
-            
-            
+            if(clickedButton.get() == ButtonType.CLOSE) dialog.close();            
 
         } catch (IOException ex) {
             Logger.getLogger(VistaCursoController.class.getName()).log(Level.SEVERE, null, ex);

@@ -13,7 +13,6 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DateCell;
 import javafx.scene.control.DatePicker;
-import javafx.scene.control.DialogPane;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.TextField;
@@ -215,14 +214,6 @@ public class Modularizacion {
         }
     }
 
-    public static void cambiarModo(DialogPane root, boolean isLightMode) {
-        if (isLightMode) {
-            Modularizacion.establecerModoDia(root);
-        } else {
-            Modularizacion.establecerModoNoche(root);
-        }
-    }
-
     public static void establecerModoDia(AnchorPane root) {
         root.getStylesheets().remove("styles/darkMode.css");
         root.getStylesheets().add("styles/lightMode.css");
@@ -231,18 +222,6 @@ public class Modularizacion {
 
     // Método para cambiar a modo nocturno
     public static void establecerModoNoche(AnchorPane root) {
-        root.getStylesheets().remove("styles/lightMode.css");
-        root.getStylesheets().add("styles/darkMode.css");
-    }
-
-    public static void establecerModoDia(DialogPane root) {
-        root.getStylesheets().remove("styles/darkMode.css");
-        root.getStylesheets().add("styles/lightMode.css");
-
-    }
-
-    // Método para cambiar a modo nocturno
-    public static void establecerModoNoche(DialogPane root) {
         root.getStylesheets().remove("styles/lightMode.css");
         root.getStylesheets().add("styles/darkMode.css");
     }

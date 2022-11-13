@@ -6,9 +6,7 @@ package appacademia;
 
 import java.net.URL;
 import java.util.ResourceBundle;
-import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.DialogPane;
 
 /**
  * FXML Controller class
@@ -17,8 +15,6 @@ import javafx.scene.control.DialogPane;
  */
 public class VistaInfoCursoController implements Initializable {
 
-    @FXML
-    private DialogPane rootInfoCurso;
 
     /**
      * Initializes the controller class.
