@@ -366,48 +366,39 @@ public class VistaMatriculaController implements Initializable {
 
     
     private void listenerDNI() {
-        textFieldDNI.focusedProperty().addListener(new ChangeListener<Boolean>() {
+       textFieldDNI.focusedProperty().addListener(new ChangeListener<Boolean>() {
             @Override
             public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
-                if(oldValue && Modularizacion.comprobarDNI(textFieldDNI.getText())) {
-                    if(!textFieldDNI.getText().isEmpty()) {
-                        textFieldDNI.setText(textFieldDNI.getText().toUpperCase());
-                        if(Modularizacion.comprobarDNI(textFieldDNI.getText()) && Modularizacion.validarDNI(textFieldDNI.getText())) {
-                            Modularizacion.resetearError(textFieldDNI);
-                            if(buscarDNI(textFieldDNI.getText())) {
-                                mostrarDatos(textFieldDNI.getText());
-                            }
-                                
-                            textFieldNombre.setDisable(false);
-                            textFieldDireccion.setDisable(false);
-                            textFieldTelefono.setDisable(false);
-                            textFieldLocalidad.setDisable(false);
-                            comboBoxProvincia.setDisable(false);
-                        }
-                        
-                        else {
-                            Modularizacion.errorTextField(textFieldDNI);
-                            
-                        }
+                if(!textFieldDNI.getText().isEmpty()) {
+                    textFieldDNI.setText(textFieldDNI.getText().toUpperCase());
+                    if(Modularizacion.comprobarDNI(textFieldDNI.getText()) && Modularizacion.validarDNI(textFieldDNI.getText())) {
+                        Modularizacion.resetearError(textFieldDNI);
+                        if(buscarDNI(textFieldDNI.getText()))
+                            mostrarDatos(textFieldDNI.getText());
+ 
+                        textFieldNombre.setDisable(false);
+                        textFieldDireccion.setDisable(false);
+                        textFieldTelefono.setDisable(false);
+                        textFieldLocalidad.setDisable(false);
+                        comboBoxProvincia.setDisable(false);
+                        textFieldLocalidad.requestFocus();
                     }
-                    
+ 
                     else {
+                        Modularizacion.errorTextField(textFieldDNI);
                         desactivarCamposAlumno();
                         borrarCampos();
-                        
+ 
                     }
-                    
+ 
                 }
-                
+ 
                 else {
-                    borrarCampos();
                     desactivarCamposAlumno();
-                    
-                }
-                
-                if(newValue && buscarDNI(textFieldDNI.getText()))
                     borrarCampos();
-                
+ 
+                }
+ 
             }
         });
         

@@ -1,8 +1,8 @@
 ----------------------------------------------------------------
-Sun Nov 13 11:57:06 CET 2022:
-Booting Derby version The Apache Software Foundation - Apache Derby - 10.14.2.0 - (1828579): instance a816c00e-0184-70a2-c56f-000007ac88f0 
+Sun Nov 13 12:30:36 CET 2022:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.14.2.0 - (1828579): instance a816c00e-0184-70c1-7113-000007a51618 
 on database directory C:\Users\Juanjo\Documents\NetBeansProjects\appacademia-winball_\BDAcademia with class loader sun.misc.Launcher$AppClassLoader@55f96302 
-Loaded from file:/C:/Users/Juanjo/Documents/NetBeansProjects/appacademia-winball_/dist/run1202159569/lib/derby.jar
+Loaded from file:/C:/Users/Juanjo/Documents/NetBeansProjects/appacademia-winball_/dist/run859113880/lib/derby.jar
 java.vendor=Oracle Corporation
 java.runtime.version=1.8.0_251-b08
 user.dir=C:\Users\Juanjo\Documents\NetBeansProjects\appacademia-winball_
@@ -11,7 +11,7 @@ os.arch=amd64
 os.version=10.0
 derby.system.home=null
 Database Class Loader started - derby.database.classpath=''
-Sun Nov 13 11:57:14 CET 2022 Thread[JavaFX Application Thread,5,main] Cleanup action starting
+Sun Nov 13 12:30:44 CET 2022 Thread[JavaFX Application Thread,5,main] Cleanup action starting
 ERROR XBM0H: Directory C:\Users\usuario\Documents\NetBeansProjects\appacademia-winball\BDAcademia cannot be created.
 	at org.apache.derby.iapi.error.StandardException.newException(Unknown Source)
 	at org.apache.derby.iapi.error.StandardException.newException(Unknown Source)
@@ -47,7 +47,7 @@ ERROR XBM0H: Directory C:\Users\usuario\Documents\NetBeansProjects\appacademia-w
 	at com.sun.glass.ui.win.WinApplication.lambda$null$4(WinApplication.java:186)
 	at java.lang.Thread.run(Thread.java:748)
 Cleanup action completed
-Sun Nov 13 11:57:14 CET 2022 Thread[JavaFX Application Thread,5,main] Cleanup action starting
+Sun Nov 13 12:30:44 CET 2022 Thread[JavaFX Application Thread,5,main] Cleanup action starting
 java.sql.SQLException: Failed to create database 'C:\Users\usuario\Documents\NetBeansProjects\appacademia-winball\BDAcademia', see the next exception for details.
 	at org.apache.derby.impl.jdbc.SQLExceptionFactory.getSQLException(Unknown Source)
 	at org.apache.derby.impl.jdbc.SQLExceptionFactory.getSQLException(Unknown Source)
