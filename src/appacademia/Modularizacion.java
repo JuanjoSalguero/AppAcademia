@@ -100,7 +100,7 @@ public class Modularizacion {
             }
         });
     }
-    
+
     // Método para restringir TextField a solo números con coma
     public static void soloNumerosYComa(TextField textField) {
 
@@ -149,26 +149,30 @@ public class Modularizacion {
 
     // Método para confirmar que deseamos enviar los datos
     public static void confirmationTab(String tituloVentana) {
-        if(tituloVentana.equals("Nueva Matrícula y Nuevo Alumno")){
+        if (tituloVentana.equals("Nueva Matrícula y Nuevo Alumno")) {
             confirmationAlert = new Alert(Alert.AlertType.CONFIRMATION);
             confirmationAlert.setHeaderText(null);
             confirmationAlert.setTitle(tituloVentana + " - Confirmación de guardado de registro.");
             confirmationAlert.setContentText("¿Está seguro de que desea guardar el actual registro? Revise todos "
-                    + "los campos antes de proceder con guardado del registro.");
-        }
-        else if(tituloVentana.equals("Nueva Matrícula y Actualizar Alumno")){
+                    + "los campos antes de proceder con el guardado del registro.");
+        } else if (tituloVentana.equals("Nueva Matrícula y Actualizar Alumno")) {
             confirmationAlert = new Alert(Alert.AlertType.CONFIRMATION);
             confirmationAlert.setHeaderText(null);
             confirmationAlert.setTitle(tituloVentana + " - Confirmación de guardado de registro y acualización de alumno.");
             confirmationAlert.setContentText("¿Está seguro de que desea guardar el actual registro? Revise todos "
-                    + "los campos antes de proceder con guardado del registro.");
-        }
-        else if(tituloVentana.equals("Actualizar Matrícula")){
+                    + "los campos antes de proceder con el guardado del registro.");
+        } else if (tituloVentana.equals("Actualizar Matrícula")) {
             confirmationAlert = new Alert(Alert.AlertType.CONFIRMATION);
             confirmationAlert.setHeaderText(null);
             confirmationAlert.setTitle(tituloVentana + " - Confirmación de acualización de matrícula.");
             confirmationAlert.setContentText("¿Está seguro de que desea guardar el actual registro? Revise todos "
-                    + "los campos antes de proceder con guardado del registro.");
+                    + "los campos antes de proceder con el guardado del registro.");
+        } else {
+            confirmationAlert = new Alert(Alert.AlertType.CONFIRMATION);
+            confirmationAlert.setHeaderText(null);
+            confirmationAlert.setTitle(tituloVentana + " - Confirmación de acualización de matrícula.");
+            confirmationAlert.setContentText("¿Está seguro de que desea guardar el actual registro? Revise todos "
+                    + "los campos antes de proceder con el guardado del registro.");
         }
         else{
             confirmationAlert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -238,27 +242,42 @@ public class Modularizacion {
                 event.consume();
             }
         };
-
     }
+
     //Metodo para comprobar que el DNI introducido es válido. Letra correcta
     public static boolean validarDNI(String DNI) {
         boolean dniValido;
         char[] letras = {'T', 'R', 'W', 'A', 'G', 'M', 'Y', 'F', 'P', 'D', 'X', 'B', 'N', 'J', 'Z', 'S', 'Q', 'V', 'H', 'L', 'C', 'K', 'E'};
-        
+
         String numerosDNI = DNI.substring(0, 8);
-        
+
         int numero = Integer.parseInt(numerosDNI) % 23;
-        
-        if(letras[numero] == DNI.charAt(8))
+
+        if (letras[numero] == DNI.charAt(8)) {
             dniValido = true;
-        
-        else
+        } else {
             dniValido = false;
-        
+        }
+
         return dniValido;
 
     }
-    
+
+    // Método para restringir TextField a solo números sin coma
+    public static void numeroYMas(TextField textField) {
+
+        textField.textProperty().addListener(new ChangeListener<String>() {
+
+            @Override
+            public void changed(
+                    ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                if (!newValue.matches("[0-9+*]")) {
+                    textField.setText(newValue.replaceAll("[^0-9+]", ""));
+                }
+            }
+        });
+    }
+
     //  ***************************************** MÉTODOS PARA LIMPIAR *****************************************
     // Limpiar TextField
     public static void limpiarTextField(TextField textField) {
@@ -299,46 +318,49 @@ public class Modularizacion {
     public static void limpiarCheckBox(CheckBox checkBox) {
         checkBox.setSelected(false);
     }
-    
+
     //  ***************************************** MÉTODOS PARA RESALTAR ERRORES *****************************************
-    
     // ----------------------------- TEXTFIELD
     // Error de textField
-    public static void errorTextField(TextField textField){
+    public static void errorTextField(TextField textField) {
         textField.setStyle("-fx-background-color: #fcd7d4;");
     }
+
     // Resetear error
-    public static void resetearError(TextField textField){
+    public static void resetearError(TextField textField) {
         textField.setStyle("-fx-background-color: rgba(180, 180, 180, 0.3);");
     }
-    
+
     // ----------------------------- COMBOBOX
     // Error de comboBox
-    public static void errorComboBox(ComboBox comboBox){
+    public static void errorComboBox(ComboBox comboBox) {
         comboBox.setStyle("-fx-background-color: #fcd7d4;");
     }
+
     // Resetear error
-    public static void resetearError(ComboBox comboBox){
+    public static void resetearError(ComboBox comboBox) {
         comboBox.setStyle("-fx-background-color: rgba(180, 180, 180, 0.3);");
     }
-    
+
     // ----------------------------- DATEPICKER
     // Error de textField
-    public static void errorDatePicker(DatePicker datePicker){
+    public static void errorDatePicker(DatePicker datePicker) {
         datePicker.setStyle("-fx-background-color: #fcd7d4;");
     }
+
     // Resetear error
-    public static void resetearError(DatePicker datePicker){
+    public static void resetearError(DatePicker datePicker) {
         datePicker.setStyle("-fx-background-color: transparent;");
     }
-    
+
     // ----------------------------- SPINNER
     // Error de textField
-    public static void errorSpinner(Spinner spinner){
+    public static void errorSpinner(Spinner spinner) {
         spinner.setStyle("-fx-background-color: #fcd7d4;");
     }
+
     // Resetear error
-    public static void resetearError(Spinner spinner){
+    public static void resetearError(Spinner spinner) {
         spinner.setStyle("-fx-background-color: transparent");
     }
 }

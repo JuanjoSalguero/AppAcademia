@@ -11,7 +11,7 @@ import javax.persistence.Embeddable;
 
 /**
  *
- * @author usuario
+ * @author Juanjo
  */
 @Embeddable
 public class MatriculaPK implements Serializable {
@@ -73,7 +73,7 @@ public class MatriculaPK implements Serializable {
 
     @Override
     public String toString() {
-        return "entities.MatriculaPK[ alumnoDni=" + alumnoDni + ", cursoId=" + cursoId + " ]";
+        return "entidades.MatriculaPK[ alumnoDni=" + alumnoDni + ", cursoId=" + cursoId + " ]";
     }
     
 }

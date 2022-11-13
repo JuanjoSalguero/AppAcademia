@@ -5,24 +5,25 @@ import entities.Curso;
 import entities.Matricula;
 import entities.MatriculaPK;
 import entities.Provincia;
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.net.URL;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
-import javafx.beans.InvalidationListener;
-import javafx.beans.Observable;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -31,6 +32,8 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.Dialog;
+import javafx.scene.control.DialogPane;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.RadioButton;
@@ -329,6 +332,27 @@ public class VistaMatriculaController implements Initializable {
         limpiar();  // Limpiar todos los campos
         desactivarCamposAlumno();
     }
+    
+        @FXML
+    private void onActionButtonInfo(ActionEvent event) {
+        try{
+            // Cargar la vista de detalle
+            FXMLLoader fxmlLoader = new FXMLLoader();
+            fxmlLoader.setLocation(getClass().getResource("VistaInfoMatricula.fxml"));
+            DialogPane dialogPane = fxmlLoader.load();
+
+            VistaInfoMatriculaController vistaInfoMatriculaCursoController = fxmlLoader.getController();
+
+            Dialog<ButtonType> dialog = new Dialog();
+            dialog.setDialogPane(dialogPane);
+            //dialog.initStyle(StageStyle.UNIFIED);
+            Optional<ButtonType> clickedButton = dialog.showAndWait();
+            if(clickedButton.get() == ButtonType.CLOSE) dialog.close();
+
+        } catch (IOException ex) {
+            Logger.getLogger(VistaMatriculaController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 
     public void setEntityManager(EntityManager em) {
         this.em = em;
@@ -340,72 +364,48 @@ public class VistaMatriculaController implements Initializable {
         buttonModificarMatricula.setDisable(true);
         datePickerFechaMatricula.setValue(LocalDate.now());
         Modularizacion.soloLetras(textFieldNombre);
-        numeroYMas(textFieldTelefono);
+        Modularizacion.numeroYMas(textFieldTelefono);
         Modularizacion.soloLetras(textFieldLocalidad);
         soloNumerosYLetras(textFieldDNI);
         Modularizacion.caracteresValidosDireccion(textFieldDireccion);
     }
 
-    // Método para restringir TextField a solo números sin coma
-    public static void numeroYMas(TextField textField) {
-
-        textField.textProperty().addListener(new ChangeListener<String>() {
-
-            @Override
-            public void changed(
-                    ObservableValue<? extends String> observable, String oldValue, String newValue) {
-                if (!newValue.matches("[0-9+*]")) {
-                    textField.setText(newValue.replaceAll("[^0-9+]", ""));
-                }
-            }
-        });
-    }
     
     private void listenerDNI() {
-        textFieldDNI.focusedProperty().addListener(new ChangeListener<Boolean>() {
+       textFieldDNI.focusedProperty().addListener(new ChangeListener<Boolean>() {
             @Override
             public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
-                if(oldValue && Modularizacion.comprobarDNI(textFieldDNI.getText())) {
-                    if(!textFieldDNI.getText().isEmpty()) {
-                        textFieldDNI.setText(textFieldDNI.getText().toUpperCase());
-                        if(Modularizacion.comprobarDNI(textFieldDNI.getText()) && Modularizacion.validarDNI(textFieldDNI.getText())) {
-                            Modularizacion.resetearError(textFieldDNI);
-                            if(buscarDNI(textFieldDNI.getText())) {
-                                mostrarDatos(textFieldDNI.getText());
-                            }
-                                
-                            textFieldNombre.setDisable(false);
-                            textFieldDireccion.setDisable(false);
-                            textFieldTelefono.setDisable(false);
-                            textFieldLocalidad.setDisable(false);
-                            comboBoxProvincia.setDisable(false);
-                            textFieldLocalidad.requestFocus();
-                            
-                        }
-                        
-                        else {
-                            Modularizacion.errorTextField(textFieldDNI);
-                            
-                        }
+
+                if(!textFieldDNI.getText().isEmpty()) {
+                    textFieldDNI.setText(textFieldDNI.getText().toUpperCase());
+                    if(Modularizacion.comprobarDNI(textFieldDNI.getText()) && Modularizacion.validarDNI(textFieldDNI.getText())) {
+                        Modularizacion.resetearError(textFieldDNI);
+                        if(buscarDNI(textFieldDNI.getText()))
+                            mostrarDatos(textFieldDNI.getText());
+ 
+                        textFieldNombre.setDisable(false);
+                        textFieldDireccion.setDisable(false);
+                        textFieldTelefono.setDisable(false);
+                        textFieldLocalidad.setDisable(false);
+                        comboBoxProvincia.setDisable(false);
+                        textFieldLocalidad.requestFocus()
                     }
-                    
+ 
                     else {
+                        Modularizacion.errorTextField(textFieldDNI);
                         desactivarCamposAlumno();
                         borrarCampos();
-                        
+ 
                     }
-                    
+ 
                 }
-                
+ 
                 else {
-                    borrarCampos();
                     desactivarCamposAlumno();
-                    
-                }
-                
-                if(newValue && buscarDNI(textFieldDNI.getText()))
                     borrarCampos();
-                
+ 
+                }
+ 
             }
         });
         
@@ -555,9 +555,7 @@ public class VistaMatriculaController implements Initializable {
                     importe = calcularExtras(importe);
                     importe = Math.round(importe * 100) / 100;
                     textFieldImporteAbonado.setText(String.valueOf(importe));
-                    
                 }
-                
             }
         });
 
@@ -784,6 +782,7 @@ public class VistaMatriculaController implements Initializable {
         Modularizacion.cambiarModo(rootVistaMatricula, isLightMode);
     }
 
+    // Limitar campos
     public void limitarCamposMatricula() {
 
         textFieldDNI.addEventFilter(KeyEvent.KEY_TYPED, Modularizacion.longitudMaxima(9));
@@ -799,5 +798,4 @@ public class VistaMatriculaController implements Initializable {
         buttonModificarMatricula.setDisable(true);
         
     }
-
 }

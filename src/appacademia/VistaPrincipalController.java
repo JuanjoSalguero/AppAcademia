@@ -155,6 +155,7 @@ public class VistaPrincipalController implements Initializable {
             vistaAlumnosController.setRootVistaPrincipal(rootVistaPrincipal);
             // Asociar objeto a la clase VistaMatriculaController
             vistaAlumnosController.setEntityManager(em);
+            vistaAlumnosController.rellenarComboBoxProvincia();
             vistaAlumnosController.cargarAlumnos();
             vistaAlumnosController.rellenarComboBoxProvincia();
             vistaAlumnosController.cambiarModo(isLightMode);

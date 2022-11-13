@@ -7,8 +7,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -23,6 +21,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -116,8 +115,12 @@ public class VistaAlumnosController implements Initializable {
                 });
         
         caracteresValidos();
-        //rellenarComboBoxProvincia();
         
+        // Método para limitar la longitud de los campos a introducir
+        limitarCamposAlumnnos();
+
+        
+
     }
 
     public void cargarAlumnos() {
@@ -150,16 +153,13 @@ public class VistaAlumnosController implements Initializable {
             tableViewAlumnos.getItems().remove(alumnoSeleccionado);
             tableViewAlumnos.getFocusModel().focus(null);
             tableViewAlumnos.requestFocus();
-        } else {
-            // Acciones a realizar si el usuario cancela
         }
-
     }
 
     @FXML
     private void onActionButtonAnadir(ActionEvent event) {
 
-        boolean dniCorrecto = !textFieldDNI.getText().isEmpty() && Modularizacion.comprobarDNI(textFieldDNI.getText());
+        boolean dniCorrecto = !textFieldDNI.getText().isEmpty() && Modularizacion.comprobarDNI(textFieldDNI.getText()) && Modularizacion.validarDNI(textFieldDNI.getText()) ;
         boolean errorFormatoAlumno = false;
         alumnoNuevo = new Alumno();
         boolean yaExisteAlumno = buscarDNI(textFieldDNI.getText());
@@ -167,37 +167,49 @@ public class VistaAlumnosController implements Initializable {
         // Datos del alumnoNuevo
         if (dniCorrecto) {
             alumnoNuevo.setDni(textFieldDNI.getText());
+            Modularizacion.resetearError(textFieldDNI);
         } else {
+            Modularizacion.errorTextField(textFieldDNI);
             errorFormatoAlumno = true;
-        }
+        }   
 
         if (!textFieldNombre.getText().isEmpty()) {
             alumnoNuevo.setNombre(textFieldNombre.getText());
+            Modularizacion.resetearError(textFieldNombre);
         } else {
+            Modularizacion.errorTextField(textFieldNombre);
             errorFormatoAlumno = true;
         }
 
         if (!textFieldDireccion.getText().isEmpty()) {
             alumnoNuevo.setDireccion(textFieldDireccion.getText());
+            Modularizacion.resetearError(textFieldDireccion);
         } else {
+            Modularizacion.errorTextField(textFieldDireccion);
             errorFormatoAlumno = true;
         }
 
         if (!textFieldTelefono.getText().isEmpty()) {
             alumnoNuevo.setTelefono(textFieldTelefono.getText());
+            Modularizacion.resetearError(textFieldTelefono);
         } else {
+            Modularizacion.errorTextField(textFieldTelefono);
             errorFormatoAlumno = true;
         }
 
         if (!textFieldLocalidad.getText().isEmpty()) {
             alumnoNuevo.setLocalidad(textFieldLocalidad.getText());
+            Modularizacion.resetearError(textFieldLocalidad);
         } else {
+            Modularizacion.errorTextField(textFieldLocalidad);
             errorFormatoAlumno = true;
         }
 
         if (comboBoxProvincia.getValue() != null) {
             alumnoNuevo.setProvinciaid(comboBoxProvincia.getValue());
+            Modularizacion.resetearError(comboBoxProvincia);
         } else {
+            Modularizacion.errorComboBox(comboBoxProvincia);
             errorFormatoAlumno = true;
         }
 
@@ -245,7 +257,6 @@ public class VistaAlumnosController implements Initializable {
         limpiar();
     }
 
-    // Luego se implementa en clase de métodos generales
     public void setRootVistaPrincipal(Pane rootVistaPrincipal) {
         this.rootVistaPrincipal = rootVistaPrincipal;
     }
@@ -288,7 +299,6 @@ public class VistaAlumnosController implements Initializable {
                 return null;
             }
         });
-
     }
 
     // Método creado para comprobar si el DNI existe o no
@@ -314,26 +324,32 @@ public class VistaAlumnosController implements Initializable {
         Modularizacion.limpiarTextField(textFieldTelefono);
         Modularizacion.limpiarTextField(textFieldLocalidad);
         Modularizacion.limpiarComboBox(comboBoxProvincia);
+        
+        // Resetear tambien el color de los nodos en caso de que esté coloreado en rojo por algún error
+        Modularizacion.resetearError(textFieldDNI);
+        Modularizacion.resetearError(textFieldNombre);
+        Modularizacion.resetearError(textFieldDireccion);
+        Modularizacion.resetearError(textFieldTelefono);
+        Modularizacion.resetearError(textFieldLocalidad);
+        Modularizacion.resetearError(comboBoxProvincia);
     }
-
-    private static void caracteresValidosDireccion(TextField textField) {
-
-        textField.textProperty().addListener(new ChangeListener<String>() {
-
-            @Override
-            public void changed(
-                    ObservableValue<? extends String> observable, String oldValue, String newValue) {
-                if (!newValue.matches("[a-zA-Z0-9\\sñÑáéíóúÁÉÍÓÚ.,/ºª]")) {
-                    textField.setText(newValue.replaceAll("[^a-zA-Z0-9\\sñÑáéíóúÁÉÍÓÚ.,/ºª]", ""));
-                }
-            }
-        });
-    }
+    
     public void caracteresValidos(){
-        caracteresValidosDireccion(textFieldDireccion);
-        Modularizacion.soloNumeros(textFieldTelefono);
+        Modularizacion.caracteresValidosDireccion(textFieldDireccion);
+        Modularizacion.numeroYMas(textFieldTelefono);
         Modularizacion.soloLetras(textFieldNombre);
         Modularizacion.soloLetras(textFieldLocalidad);
+    }
+
+    
+    // Limitar campos
+    public void limitarCamposAlumnnos() {
+
+        textFieldDNI.addEventFilter(KeyEvent.KEY_TYPED, Modularizacion.longitudMaxima(9));
+        textFieldNombre.addEventFilter(KeyEvent.KEY_TYPED, Modularizacion.longitudMaxima(50));
+        textFieldDireccion.addEventFilter(KeyEvent.KEY_TYPED, Modularizacion.longitudMaxima(150));
+        textFieldTelefono.addEventFilter(KeyEvent.KEY_TYPED, Modularizacion.longitudMaxima(12));
+        textFieldLocalidad.addEventFilter(KeyEvent.KEY_TYPED, Modularizacion.longitudMaxima(50));
     }
 
     public void cambiarModo(boolean isLightMode){

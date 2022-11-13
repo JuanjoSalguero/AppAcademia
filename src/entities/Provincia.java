@@ -22,7 +22,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author usuario
+ * @author Juanjo
  */
 @Entity
 @Table(name = "PROVINCIA")
@@ -104,7 +104,7 @@ public class Provincia implements Serializable {
 
     @Override
     public String toString() {
-        return "entities.Provincia[ id=" + id + " ]";
+        return "entidades.Provincia[ id=" + id + " ]";
     }
     
 }
