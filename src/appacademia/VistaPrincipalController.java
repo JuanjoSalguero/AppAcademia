@@ -26,10 +26,10 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.animation.KeyValue;
 import javafx.animation.TranslateTransition;
+import javafx.scene.Cursor;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 import javafx.util.Duration;
 import javax.persistence.EntityManager;
 
@@ -60,11 +60,13 @@ public class VistaPrincipalController implements Initializable {
     private VBox configuracion;
     @FXML
     private ImageView botonConfiguracion;
+    @FXML
+    private ImageView icono;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-        transiciones(1, 1.2);
+        transiciones(.3, 1.2);
     }
 
     // Setter
@@ -81,9 +83,13 @@ public class VistaPrincipalController implements Initializable {
         if (isLightMode){
             Image imagen = new Image("img/night-mode.png");
             imagenModo.setImage(imagen);
+            Image imagen1 = new Image("img/home.png");
+            icono.setImage(imagen1);
         } else {
             Image imagen = new Image("img/light-mode.png");
             imagenModo.setImage(imagen);
+            Image imagen1 = new Image("img/home1.png");
+            icono.setImage(imagen1);
         }
         Modularizacion.cambiarModo(rootVistaPrincipal, isLightMode);
     }
@@ -103,22 +109,11 @@ public class VistaPrincipalController implements Initializable {
             // Ocultar la vista de la lista
             
             // Transición
-            Scene scene = rootVistaPrincipal.getScene();
-            rootVistaCurso.translateXProperty().set(scene.getWidth());
+            rootVistaPrincipal.setVisible(false);
 
             //Añadir la vista Curso al StackPane principal para que se muestre
             StackPane rootMain = (StackPane) rootVistaPrincipal.getScene().getRoot();
             rootMain.getChildren().add(rootVistaCurso);
-            
-            Timeline timeline = new Timeline();
-            KeyValue kv = new KeyValue(rootVistaCurso.translateXProperty(), 0, Interpolator.EASE_BOTH);
-            KeyFrame kf = new KeyFrame(Duration.seconds(1), kv);
-            
-            timeline.getKeyFrames().add(kf);
-            timeline.setOnFinished(timelineEvent -> {
-                rootVistaPrincipal.setVisible(false);
-            });
-            timeline.play();
             
         } catch (IOException ex) {
             Logger.getLogger(VistaCursoController.class.getName()).log(Level.SEVERE, null, ex);
@@ -161,6 +156,7 @@ public class VistaPrincipalController implements Initializable {
             // Asociar objeto a la clase VistaMatriculaController
             vistaAlumnosController.setEntityManager(em);
             vistaAlumnosController.cargarAlumnos();
+            vistaAlumnosController.rellenarComboBoxProvincia();
             vistaAlumnosController.cambiarModo(isLightMode);
 
             // Ocultar la vista de la lista
@@ -212,20 +208,24 @@ public class VistaPrincipalController implements Initializable {
     @FXML
     private void hoverIn(MouseEvent event) {
         
-        
+        hBoxNuevoCurso.setCursor(Cursor.HAND);
+        hBoxNuevaMatricula.setCursor(Cursor.HAND);
+        hBoxVistaAlumno.setCursor(Cursor.HAND);
+        hBoxAbout.setCursor(Cursor.HAND);
+        botonConfiguracion.setCursor(Cursor.HAND);
     }
 
     @FXML
     private void desplegarConfiguracion(MouseEvent event) {
         if(!configuracionDesplegada){
             configuracionDesplegada = true;
-            TranslateTransition imageTransicion = new TranslateTransition(Duration.seconds(1), botonConfiguracion);
-            imageTransicion.setDelay(Duration.seconds(0));
-            imageTransicion.setToX(60);
-            imageTransicion.setCycleCount(1);
-            imageTransicion.play();
+//            TranslateTransition imageTransicion = new TranslateTransition(Duration.seconds(.4), botonConfiguracion);
+//            imageTransicion.setDelay(Duration.seconds(0));
+//            imageTransicion.setToX(60);
+//            imageTransicion.setCycleCount(1);
+//            imageTransicion.play();
             
-            TranslateTransition vBoxTransicion = new TranslateTransition(Duration.seconds(1), configuracion);
+            TranslateTransition vBoxTransicion = new TranslateTransition(Duration.seconds(.4), configuracion);
             vBoxTransicion.setDelay(Duration.seconds(0));
             vBoxTransicion.setToX(60);
             vBoxTransicion.setCycleCount(1);
@@ -233,13 +233,13 @@ public class VistaPrincipalController implements Initializable {
         }
         else{
             configuracionDesplegada = false;
-            TranslateTransition imageTransicion = new TranslateTransition(Duration.seconds(1), botonConfiguracion);
-            imageTransicion.setDelay(Duration.seconds(0));
-            imageTransicion.setToX(0);
-            imageTransicion.setCycleCount(1);
-            imageTransicion.play();
+//            TranslateTransition imageTransicion = new TranslateTransition(Duration.seconds(.4), botonConfiguracion);
+//            imageTransicion.setDelay(Duration.seconds(0));
+//            imageTransicion.setToX(0);
+//            imageTransicion.setCycleCount(1);
+//            imageTransicion.play();
             
-            TranslateTransition vBoxTransicion = new TranslateTransition(Duration.seconds(1), configuracion);
+            TranslateTransition vBoxTransicion = new TranslateTransition(Duration.seconds(.4), configuracion);
             vBoxTransicion.setDelay(Duration.seconds(0));
             vBoxTransicion.setToX(0);
             vBoxTransicion.setCycleCount(1);

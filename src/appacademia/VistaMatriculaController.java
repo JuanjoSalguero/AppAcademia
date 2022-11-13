@@ -36,6 +36,8 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -97,6 +99,8 @@ public class VistaMatriculaController implements Initializable {
 
     @FXML
     private Button buttonModificarMatricula;
+    @FXML
+    private ImageView icono;
     
     /**
      * Initializes the controller class.
@@ -770,6 +774,13 @@ public class VistaMatriculaController implements Initializable {
     }
 
     public void cambiarModo(boolean isLightMode) {
+        if (isLightMode){
+            Image imagen = new Image("img/formulario1.png");
+            icono.setImage(imagen);
+        } else {
+            Image imagen = new Image("img/formulario-de-contacto.png");
+            icono.setImage(imagen);
+        }
         Modularizacion.cambiarModo(rootVistaMatricula, isLightMode);
     }
 

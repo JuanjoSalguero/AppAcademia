@@ -13,6 +13,7 @@ import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -42,8 +43,8 @@ public class Main extends Application {
         splashScreenController.setEntityManager(em);
 
                 
-        Scene scene = new Scene(rootMain, 1080, 800);
-        
+        Scene scene = new Scene(rootMain);
+        stage.initStyle(StageStyle.UNDECORATED);
         stage.setScene(scene);
         stage.show();
     }

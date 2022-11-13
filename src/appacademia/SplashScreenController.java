@@ -14,10 +14,10 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javax.persistence.EntityManager;
 
 /**
@@ -31,7 +31,7 @@ public class SplashScreenController implements Initializable {
     StackPane rootMain = new StackPane();
     
     @FXML
-    private AnchorPane rootPane;
+    private StackPane rootPane;
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -43,28 +43,29 @@ public class SplashScreenController implements Initializable {
         @Override
         public void run() {
             try {
-                Thread.sleep(3000);
+                Thread.sleep(1000);
                 
                 Platform.runLater(new Runnable() {
                     @Override
                     public void run() {
                         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("VistaPrincipal.fxml"));
-                        Pane rootAgendaView = null;
+                        Pane rootPrincipalView = null;
                         try {
-                            rootAgendaView = fxmlLoader.load();
+                            rootPrincipalView = fxmlLoader.load();
                         } catch (IOException ex) {
                             Logger.getLogger(SplashScreenController.class.getName()).log(Level.SEVERE, null, ex);
                         }
 
-                        rootMain.getChildren().add(rootAgendaView);
+                        rootMain.getChildren().add(rootPrincipalView);
 
                         // Asocial objeto a la clase SplashScreenController
                         VistaPrincipalController vistaPrincipalController = (VistaPrincipalController) fxmlLoader.getController();
                         vistaPrincipalController.setEntityManager(em);
 
 
-                        Scene scene = new Scene(rootMain, 1080, 800);
+                        Scene scene = new Scene(rootMain);
                         Stage stage = new Stage();
+                        //stage.initStyle(StageStyle.UTILITY);
                         stage.setScene(scene);
                         stage.show();
                         rootPane.getScene().getWindow().hide();

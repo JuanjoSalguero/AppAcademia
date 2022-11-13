@@ -9,6 +9,8 @@
 <?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -18,18 +20,31 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" fx:id="rootVistaMatricula" nodeOrientation="LEFT_TO_RIGHT" prefHeight="802.0" prefWidth="1039.0" styleClass="primary-color" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="appacademia.VistaMatriculaController">
+<AnchorPane id="AnchorPane" fx:id="rootVistaMatricula" nodeOrientation="LEFT_TO_RIGHT" prefHeight="802.0" prefWidth="1039.0" styleClass="primary-color" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="appacademia.VistaMatriculaController">
     <children>
-      <Label id="title" alignment="CENTER" layoutX="80.0" layoutY="38.0" prefHeight="70.0" prefWidth="879.0" style="-fx-font-weight: bold;" text="Matrícula" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="27.0">
-         <font>
-            <Font size="48.0" />
-         </font>
-         <padding>
-            <Insets left="20.0" />
-         </padding></Label>
-      <HBox alignment="CENTER" layoutX="25.0" layoutY="99.0" prefHeight="576.0" prefWidth="1039.0" AnchorPane.bottomAnchor="127.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="99.0">
+      <HBox id="homeTitle" layoutX="14.0" layoutY="28.0" prefHeight="110.0" prefWidth="200.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <GridPane id="celdaTipoDatos" alignment="CENTER_LEFT" prefHeight="597.0" prefWidth="957.0" vgap="20.0">
+            <ImageView fx:id="icono" fitHeight="63.0" fitWidth="56.0" pickOnBounds="true" preserveRatio="true">
+               <HBox.margin>
+                  <Insets left="30.0" top="20.0" />
+               </HBox.margin>
+               <image>
+                  <Image url="@../img/formulario1.png" />
+               </image>
+            </ImageView>
+            <Label id="homeTitle" prefHeight="106.0" prefWidth="429.0" text="Matrícula">
+               <font>
+                  <Font size="48.0" />
+               </font>
+               <padding>
+                  <Insets left="20.0" />
+               </padding>
+            </Label>
+         </children>
+      </HBox>
+      <HBox alignment="CENTER" layoutY="130.0" prefHeight="576.0" prefWidth="1039.0" AnchorPane.bottomAnchor="96.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="130.0">
+         <children>
+            <GridPane id="celdaTipoDatos" alignment="CENTER_LEFT" prefHeight="576.0" prefWidth="959.0" vgap="20.0">
               <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
               </columnConstraints>
@@ -41,9 +56,9 @@
                   <RowConstraints maxHeight="266.3999877929687" minHeight="10.0" prefHeight="266.3999877929687" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <Label id="header" style="-fx-font-weight: bold;" text="DATOS DEL ALUMNO">
+                  <Label id="header1" text="Datos del alumno">
                      <GridPane.margin>
-                        <Insets bottom="30.0" />
+                        <Insets bottom="30.0" top="20.0" />
                      </GridPane.margin>
                      <font>
                         <Font size="18.0" />
@@ -91,7 +106,7 @@
                         </Pane>
                      </children>
                   </VBox>
-                  <Label id="header" ellipsisString="" style="-fx-font-weight: bold;" text="DATOS DE MATRÍCULA" GridPane.rowIndex="3">
+                  <Label id="header1" ellipsisString="" prefWidth="254.0" text="Datos de matrícula" GridPane.rowIndex="3">
                      <padding>
                         <Insets bottom="30.0" />
                      </padding>
@@ -109,7 +124,7 @@
                      <children>
                         <Pane prefHeight="224.0" prefWidth="344.0">
                            <children>
-                              <Label id="header" style="-fx-font-weight: bold;" text="Tipo de matrícula">
+                              <Label id="header" text="Tipo de matrícula">
                                  <font>
                                     <Font size="16.0" />
                                  </font></Label>
@@ -141,7 +156,7 @@
                               <ComboBox fx:id="comboBoxCurso" layoutX="132.0" layoutY="26.0" prefHeight="25.0" prefWidth="212.0" />
                               <CheckBox id="textoEstandar" fx:id="checkBoxDocumentacion" layoutX="56.0" layoutY="80.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="197.0" text="Necesito documentación" />
                               <CheckBox id="textoEstandar" fx:id="checkBoxCertificado" layoutX="56.0" layoutY="111.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="190.0" text="Necesito certificado" />
-                              <Label id="header" layoutX="56.0" layoutY="175.0" style="-fx-font-weight: bold;" text="Importe abonado:">
+                              <Label id="header" layoutX="56.0" layoutY="175.0" text="Importe abonado:">
                                  <padding>
                                     <Insets left="20.0" />
                                  </padding>
@@ -164,7 +179,7 @@
             </GridPane>
          </children>
       </HBox>
-      <GridPane layoutX="95.0" layoutY="582.0" prefHeight="48.0" prefWidth="758.0" AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="80.0" AnchorPane.rightAnchor="80.0">
+      <GridPane layoutX="80.0" layoutY="725.0" prefHeight="48.0" prefWidth="758.0" AnchorPane.bottomAnchor="29.0" AnchorPane.leftAnchor="80.0" AnchorPane.rightAnchor="80.0">
          <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="100.0" minWidth="10.0" prefWidth="100.0" />
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -193,6 +208,6 @@
             </Button>
          </children>
       </GridPane>
-      <Button layoutX="959.0" layoutY="36.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="26.0" text="?" />
+      <Button id="ayuda" layoutX="929.0" layoutY="36.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="65.0" text="Ayuda" />
    </children>
 </AnchorPane>
