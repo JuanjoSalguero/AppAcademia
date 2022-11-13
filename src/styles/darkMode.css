@@ -78,15 +78,25 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to ed
     -fx-text-fill: rgba(24, 66, 36, 0.9);
 }
 .date-picker{
-    -fx-background-color: transparent;
+    -fx-background-color: -fx-textfield-background-color;
     -fx-background-radius: 30;
     -fx-focus-color: transparent;
+    -fx-border-width: 0.5;
+    -fx-border-radius: 30;
+    -fx-border-color: -fx-textfield-border-color;
+}
+.date-picker .text-field{
+    -fx-background-color: none;
+    -fx-background-radius: 0;
+    -fx-focus-color: transparent;
+    -fx-border-width: 0;
+    -fx-border-radius: 0;
+    -fx-border-color: transparent;
 }
 .date-picker .arrow-button{
     -fx-background-radius: 50;
     -fx-border-width: 0.5;
 }
-
 .spinner{
     -fx-background-color: transparent;
     -fx-background-radius: 30;    
