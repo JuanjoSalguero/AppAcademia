@@ -6,18 +6,23 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to ed
     Created on : 08-nov-2022, 19:23:39
     Author     : Juanjo
 */
+
 *{
-    -fx-textfield-background-color: rgba(180, 180, 180, 0.3);
-    -fx-textfield-readonly-background-color: rgba(221, 221, 221, 0.3);
-    -fx-textfield-border-color: rgba(86, 86, 86, 0.9);
-    -fx-celdaDatos-background-color: rgba(232, 232, 232, 0.3);
-    -fx-text-fill-estandar: black;
+    -fx-header-color: #0096C9;
+    -fx-header-text: white;
+    -fx-textfield-background-color: #f6f8fa;
+    -fx-textfield-readonly-background-color: rgba(246, 248, 250, 0.6);
+    -fx-textfield-focused-background-color: #f0f6fc;
+    -fx-textfield-border-color: #dcdce4;
+    -fx-celdaDatos-background-color: white;
+    -fx-text-fill-estandar: #4f5f7f;
     -fx-text-fill-header: black;
-    -fx-button-background: rgba(100, 100, 100, 0.6);
+    -fx-hbox-background: white;
+    -fx-hbox-border: #dcdce4;
 }
 
 .primary-color{
-    -fx-background-color: #FFFFFF;
+    -fx-background-color: #f6f8fa;
 }
 
 .secondary-color{
@@ -32,9 +37,18 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to ed
     -fx-padding: 7;
     -fx-background-radius: 30;
     -fx-focus-color: transparent;
-    -fx-border-width: 0.5;
+    -fx-border-width: 0.3;
+    -fx-border-color: -fx-header-color;
     -fx-border-radius: 30;
-    -fx-border-color: -fx-textfield-border-color;
+}
+.text-field:focused{
+    -fx-background-color: -fx-textfield-focused-background-color;
+    -fx-padding: 7;
+    -fx-background-radius: 30;
+    -fx-focus-color: transparent;
+    -fx-border-width: 0.5;
+    -fx-border-color: -fx-header-color;
+    -fx-border-radius: 30;
 }
 .text-input:disabled{
     -fx-background-color: -fx-textfield-readonly-background-color;
@@ -49,27 +63,74 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to ed
     -fx-font-size: 14px;
     -fx-text-fill: -fx-text-fill-estandar;
 }
+#title {
+    -fx-text-fill: -fx-text-fill-header;
+}
 #header{
     -fx-text-fill: -fx-text-fill-header;
 }
+#header1{
+    -fx-text-fill: -fx-text-fill-header;
+}
+
 #celdaTipoDatos{
+    -fx-background-radius: 20;
     -fx-background-color: -fx-celdaDatos-background-color;
+    -fx-border-width: 1;
+    -fx-border-radius: 20;
+    -fx-border-color: -fx-hbox-border;
     -fx-padding: 40;
 }
-#info{
-    -fx-background-radius: 30;
-    -fx-font-size: 14px;
-    -fx-background-color:-fx-button-background;
+#celdaIntroAlumno{
+    -fx-background-radius: 20;
+    -fx-background-color: -fx-celdaDatos-background-color;
+    -fx-border-width: 1;
+    -fx-border-radius: 20;
+    -fx-border-color: -fx-hbox-border;
+    -fx-padding: 20;
+}
+#hBoxBoton{
+    -fx-background-radius: 20;
+    -fx-background-color:-fx-hbox-background;
+    -fx-border-width: 1;
+    -fx-border-radius: 20;
+    -fx-border-color: -fx-hbox-border;
+}
+#conf{
+    -fx-background-radius: 0px 20px 20px 0px;
+    -fx-background-color: rgba(52, 172, 212, 0.1);
+    -fx-border-width: 1;
+    -fx-border-radius: 0px 20px 20px 0px;
+    -fx-border-color: -fx-hbox-border;
+}
+#homeTitle{
+    -fx-background-color:-fx-header-color;
+    -fx-text-fill: -fx-header-text;
+}
+#homeTitleText{
     -fx-text-fill: white;
+}
+#hBoxLabel{
+    -fx-text-fill: #4f5f7f;
 }
 .combo-box{
     -fx-background-color: -fx-textfield-background-color;
     -fx-padding: 4;
     -fx-background-radius: 30;
     -fx-focus-color: transparent;
-    -fx-border-width: 0.5;
+    -fx-border-width: 0.3;
+    -fx-border-color: -fx-header-color;
     -fx-border-radius: 30;
-    -fx-border-color: -fx-textfield-border-color;
+    -fx-text-fill: rgba(24, 66, 36, 0.9);
+}
+.combo-box:focused{
+    -fx-background-color: -fx-textfield-focused-background-color;
+    -fx-padding: 4;
+    -fx-background-radius: 30;
+    -fx-focus-color: transparent;
+    -fx-border-width: 0.3;
+    -fx-border-color: -fx-header-color;
+    -fx-border-radius: 30;
     -fx-text-fill: rgba(24, 66, 36, 0.9);
 }
 .date-picker{
@@ -91,6 +152,12 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to ed
 .date-picker .arrow-button{
     -fx-background-radius: 50;
     -fx-border-width: 0.5;
+    -fx-background-color:-fx-header-color;
+}
+.date-picker .arrow{
+    -fx-background-radius: 50;
+    -fx-border-width: 0.5;
+    -fx-background-color:white;
 }
 .spinner{
     -fx-background-color: transparent;
@@ -100,18 +167,112 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to ed
 .spinner .arrow-button, .increment-arrow-button, .decrement-arrow-button{
     -fx-background-radius: 30;
     -fx-border-width: 0.5;
+    -fx-background-color:-fx-header-color;
+    
+}
+.spinner .increment-arrow-button .increment-arrow {
+    -fx-background-color: white;
+}
+
+.spinner .decrement-arrow-button .decrement-arrow {
+    -fx-background-color: white;
 }
 .button{
     -fx-background-radius: 20;
     -fx-font-size: 14px;
-    -fx-background-color:-fx-button-background;
+    -fx-background-color:-fx-header-color;
     -fx-text-fill: white;
 }
 .button:hover {
-    -fx-background-color:
-        linear-gradient(from 0% 93% to 0% 100%, #9b9d9e 0%, #7a7c7d 100%),
-        #7a7c7d,
-        #9b9d9e,
-        radial-gradient(center 50% 50%, radius 100%, #9b9d9e, #7a7c7d);
+    -fx-background-color: #a6d7f7;
+}
+.radio-button .radio{
+    -fx-border-color: -fx-header-color;
+    -fx-border-radius: 20px;
+    -fx-border-width: 0.3;
+    -fx-background-color:#f6f8fa;
+}
+.radio-button:selected .radio{
+    -fx-border-radius: 20px;
+    -fx-border-width: 0.3;
+    -fx-border-color: -fx-header-color;
+    -fx-background-color:white;
+}
+.radio-button:hover .radio{
+    -fx-border-radius: 20px;
+    -fx-border-width: 0.3;
+    -fx-border-color: -fx-header-color;
+    -fx-background-color:#a6d7f7;
+}
+.radio-button:selected .radio .dot {
+    
+    -fx-background-color: -fx-header-color;
+}
+.check-box .box {
+
+-fx-background-color: #f6f8fa;
+-fx-border-color:-fx-header-color;
+-fx-border-radius:3px;
+-fx-border-width: 0.3;
+
+
 }
 
+.check-box:selected .mark {
+
+-fx-background-color: white;
+
+}
+.check-box:hover .box {
+
+-fx-background-color: #a6d7f7;
+
+}
+
+.check-box:selected .box {
+
+-fx-background-color: -fx-header-color;
+}
+.table-view {
+    -fx-background-color: -fx-hbox-border;
+    -fx-background-radius: 7px 7px 0px 0px;
+}
+.table-view .corner {
+    -fx-background-color: transparent;
+}
+.table-view .column-header-background{
+    -fx-background-color: -fx-header-color;
+    -fx-background-radius: 7px 7px 0px 0px;
+}
+.table-view .column-header {
+    -fx-background-color: transparent;
+}
+.table-view .table-cell{
+    -fx-border-color: transparent;
+    -fx-padding: 2 0 2 10px;
+}
+.table-row-cell:hover {
+    -fx-background-color: #93f9b911;
+    -fx-text-background-color: -fx-header-color;
+}
+.table-row-cell:selected {
+    -fx-background-color: #93f9b911;
+    -fx-text-background-color: -fx-header-color;
+}
+.table-row-cell:odd{
+    -fx-background-color: white;
+    -fx-background-insets: 0, 0 0 1 0;
+    -fx-padding: 0.0em;
+}
+.table-row-cell:even{
+    -fx-background-color: -fx-textfield-focused-background-color;
+    -fx-background-insets: 0, 0 0 1 0;
+    -fx-padding: 0.0em;
+}
+.table-view .column-header .label {
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+}
+#backgroundAlumnos{
+    -fx-background-color: #f6f8fa;
+}

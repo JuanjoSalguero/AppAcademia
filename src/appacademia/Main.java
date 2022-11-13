@@ -13,6 +13,7 @@ import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -30,20 +31,20 @@ public class Main extends Application {
     
     @Override
     public void start(Stage stage) throws Exception {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("VistaPrincipal.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("SplashScreen.fxml"));
         Pane rootAgendaView = fxmlLoader.load();
         rootMain.getChildren().add(rootAgendaView);
         
         emf = Persistence.createEntityManagerFactory("AppAcademiaPU");
         em = emf.createEntityManager();
         
-        // Asocial objeto a la clase VistaPrincipalController
-        VistaPrincipalController vistaPrincipalController = (VistaPrincipalController) fxmlLoader.getController();
-        vistaPrincipalController.setEntityManager(em);
+        // Asocial objeto a la clase SplashScreenController
+        SplashScreenController splashScreenController = (SplashScreenController) fxmlLoader.getController();
+        splashScreenController.setEntityManager(em);
 
                 
-        Scene scene = new Scene(rootMain, 1080, 800);
-        
+        Scene scene = new Scene(rootMain);
+        stage.initStyle(StageStyle.UNDECORATED);
         stage.setScene(scene);
         stage.show();
     }

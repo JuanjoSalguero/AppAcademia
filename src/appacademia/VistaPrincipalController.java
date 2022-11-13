@@ -25,6 +25,11 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.animation.KeyValue;
+import javafx.animation.TranslateTransition;
+import javafx.scene.Cursor;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 import javax.persistence.EntityManager;
 
@@ -36,16 +41,32 @@ public class VistaPrincipalController implements Initializable {
 
     private EntityManager em;
     private static boolean isLightMode = true;
+    private static boolean configuracionDesplegada = false;
 
     @FXML
     private AnchorPane rootVistaPrincipal;
     
     @FXML
     private ImageView imagenModo;
+    @FXML
+    private HBox hBoxNuevoCurso;
+    @FXML
+    private HBox hBoxNuevaMatricula;
+    @FXML
+    private HBox hBoxVistaAlumno;
+    @FXML
+    private HBox hBoxAbout;
+    @FXML
+    private VBox configuracion;
+    @FXML
+    private ImageView botonConfiguracion;
+    @FXML
+    private ImageView icono;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+        transiciones(.3, 1.2);
     }
 
     // Setter
@@ -53,8 +74,28 @@ public class VistaPrincipalController implements Initializable {
         this.em = entityManager;
     }
 
+
+    // Método para cambiar el modo de la vista (noche o dia)
     @FXML
-    private void onActionMenuItemNuevo(ActionEvent event) {
+    public void cambiarModo(ActionEvent event){
+        isLightMode = !isLightMode;
+        
+        if (isLightMode){
+            Image imagen = new Image("img/night-mode.png");
+            imagenModo.setImage(imagen);
+            Image imagen1 = new Image("img/home.png");
+            icono.setImage(imagen1);
+        } else {
+            Image imagen = new Image("img/light-mode.png");
+            imagenModo.setImage(imagen);
+            Image imagen1 = new Image("img/home1.png");
+            icono.setImage(imagen1);
+        }
+        Modularizacion.cambiarModo(rootVistaPrincipal, isLightMode);
+    }
+
+    @FXML
+    private void setOnMouseClickedCurso(MouseEvent event) {
         try {
             // Cargar la vista de detalle
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("VistaCurso.fxml"));
@@ -68,22 +109,11 @@ public class VistaPrincipalController implements Initializable {
             // Ocultar la vista de la lista
             
             // Transición
-            Scene scene = rootVistaPrincipal.getScene();
-            rootVistaCurso.translateXProperty().set(scene.getWidth());
+            rootVistaPrincipal.setVisible(false);
 
             //Añadir la vista Curso al StackPane principal para que se muestre
             StackPane rootMain = (StackPane) rootVistaPrincipal.getScene().getRoot();
             rootMain.getChildren().add(rootVistaCurso);
-            
-            Timeline timeline = new Timeline();
-            KeyValue kv = new KeyValue(rootVistaCurso.translateXProperty(), 0, Interpolator.EASE_BOTH);
-            KeyFrame kf = new KeyFrame(Duration.seconds(1), kv);
-            
-            timeline.getKeyFrames().add(kf);
-            timeline.setOnFinished(timelineEvent -> {
-            rootVistaPrincipal.setVisible(false);
-            });
-            timeline.play();
             
         } catch (IOException ex) {
             Logger.getLogger(VistaCursoController.class.getName()).log(Level.SEVERE, null, ex);
@@ -91,8 +121,8 @@ public class VistaPrincipalController implements Initializable {
     }
 
     @FXML
-    private void onActionMenuItemMatricula(ActionEvent event) {
-        try {
+    private void setOnMouseClickedMatricula(MouseEvent event) {
+                try {
             // Cargar la vista de detalle
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("VistaMatricula.fxml"));
             Parent rootVistaMatricula = fxmlLoader.load();
@@ -116,7 +146,7 @@ public class VistaPrincipalController implements Initializable {
     }
 
     @FXML
-    private void onActionMenuItemTablaAlumnos(ActionEvent event) {
+    private void setOnMouseClickedAlumnos(MouseEvent event) {
         try {
             // Cargar la vista de detalle
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("VistaAlumnos.fxml"));
@@ -127,6 +157,7 @@ public class VistaPrincipalController implements Initializable {
             vistaAlumnosController.setEntityManager(em);
             vistaAlumnosController.rellenarComboBoxProvincia();
             vistaAlumnosController.cargarAlumnos();
+            vistaAlumnosController.rellenarComboBoxProvincia();
             vistaAlumnosController.cambiarModo(isLightMode);
 
             // Ocultar la vista de la lista
@@ -140,19 +171,80 @@ public class VistaPrincipalController implements Initializable {
         }
     }
 
-    // Método para cambiar el modo de la vista (noche o dia)
-    @FXML
-    public void cambiarModo(ActionEvent event){
-        isLightMode = !isLightMode;
+    public void transiciones(double secComienzo, double secDuracion){
+        TranslateTransition hBoxTransicion = new TranslateTransition(Duration.seconds(secDuracion), hBoxNuevoCurso);
+        hBoxTransicion.setDelay(Duration.seconds(secComienzo));
+        hBoxTransicion.setToX(260);
+        hBoxTransicion.setCycleCount(1);
+        hBoxTransicion.play();
         
-        if (isLightMode){
-            Image imagen = new Image("img/night-mode.png");
-            imagenModo.setImage(imagen);
-        } else {
-            Image imagen = new Image("img/light-mode.png");
-            imagenModo.setImage(imagen);
-        }
-        Modularizacion.cambiarModo(rootVistaPrincipal, isLightMode);
+        TranslateTransition hBoxTransicion1 = new TranslateTransition(Duration.seconds(secDuracion), hBoxNuevaMatricula);
+        hBoxTransicion1.setDelay(Duration.seconds(secComienzo));
+        hBoxTransicion1.setToX(-228);
+        hBoxTransicion1.setCycleCount(1);
+        hBoxTransicion1.play();
+        
+        TranslateTransition hBoxTransicion2 = new TranslateTransition(Duration.seconds(secDuracion), hBoxVistaAlumno);
+        hBoxTransicion2.setDelay(Duration.seconds(secComienzo));
+        hBoxTransicion2.setToX(260);
+        hBoxTransicion2.setCycleCount(1);
+        hBoxTransicion2.play();
+        
+        TranslateTransition hBoxTransicion3 = new TranslateTransition(Duration.seconds(secDuracion), hBoxAbout);
+        hBoxTransicion3.setDelay(Duration.seconds(secComienzo));
+        hBoxTransicion3.setToX(-228);
+        hBoxTransicion3.setCycleCount(1);
+        hBoxTransicion3.play();
     }
     
+    public void reestablecerPosiciones(){
+        hBoxAbout.setLayoutX(424);
+    }
+
+    @FXML
+    private void hoverOut(MouseEvent event) {
+        
+    }
+
+    @FXML
+    private void hoverIn(MouseEvent event) {
+        
+        hBoxNuevoCurso.setCursor(Cursor.HAND);
+        hBoxNuevaMatricula.setCursor(Cursor.HAND);
+        hBoxVistaAlumno.setCursor(Cursor.HAND);
+        hBoxAbout.setCursor(Cursor.HAND);
+        botonConfiguracion.setCursor(Cursor.HAND);
+    }
+
+    @FXML
+    private void desplegarConfiguracion(MouseEvent event) {
+        if(!configuracionDesplegada){
+            configuracionDesplegada = true;
+//            TranslateTransition imageTransicion = new TranslateTransition(Duration.seconds(.4), botonConfiguracion);
+//            imageTransicion.setDelay(Duration.seconds(0));
+//            imageTransicion.setToX(60);
+//            imageTransicion.setCycleCount(1);
+//            imageTransicion.play();
+            
+            TranslateTransition vBoxTransicion = new TranslateTransition(Duration.seconds(.4), configuracion);
+            vBoxTransicion.setDelay(Duration.seconds(0));
+            vBoxTransicion.setToX(60);
+            vBoxTransicion.setCycleCount(1);
+            vBoxTransicion.play();
+        }
+        else{
+            configuracionDesplegada = false;
+//            TranslateTransition imageTransicion = new TranslateTransition(Duration.seconds(.4), botonConfiguracion);
+//            imageTransicion.setDelay(Duration.seconds(0));
+//            imageTransicion.setToX(0);
+//            imageTransicion.setCycleCount(1);
+//            imageTransicion.play();
+            
+            TranslateTransition vBoxTransicion = new TranslateTransition(Duration.seconds(.4), configuracion);
+            vBoxTransicion.setDelay(Duration.seconds(0));
+            vBoxTransicion.setToX(0);
+            vBoxTransicion.setCycleCount(1);
+            vBoxTransicion.play();
+        }
+    }
 }

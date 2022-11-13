@@ -22,6 +22,8 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
@@ -66,6 +68,8 @@ public class VistaAlumnosController implements Initializable {
     private TextField textFieldLocalidad;
     @FXML
     private TextField textFieldTelefono;
+    @FXML
+    private ImageView icono;
 
     /**
      * Initializes the controller class.
@@ -111,8 +115,12 @@ public class VistaAlumnosController implements Initializable {
                 });
         
         caracteresValidos();
+        
         // Método para limitar la longitud de los campos a introducir
         limitarCamposAlumnnos();
+
+        
+
     }
 
     public void cargarAlumnos() {
@@ -332,6 +340,7 @@ public class VistaAlumnosController implements Initializable {
         Modularizacion.soloLetras(textFieldNombre);
         Modularizacion.soloLetras(textFieldLocalidad);
     }
+
     
     // Limitar campos
     public void limitarCamposAlumnnos() {
@@ -344,7 +353,19 @@ public class VistaAlumnosController implements Initializable {
     }
 
     public void cambiarModo(boolean isLightMode){
+        if (isLightMode){
+            Image imagen = new Image("img/alumno1.png");
+            icono.setImage(imagen);
+        } else {
+            Image imagen = new Image("img/alumno.png");
+            icono.setImage(imagen);
+        }
         Modularizacion.cambiarModo(rootVistaAlumnos, isLightMode);
     }
+    
+    
 }
+
+    
+
 

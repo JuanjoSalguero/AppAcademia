@@ -37,6 +37,8 @@ import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
@@ -91,6 +93,8 @@ public class VistaCursoController implements Initializable {
     private ComboBox<String> comboBoxInstructor;
     @FXML
     private CheckBox checkBoxBeca;
+    @FXML
+    private ImageView icono;
 
     /**
      * Initializes the controller class.
@@ -100,7 +104,7 @@ public class VistaCursoController implements Initializable {
 
         // Control de errores y restricciones de los objetos
         controlYRestriccionErrores();
-
+        //Font.loadFont(getClass().getResourceAsStream("styles/KronaOneRegular.ttf"), 14);
         // Nº asistentes Spinner
         cargarSpinner();
         // Instructores ComboBox
@@ -416,6 +420,13 @@ public class VistaCursoController implements Initializable {
     }
 
     public void cambiarModo(boolean isLightMode) {
+        if (isLightMode){
+            Image imagen = new Image("img/gorro1.png");
+            icono.setImage(imagen);
+        } else {
+            Image imagen = new Image("img/gorra-de-posgrado.png");
+            icono.setImage(imagen);
+        }
         Modularizacion.cambiarModo(rootVistaCurso, isLightMode);
     }
 

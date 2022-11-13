@@ -39,11 +39,14 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.text.Font;
 import javafx.util.StringConverter;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
@@ -99,12 +102,15 @@ public class VistaMatriculaController implements Initializable {
 
     @FXML
     private Button buttonModificarMatricula;
+    @FXML
+    private ImageView icono;
     
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        
         // Control de errores y restricciones de los objetos
         controlYRestriccionErrores();
         
@@ -369,6 +375,7 @@ public class VistaMatriculaController implements Initializable {
        textFieldDNI.focusedProperty().addListener(new ChangeListener<Boolean>() {
             @Override
             public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+
                 if(!textFieldDNI.getText().isEmpty()) {
                     textFieldDNI.setText(textFieldDNI.getText().toUpperCase());
                     if(Modularizacion.comprobarDNI(textFieldDNI.getText()) && Modularizacion.validarDNI(textFieldDNI.getText())) {
@@ -381,7 +388,7 @@ public class VistaMatriculaController implements Initializable {
                         textFieldTelefono.setDisable(false);
                         textFieldLocalidad.setDisable(false);
                         comboBoxProvincia.setDisable(false);
-                        textFieldLocalidad.requestFocus();
+                        textFieldLocalidad.requestFocus()
                     }
  
                     else {
@@ -765,6 +772,13 @@ public class VistaMatriculaController implements Initializable {
     }
 
     public void cambiarModo(boolean isLightMode) {
+        if (isLightMode){
+            Image imagen = new Image("img/formulario1.png");
+            icono.setImage(imagen);
+        } else {
+            Image imagen = new Image("img/formulario-de-contacto.png");
+            icono.setImage(imagen);
+        }
         Modularizacion.cambiarModo(rootVistaMatricula, isLightMode);
     }
 
