@@ -2,57 +2,214 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" fx:id="rootVistaMatricula" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/19" fx:controller="appacademia.VistaMatriculaController">
+<AnchorPane id="AnchorPane" fx:id="rootVistaMatricula" nodeOrientation="LEFT_TO_RIGHT" prefHeight="802.0" prefWidth="1039.0" styleClass="primary-color" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="appacademia.VistaMatriculaController">
     <children>
-      <Label alignment="CENTER" layoutX="253.0" layoutY="14.0" prefHeight="25.0" prefWidth="95.0" style="-fx-font-size: 20;" text="Matrícula" />
-      <GridPane hgap="10.0" layoutY="42.0" prefHeight="367.0" prefWidth="600.0" vgap="10.0">
-        <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-        </columnConstraints>
-        <rowConstraints>
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-        </rowConstraints>
+      <HBox id="homeTitle" layoutX="14.0" layoutY="28.0" prefHeight="110.0" prefWidth="200.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="8">
-               <children>
-                  <Button mnemonicParsing="false" onAction="#onActionButtonAceptar" text="Aceptar">
-                     <HBox.margin>
-                        <Insets bottom="10.0" right="10.0" />
-                     </HBox.margin>
-                  </Button>
-                  <Button mnemonicParsing="false" onAction="#onActionButtonCancelar" text="Cancelar">
-                     <HBox.margin>
-                        <Insets bottom="10.0" left="10.0" />
-                     </HBox.margin>
-                  </Button>
-               </children>
-               <opaqueInsets>
-                  <Insets />
-               </opaqueInsets>
-               <GridPane.margin>
-                  <Insets right="10.0" />
-               </GridPane.margin>
-            </HBox>
+            <ImageView fx:id="icono" fitHeight="63.0" fitWidth="56.0" pickOnBounds="true" preserveRatio="true">
+               <HBox.margin>
+                  <Insets left="30.0" top="20.0" />
+               </HBox.margin>
+               <image>
+                  <Image url="@../img/formulario1.png" />
+               </image>
+            </ImageView>
+            <Label id="homeTitle" prefHeight="106.0" prefWidth="429.0" text="Matrícula">
+               <font>
+                  <Font size="48.0" />
+               </font>
+               <padding>
+                  <Insets left="20.0" />
+               </padding>
+            </Label>
          </children>
-         <padding>
-            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-         </padding>
+      </HBox>
+      <HBox alignment="CENTER" layoutY="130.0" prefHeight="576.0" prefWidth="1039.0" AnchorPane.bottomAnchor="96.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="130.0">
+         <children>
+            <GridPane id="celdaTipoDatos" alignment="CENTER_LEFT" prefHeight="576.0" prefWidth="959.0" vgap="20.0">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints maxHeight="53.99999084472656" minHeight="10.0" prefHeight="53.99999084472656" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="124.4" minHeight="10.0" prefHeight="124.4" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="124.4" minHeight="10.0" prefHeight="124.4" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="114.0" minHeight="0.0" prefHeight="34.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="266.3999877929687" minHeight="10.0" prefHeight="266.3999877929687" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <Label id="header1" text="Datos del alumno">
+                     <GridPane.margin>
+                        <Insets bottom="30.0" top="20.0" />
+                     </GridPane.margin>
+                     <font>
+                        <Font size="18.0" />
+                     </font></Label>
+                  <VBox alignment="CENTER" prefHeight="115.0" prefWidth="688.0" spacing="30.0" GridPane.rowIndex="1">
+                     <children>
+                        <Pane prefHeight="200.0" prefWidth="200.0">
+                           <children>
+                              <Label id="textoEstandar" text="DNI/CIF:" />
+                              <TextField fx:id="textFieldDNI" layoutX="101.0" layoutY="-4.0" prefHeight="25.0" prefWidth="146.0" />
+                              <TextField fx:id="textFieldLocalidad" layoutX="554.0" layoutY="-4.0" prefHeight="25.0" prefWidth="190.0" />
+                              <Label id="textoEstandar" layoutX="452.0" text="Localidad:" />
+                           </children>
+                           <VBox.margin>
+                              <Insets left="10.0" />
+                           </VBox.margin>
+                           <padding>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </padding>
+                        </Pane>
+                        <Pane prefHeight="200.0" prefWidth="200.0">
+                           <children>
+                              <Label id="textoEstandar" layoutY="-2.0" text="Nombre:" />
+                              <Label id="textoEstandar" layoutX="453.0" layoutY="-2.0" text="Teléfono:" />
+                              <TextField fx:id="textFieldNombre" layoutX="101.0" layoutY="-6.0" prefHeight="25.0" prefWidth="287.0" />
+                              <TextField fx:id="textFieldTelefono" layoutX="554.0" layoutY="-1.0" prefHeight="25.0" prefWidth="190.0" />
+                           </children>
+                           <VBox.margin>
+                              <Insets left="10.0" />
+                           </VBox.margin>
+                           <padding>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </padding>
+                        </Pane>
+                        <Pane prefHeight="200.0" prefWidth="538.0">
+                           <children>
+                              <Label id="textoEstandar" layoutX="454.0" text="Provincia:" />
+                              <TextField fx:id="textFieldDireccion" layoutX="102.0" layoutY="-4.0" prefHeight="25.0" prefWidth="287.0" />
+                              <ComboBox fx:id="comboBoxProvincia" layoutX="554.0" layoutY="-1.0" prefHeight="25.0" prefWidth="190.0" />
+                              <Label id="textoEstandar" text="Dirección:" />
+                           </children>
+                           <VBox.margin>
+                              <Insets left="10.0" />
+                           </VBox.margin>
+                        </Pane>
+                     </children>
+                  </VBox>
+                  <Label id="header1" ellipsisString="" prefWidth="254.0" text="Datos de matrícula" GridPane.rowIndex="3">
+                     <padding>
+                        <Insets bottom="30.0" />
+                     </padding>
+                     <font>
+                        <Font size="18.0" />
+                     </font></Label>
+                  <GridPane prefHeight="242.0" prefWidth="904.0" GridPane.rowIndex="4">
+                    <columnConstraints>
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints maxHeight="197.0" minHeight="10.0" prefHeight="180.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <Pane prefHeight="224.0" prefWidth="344.0">
+                           <children>
+                              <Label id="header" text="Tipo de matrícula">
+                                 <font>
+                                    <Font size="16.0" />
+                                 </font></Label>
+                              <RadioButton id="textoEstandar" fx:id="radioButtonOrdinaria" layoutY="43.0" mnemonicParsing="false" text="Ordinaria">
+                                 <padding>
+                                    <Insets left="10.0" />
+                                 </padding></RadioButton>
+                              <RadioButton id="textoEstandar" fx:id="radioButtonRepetidor" layoutY="69.0" mnemonicParsing="false" text="Repetidor/a">
+                                 <padding>
+                                    <Insets left="10.0" />
+                                 </padding></RadioButton>
+                              <RadioButton id="textoEstandar" fx:id="radioButtonFamNumerosa" layoutY="94.0" mnemonicParsing="false" text="Familia numerosa">
+                                 <padding>
+                                    <Insets left="10.0" />
+                                 </padding></RadioButton>
+                              <DatePicker fx:id="datePickerFechaMatricula" layoutX="14.0" layoutY="158.0" prefHeight="25.0" prefWidth="197.0" />
+                              <Label id="textoEstandar" layoutX="2.0" layoutY="135.0" text="Fecha de matriculación:">
+                                 <padding>
+                                    <Insets left="10.0" />
+                                 </padding></Label>
+                           </children>
+                           <GridPane.margin>
+                              <Insets left="10.0" />
+                           </GridPane.margin>
+                        </Pane>
+                        <Pane prefHeight="222.0" prefWidth="344.0" GridPane.columnIndex="1">
+                           <children>
+                              <Label id="textoEstandar" layoutX="56.0" layoutY="30.0" text="Curso:" />
+                              <ComboBox fx:id="comboBoxCurso" layoutX="132.0" layoutY="26.0" prefHeight="25.0" prefWidth="212.0" />
+                              <CheckBox id="textoEstandar" fx:id="checkBoxDocumentacion" layoutX="56.0" layoutY="80.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="197.0" text="Necesito documentación" />
+                              <CheckBox id="textoEstandar" fx:id="checkBoxCertificado" layoutX="56.0" layoutY="111.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="190.0" text="Necesito certificado" />
+                              <Label id="header" layoutX="56.0" layoutY="175.0" text="Importe abonado:">
+                                 <padding>
+                                    <Insets left="20.0" />
+                                 </padding>
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font></Label>
+                              <TextField fx:id="textFieldImporteAbonado" layoutX="208.0" layoutY="171.0" prefHeight="25.0" prefWidth="114.0" />
+                           </children>
+                        </Pane>
+                     </children>
+                  </GridPane>
+                  <Separator prefWidth="200.0" GridPane.rowIndex="2" />
+               </children>
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+               <padding>
+                  <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+               </padding>
+            </GridPane>
+         </children>
+      </HBox>
+      <GridPane layoutX="80.0" layoutY="725.0" prefHeight="48.0" prefWidth="758.0" AnchorPane.bottomAnchor="29.0" AnchorPane.leftAnchor="80.0" AnchorPane.rightAnchor="80.0">
+         <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="100.0" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="182.0" minWidth="10.0" prefWidth="159.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="236.0" minWidth="10.0" prefWidth="236.0" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+         </rowConstraints>
+         <children>
+            <Button mnemonicParsing="false" onAction="#onActionButtonLimpiar" prefHeight="36.0" prefWidth="95.0" text="Limpiar" />
+            <Button mnemonicParsing="false" onAction="#onActionButtonCancelar" prefHeight="36.0" prefWidth="95.0" text="Cancelar" GridPane.columnIndex="3" GridPane.halignment="RIGHT">
+               <padding>
+                  <Insets right="5.0" />
+               </padding>
+            </Button>
+            <Button mnemonicParsing="false" onAction="#onActionButtonAceptar" prefHeight="36.0" prefWidth="95.0" text="Aceptar" GridPane.columnIndex="3" GridPane.halignment="RIGHT">
+               <GridPane.margin>
+                  <Insets right="130.0" />
+               </GridPane.margin>
+            </Button>
+            <Button fx:id="buttonModificarMatricula" mnemonicParsing="false" onAction="#onActionButtonModificarMatricula" prefHeight="36.0" prefWidth="146.0" text="Modificar matrícula" GridPane.columnIndex="1">
+               <GridPane.margin>
+                  <Insets />
+               </GridPane.margin>
+            </Button>
+         </children>
       </GridPane>
+
+      <Button id="ayuda" layoutX="929.0" layoutY="36.0" mnemonicParsing="false" onAction="#onActionButtonInfo" prefHeight="25.0" prefWidth="65.0" text="Ayuda" />
+
    </children>
 </AnchorPane>

@@ -1,0 +1,325 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : 08-nov-2022, 19:23:50
+    Author     : Juanjo, Kristian
+*/
+
+*{
+    -fx-header-color: rgba(40, 40, 40);
+    -fx-header-text: #0096C9;
+    -fx-textfield-background-color: rgba(180, 180, 180, 0.3);
+    -fx-textfield-readonly-background-color: rgba(221, 221, 221, 0.3);
+    -fx-textfield-focused-background-color: rgba(100, 100, 100);
+    -fx-textfield-border-color: #0096C9;
+    -fx-celdaDatos-background-color: rgba(72, 72, 72, 0.3);
+    -fx-text-fill-estandar: rgba(180, 180, 180);
+    -fx-text-fill-header: #0096C9;
+    -fx-button-background: #0096C9;
+    -fx-hbox-background: rgba(40, 40, 40);
+    -fx-hbox-label: rgba(180, 180, 180);
+    -fx-hbox-border: rgba(100, 100, 100);
+}
+@font-face {
+    font-family: 'KronaOne';
+    src: url('KronaOne-Regular.ttf');
+}
+
+
+.primary-color{
+    -fx-background-color: #383838;
+}
+
+.secondary-color{
+    -fx-background-color: #282828;
+}
+
+.round-border{
+    -fx-background-radius: 100;
+}
+
+.menu-bar{
+    -fx-base: forestgreen;
+}
+.text-field{
+    -fx-background-color: -fx-textfield-background-color;
+    -fx-padding: 7;
+    -fx-background-radius: 30;
+    -fx-focus-color: transparent;
+    -fx-border-width: 0.3;
+    -fx-border-color: -fx-textfield-border-color;
+    -fx-border-radius: 30;
+    -fx-text-fill: white;
+}
+.text-field:focused{
+    -fx-background-color: -fx-textfield-focused-background-color;
+    -fx-padding: 7;
+    -fx-background-radius: 30;
+    -fx-focus-color: transparent;
+    -fx-border-width: 0.5;
+    -fx-border-color: -fx-textfield-border-color;
+    -fx-border-radius: 30;
+}
+.text-input:disabled{
+    -fx-background-color: -fx-textfield-readonly-background-color;
+    -fx-padding: 7;
+    -fx-background-radius: 30;
+    -fx-focus-color: transparent;
+    -fx-border-width: 0.5;
+    -fx-border-radius: 30;
+    -fx-border-color: -fx-textfield-border-color;
+}
+#textoEstandar{
+    -fx-font-size: 14px;
+    -fx-text-fill: -fx-text-fill-estandar;
+}
+#title {
+    -fx-text-fill: -fx-text-fill-header;
+}
+#header{
+    -fx-text-fill: -fx-text-fill-header;
+}
+#header1{
+    -fx-text-fill: -fx-text-fill-header;
+}
+
+#celdaTipoDatos{
+    -fx-background-radius: 20;
+    -fx-background-color: -fx-hbox-background;
+    -fx-border-width: 1;
+    -fx-border-radius: 20;
+    -fx-border-color: -fx-hbox-border;
+    -fx-padding: 40;
+}
+#celdaIntroAlumno{
+    -fx-background-radius: 20;
+    -fx-background-color: -fx-hbox-background;
+    -fx-border-width: 1;
+    -fx-border-radius: 20;
+    -fx-border-color: -fx-hbox-border;
+    -fx-padding: 20;
+}
+#hBoxBoton{
+    -fx-background-radius: 20;
+    -fx-background-color:-fx-hbox-background;
+    -fx-border-width: 1;
+    -fx-border-radius: 20;
+    -fx-border-color: -fx-hbox-border;
+}
+#conf{
+    -fx-background-radius: 0px 20px 20px 0px;
+    -fx-background-color: rgba(52, 172, 212, 0.1);
+    -fx-border-width: 1;
+    -fx-border-radius: 0px 20px 20px 0px;
+    -fx-border-color: -fx-hbox-border;
+}
+#homeTitle{
+    -fx-background-color:-fx-header-color;
+    -fx-text-fill: -fx-text-fill-header;
+}
+#homeTitleText{
+    -fx-text-fill: -fx-text-fill-header;
+}
+#hBoxLabel{
+    -fx-text-fill: -fx-hbox-label;
+}
+#ayuda{
+    -fx-background-color:-fx-header-color;
+}
+#ayuda:hover {
+    -fx-background-color: #a6d7f7;
+}
+#botonAbout{
+    -fx-background-radius: 0px 0px 20px 20px;
+    -fx-font-size: 14px;
+    -fx-background-color:-fx-button-background;
+    -fx-text-fill: white;
+}
+#botonAbout:hover {
+    -fx-background-color: #a6d7f7;
+}
+.combo-box{
+    -fx-background-color: -fx-textfield-background-color;
+    -fx-padding: 4;
+    -fx-background-radius: 30;
+    -fx-focus-color: transparent;
+    -fx-border-width: 0.3;
+    -fx-border-color: -fx-header-color;
+    -fx-border-radius: 30;
+    -fx-text-fill: white;
+}
+.combo-box:focused{
+    -fx-background-color: -fx-textfield-focused-background-color;
+    -fx-padding: 4;
+    -fx-background-radius: 30;
+    -fx-focus-color: transparent;
+    -fx-border-width: 0.3;
+    -fx-border-color: -fx-header-color;
+    -fx-border-radius: 30;
+    -fx-text-fill: white;
+}
+.date-picker{
+    -fx-background-color: -fx-textfield-background-color;
+    -fx-background-radius: 30;
+    -fx-focus-color: transparent;
+    -fx-border-width: 0.5;
+    -fx-border-radius: 30;
+    -fx-border-color: -fx-textfield-border-color;
+}
+.date-picker .text-field{
+    -fx-background-color: none;
+    -fx-background-radius: 0;
+    -fx-focus-color: transparent;
+    -fx-border-width: 0;
+    -fx-border-radius: 0;
+    -fx-border-color: transparent;
+}
+.date-picker .arrow-button{
+    -fx-background-radius: 50;
+    -fx-border-width: 0.5;
+    -fx-background-color:-fx-header-text;
+}
+.date-picker .arrow{
+    -fx-background-radius: 50;
+    -fx-border-width: 0.5;
+    -fx-background-color:-fx-header-color;
+}
+.spinner{
+    -fx-background-color: -fx-textfield-background-color;
+    -fx-background-radius: 30;
+    -fx-focus-color: transparent;
+    -fx-border-width: 0.5;
+    -fx-border-radius: 30;
+    -fx-border-color: -fx-textfield-border-color;
+}
+.spinner .text-field{
+    -fx-background-color: none;
+    -fx-background-radius: 0;
+    -fx-focus-color: transparent;
+    -fx-border-width: 0;
+    -fx-border-radius: 0;
+    -fx-border-color: transparent;
+}
+.spinner .arrow-button, .increment-arrow-button, .decrement-arrow-button{
+    -fx-background-radius: 100;
+    -fx-border-width: 0.5;
+    -fx-background-color:-fx-header-color;
+    -fx-padding: 5;
+}
+.spinner .increment-arrow-button .increment-arrow {
+    -fx-background-color: white;
+}
+
+.spinner .decrement-arrow-button .decrement-arrow {
+    -fx-background-color: white;
+}
+.button{
+    -fx-background-radius: 20;
+    -fx-font-size: 14px;
+    -fx-background-color:-fx-button-background;
+    -fx-text-fill: white;
+}
+.button:hover {
+    -fx-background-color: #a6d7f7;
+}
+.radio-button .radio{
+    -fx-border-color: -fx-header-text;
+    -fx-border-radius: 20px;
+    -fx-border-width: 0.3;
+    -fx-background-color:-fx-textfield-background-color;
+}
+.radio-button:selected .radio{
+    -fx-border-radius: 20px;
+    -fx-border-width: 0.3;
+    -fx-border-color: -fx-header-text;
+    -fx-background-color:-fx-header-text;
+}
+.radio-button:hover .radio{
+    -fx-border-radius: 20px;
+    -fx-border-width: 0.3;
+    -fx-border-color: -fx-header-text;
+    -fx-background-color:-fx-textfield-focused-background-color;
+}
+.radio-button:selected .radio .dot {
+
+    -fx-background-color: -fx-header-color;
+}
+
+
+.dialog, .anchor.pane{
+    -fx-background-color: #383838;
+}
+
+.check-box .box {
+
+    -fx-background-color: -fx-textfield-background-color;
+    -fx-border-color:-fx-header-text;
+    -fx-border-radius:3px;
+    -fx-border-width: 0.3;
+
+
+}
+
+.check-box:selected .mark {
+
+    -fx-background-color: -fx-header-color;
+
+}
+.check-box:hover .box {
+
+    -fx-background-color: -fx-textfield-focused-background-color;
+
+}
+
+.check-box:selected .box {
+
+    -fx-background-color: -fx-header-text;
+}
+.table-view {
+    -fx-background-color: -fx-header-color;
+    -fx-background-radius: 7px 7px 0px 0px;
+}
+.table-view .corner {
+    -fx-background-color: transparent;
+}
+.table-view .column-header-background{
+    -fx-background-color: -fx-header-color;
+    -fx-background-radius: 7px 7px 0px 0px;
+}
+.table-view .column-header {
+    -fx-background-color: transparent;
+}
+.table-view .table-cell{
+    -fx-border-color: transparent;
+    -fx-padding: 2 0 2 10px;
+}
+.table-row-cell:filled{
+    -fx-text-fill: white;
+}
+.table-row-cell:hover {
+    -fx-background-color: #93f9b911;
+    -fx-text-background-color: -fx-header-text;
+}
+.table-row-cell:selected {
+    -fx-background-color: #93f9b911;
+    -fx-text-background-color: -fx-header-text;
+}
+.table-row-cell:odd{
+    -fx-background-color: -fx-textfield-background-color;
+    -fx-background-insets: 0, 0 0 1 0;
+    -fx-padding: 0.0em;
+}
+.table-row-cell:even{
+    -fx-background-color: -fx-textfield-focused-background-color;
+    -fx-background-insets: 0, 0 0 1 0;
+    -fx-padding: 0.0em;
+}
+.table-view .column-header .label {
+    -fx-text-fill: -fx-header-text;
+    -fx-font-weight: bold;
+}
+#backgroundAlumnos{
+    -fx-background-color: #383838;
+}
