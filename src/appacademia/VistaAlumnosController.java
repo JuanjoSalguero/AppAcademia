@@ -57,7 +57,8 @@ public class VistaAlumnosController implements Initializable {
 
     private EntityManager em;
     private Alumno alumnoNuevo, alumnoSeleccionado;
-    
+    private boolean isLightMode = true;
+
     @FXML
     private TextField textFieldDNI;
     @FXML
@@ -113,14 +114,16 @@ public class VistaAlumnosController implements Initializable {
                         textFieldTelefono.setText("");
                     }
                 });
-        
+
         caracteresValidos();
-        
+
         // Método para limitar la longitud de los campos a introducir
         limitarCamposAlumnnos();
 
-        
+    }
 
+    public void setIsLightMode(boolean isLightMode) {
+        this.isLightMode = isLightMode;
     }
 
     public void cargarAlumnos() {
@@ -161,7 +164,7 @@ public class VistaAlumnosController implements Initializable {
     @FXML
     private void onActionButtonAnadir(ActionEvent event) {
 
-        boolean dniCorrecto = !textFieldDNI.getText().isEmpty() && Modularizacion.comprobarDNI(textFieldDNI.getText()) && Modularizacion.validarDNI(textFieldDNI.getText()) ;
+        boolean dniCorrecto = !textFieldDNI.getText().isEmpty() && Modularizacion.comprobarDNI(textFieldDNI.getText()) && Modularizacion.validarDNI(textFieldDNI.getText());
         boolean errorFormatoAlumno = false;
         alumnoNuevo = new Alumno();
         boolean yaExisteAlumno = buscarDNI(textFieldDNI.getText());
@@ -169,49 +172,49 @@ public class VistaAlumnosController implements Initializable {
         // Datos del alumnoNuevo
         if (dniCorrecto) {
             alumnoNuevo.setDni(textFieldDNI.getText());
-            Modularizacion.resetearError(textFieldDNI);
+            Modularizacion.resetearError(textFieldDNI,  isLightMode);
         } else {
-            Modularizacion.errorTextField(textFieldDNI);
+            Modularizacion.errorTextField(textFieldDNI,  isLightMode);
             errorFormatoAlumno = true;
-        }   
+        }
 
         if (!textFieldNombre.getText().isEmpty()) {
             alumnoNuevo.setNombre(textFieldNombre.getText());
-            Modularizacion.resetearError(textFieldNombre);
+            Modularizacion.resetearError(textFieldNombre,  isLightMode);
         } else {
-            Modularizacion.errorTextField(textFieldNombre);
+            Modularizacion.errorTextField(textFieldNombre,  isLightMode);
             errorFormatoAlumno = true;
         }
 
         if (!textFieldDireccion.getText().isEmpty()) {
             alumnoNuevo.setDireccion(textFieldDireccion.getText());
-            Modularizacion.resetearError(textFieldDireccion);
+            Modularizacion.resetearError(textFieldDireccion,  isLightMode);
         } else {
-            Modularizacion.errorTextField(textFieldDireccion);
+            Modularizacion.errorTextField(textFieldDireccion,  isLightMode);
             errorFormatoAlumno = true;
         }
 
         if (!textFieldTelefono.getText().isEmpty()) {
             alumnoNuevo.setTelefono(textFieldTelefono.getText());
-            Modularizacion.resetearError(textFieldTelefono);
+            Modularizacion.resetearError(textFieldTelefono,  isLightMode);
         } else {
-            Modularizacion.errorTextField(textFieldTelefono);
+            Modularizacion.errorTextField(textFieldTelefono,  isLightMode);
             errorFormatoAlumno = true;
         }
 
         if (!textFieldLocalidad.getText().isEmpty()) {
             alumnoNuevo.setLocalidad(textFieldLocalidad.getText());
-            Modularizacion.resetearError(textFieldLocalidad);
+            Modularizacion.resetearError(textFieldLocalidad,  isLightMode);
         } else {
-            Modularizacion.errorTextField(textFieldLocalidad);
+            Modularizacion.errorTextField(textFieldLocalidad,  isLightMode);
             errorFormatoAlumno = true;
         }
 
         if (comboBoxProvincia.getValue() != null) {
             alumnoNuevo.setProvinciaid(comboBoxProvincia.getValue());
-            Modularizacion.resetearError(comboBoxProvincia);
+            Modularizacion.resetearError(comboBoxProvincia,  isLightMode);
         } else {
-            Modularizacion.errorComboBox(comboBoxProvincia);
+            Modularizacion.errorComboBox(comboBoxProvincia,  isLightMode);
             errorFormatoAlumno = true;
         }
 
@@ -247,7 +250,7 @@ public class VistaAlumnosController implements Initializable {
         }
 
     }
-    
+
     @FXML
     private void onActionButtonLimpiar(ActionEvent event) {
         limpiar();
@@ -260,7 +263,6 @@ public class VistaAlumnosController implements Initializable {
     public void setEntityManager(EntityManager entityManager) {
         this.em = entityManager;
     }
-
 
     // Método para rellenar la provincia
     public void rellenarComboBoxProvincia() {
@@ -320,24 +322,23 @@ public class VistaAlumnosController implements Initializable {
         Modularizacion.limpiarTextField(textFieldTelefono);
         Modularizacion.limpiarTextField(textFieldLocalidad);
         Modularizacion.limpiarComboBox(comboBoxProvincia);
-        
+
         // Resetear tambien el color de los nodos en caso de que esté coloreado en rojo por algún error
-        Modularizacion.resetearError(textFieldDNI);
-        Modularizacion.resetearError(textFieldNombre);
-        Modularizacion.resetearError(textFieldDireccion);
-        Modularizacion.resetearError(textFieldTelefono);
-        Modularizacion.resetearError(textFieldLocalidad);
-        Modularizacion.resetearError(comboBoxProvincia);
+        Modularizacion.resetearError(textFieldDNI,  isLightMode);
+        Modularizacion.resetearError(textFieldNombre,  isLightMode);
+        Modularizacion.resetearError(textFieldDireccion,  isLightMode);
+        Modularizacion.resetearError(textFieldTelefono,  isLightMode);
+        Modularizacion.resetearError(textFieldLocalidad,  isLightMode);
+        Modularizacion.resetearError(comboBoxProvincia,  isLightMode);
     }
-    
-    public void caracteresValidos(){
+
+    public void caracteresValidos() {
         Modularizacion.caracteresValidosDireccion(textFieldDireccion);
         Modularizacion.numeroYMas(textFieldTelefono);
         Modularizacion.soloLetras(textFieldNombre);
         Modularizacion.soloLetras(textFieldLocalidad);
     }
 
-    
     // Limitar campos
     public void limitarCamposAlumnnos() {
 
@@ -348,8 +349,8 @@ public class VistaAlumnosController implements Initializable {
         textFieldLocalidad.addEventFilter(KeyEvent.KEY_TYPED, Modularizacion.longitudMaxima(50));
     }
 
-    public void cambiarModo(boolean isLightMode){
-        if (isLightMode){
+    public void cambiarModo(boolean isLightMode) {
+        if (isLightMode) {
             Image imagen = new Image("img/alumno1.png");
             icono.setImage(imagen);
         } else {
@@ -358,10 +359,5 @@ public class VistaAlumnosController implements Initializable {
         }
         Modularizacion.cambiarModo(rootVistaAlumnos, isLightMode);
     }
-    
-    
+
 }
-
-    
-
-

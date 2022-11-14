@@ -98,6 +98,7 @@ public class VistaMatriculaController implements Initializable {
     private MatriculaPK idMatriculaNueva;
     private Alumno alumnoNuevo;
     private ToggleGroup tipo;
+    private boolean isLightMode = true;
 
     @FXML
     private Button buttonModificarMatricula;
@@ -131,6 +132,10 @@ public class VistaMatriculaController implements Initializable {
         limitarCamposMatricula();
     }
 
+    public void setIsLightMode(boolean isLightMode){
+        this.isLightMode = isLightMode;
+    }
+    
     @FXML
     private void onActionButtonAceptar(ActionEvent event) {
         boolean errorFormatoAlumno = false;
@@ -144,54 +149,54 @@ public class VistaMatriculaController implements Initializable {
         if (!textFieldDNI.getText().isEmpty()) {
             idMatriculaNueva.setAlumnoDni(textFieldDNI.getText());
             alumnoNuevo.setDni(textFieldDNI.getText());
-            Modularizacion.resetearError(textFieldDNI);
+            Modularizacion.resetearError(textFieldDNI, isLightMode);
         } else {
-            Modularizacion.errorTextField(textFieldDNI);
+            Modularizacion.errorTextField(textFieldDNI,  isLightMode);
             errorFormatoAlumno = true;
 
         }
 
         if (!textFieldNombre.getText().isEmpty()) {
             alumnoNuevo.setNombre(textFieldNombre.getText());
-            Modularizacion.resetearError(textFieldNombre);
+            Modularizacion.resetearError(textFieldNombre,  isLightMode);
         } else {
-            Modularizacion.errorTextField(textFieldNombre);
+            Modularizacion.errorTextField(textFieldNombre,  isLightMode);
             errorFormatoAlumno = true;
 
         }
 
         if (!textFieldDireccion.getText().isEmpty()) {
             alumnoNuevo.setDireccion(textFieldDireccion.getText());
-            Modularizacion.resetearError(textFieldDireccion);
+            Modularizacion.resetearError(textFieldDireccion,  isLightMode);
         } else {
-            Modularizacion.errorTextField(textFieldDireccion);
+            Modularizacion.errorTextField(textFieldDireccion,  isLightMode);
             errorFormatoAlumno = true;
 
         }
 
         if (!textFieldTelefono.getText().isEmpty()) {
             alumnoNuevo.setTelefono(textFieldTelefono.getText());
-            Modularizacion.resetearError(textFieldTelefono);
+            Modularizacion.resetearError(textFieldTelefono,  isLightMode);
         } else {
-            Modularizacion.errorTextField(textFieldTelefono);
+            Modularizacion.errorTextField(textFieldTelefono,  isLightMode);
             errorFormatoAlumno = true;
 
         }
 
         if (!textFieldLocalidad.getText().isEmpty()) {
             alumnoNuevo.setLocalidad(textFieldLocalidad.getText());
-            Modularizacion.resetearError(textFieldLocalidad);
+            Modularizacion.resetearError(textFieldLocalidad,  isLightMode);
         } else {
-            Modularizacion.errorTextField(textFieldLocalidad);
+            Modularizacion.errorTextField(textFieldLocalidad,  isLightMode);
             errorFormatoAlumno = true;
 
         }
 
         if (comboBoxProvincia.getValue() != null) {
             alumnoNuevo.setProvinciaid(comboBoxProvincia.getValue());
-            Modularizacion.resetearError(comboBoxProvincia);
+            Modularizacion.resetearError(comboBoxProvincia,  isLightMode);
         } else {
-            Modularizacion.errorComboBox(comboBoxProvincia);
+            Modularizacion.errorComboBox(comboBoxProvincia,  isLightMode);
             errorFormatoAlumno = true;
 
         }
@@ -211,18 +216,18 @@ public class VistaMatriculaController implements Initializable {
             Instant instant = zonedDateTime.toInstant();
             Date date = Date.from(instant);
             matriculaNueva.setFecha(date);
-            Modularizacion.resetearError(datePickerFechaMatricula);
+            Modularizacion.resetearError(datePickerFechaMatricula,  isLightMode);
         } else {
-            Modularizacion.errorDatePicker(datePickerFechaMatricula);
+            Modularizacion.errorDatePicker(datePickerFechaMatricula,  isLightMode);
             errorFormatoAlumno = true;
 
         }
 
         if (comboBoxCurso.getValue() != null) {
             idMatriculaNueva.setCursoId(comboBoxCurso.getValue().getId());
-            Modularizacion.resetearError(comboBoxCurso);
+            Modularizacion.resetearError(comboBoxCurso,  isLightMode);
         } else {
-            Modularizacion.errorComboBox(comboBoxCurso);
+            Modularizacion.errorComboBox(comboBoxCurso,  isLightMode);
             errorFormatoAlumno = true;
 
         }
@@ -247,8 +252,7 @@ public class VistaMatriculaController implements Initializable {
         }
 
         if (!textFieldImporteAbonado.getText().isEmpty()) {
-            matriculaNueva.setImporteAbonado(BigDecimal.valueOf(Double.parseDouble(textFieldImporteAbonado.getText().substring
-        (0, textFieldImporteAbonado.getText().length() -1))));
+            matriculaNueva.setImporteAbonado(BigDecimal.valueOf(Double.parseDouble(textFieldImporteAbonado.getText().substring(0, textFieldImporteAbonado.getText().length() - 1))));
         } else {
             errorFormatoAlumno = true;
         }
@@ -372,7 +376,7 @@ public class VistaMatriculaController implements Initializable {
                 if (!textFieldDNI.getText().isEmpty()) {
                     textFieldDNI.setText(textFieldDNI.getText().toUpperCase());
                     if (Modularizacion.comprobarDNI(textFieldDNI.getText()) && Modularizacion.validarDNI(textFieldDNI.getText())) {
-                        Modularizacion.resetearError(textFieldDNI);
+                        Modularizacion.resetearError(textFieldDNI,  isLightMode);
                         if (buscarDNI(textFieldDNI.getText())) {
                             mostrarDatos(textFieldDNI.getText());
                         }
@@ -384,7 +388,7 @@ public class VistaMatriculaController implements Initializable {
                         comboBoxProvincia.setDisable(false);
                         //textFieldLocalidad.requestFocus();
                     } else {
-                        Modularizacion.errorTextField(textFieldDNI);
+                        Modularizacion.errorTextField(textFieldDNI,  isLightMode);
                         desactivarCamposAlumno();
                         borrarCampos();
 
@@ -749,14 +753,14 @@ public class VistaMatriculaController implements Initializable {
         Modularizacion.limpiarTextField(textFieldImporteAbonado);
 
         // Resetear tambien el color de los nodos en caso de que esté coloreado en rojo por algún error
-        Modularizacion.resetearError(textFieldDNI);
-        Modularizacion.resetearError(textFieldNombre);
-        Modularizacion.resetearError(textFieldDireccion);
-        Modularizacion.resetearError(textFieldTelefono);
-        Modularizacion.resetearError(textFieldLocalidad);
-        Modularizacion.resetearError(comboBoxProvincia);
-        Modularizacion.resetearError(datePickerFechaMatricula);
-        Modularizacion.resetearError(comboBoxCurso);
+        Modularizacion.resetearError(textFieldDNI,  isLightMode);
+        Modularizacion.resetearError(textFieldNombre,  isLightMode);
+        Modularizacion.resetearError(textFieldDireccion,  isLightMode);
+        Modularizacion.resetearError(textFieldTelefono,  isLightMode);
+        Modularizacion.resetearError(textFieldLocalidad,  isLightMode);
+        Modularizacion.resetearError(comboBoxProvincia,  isLightMode);
+        Modularizacion.resetearError(datePickerFechaMatricula,  isLightMode);
+        Modularizacion.resetearError(comboBoxCurso,  isLightMode);
     }
 
     public void cambiarModo(boolean isLightMode) {
