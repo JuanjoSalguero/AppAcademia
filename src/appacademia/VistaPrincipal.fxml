@@ -35,9 +35,17 @@
                   <Font size="48.0" />
                </font>
             </Label>
+            <ImageView fx:id="minimizar" fitHeight="35.0" fitWidth="39.0" onMouseClicked="#minimizar" pickOnBounds="true" preserveRatio="true">
+               <HBox.margin>
+                  <Insets left="30.0" />
+               </HBox.margin>
+               <image>
+                  <Image url="@../img/minimizar.png" />
+               </image>
+            </ImageView>
             <ImageView fx:id="cerrar" fitHeight="39.0" fitWidth="29.0" onMouseClicked="#onClickCerrar" pickOnBounds="true" preserveRatio="true">
                <HBox.margin>
-                  <Insets bottom="20.0" left="90.0" />
+                  <Insets bottom="10.0" left="20.0" />
                </HBox.margin>
                <image>
                   <Image url="@../img/letra-x.png" />
@@ -200,7 +208,7 @@
             <Image url="@../img/ajuste.png" />
          </image>
       </ImageView>
-            <VBox id="hBoxBoton" fx:id="about" alignment="TOP_CENTER" layoutX="270.0" layoutY="-600.0" prefHeight="600.0" prefWidth="500.0" AnchorPane.leftAnchor="274.0">
+            <VBox id="hBoxBoton" fx:id="about" alignment="TOP_CENTER" layoutX="274.0" layoutY="-606.0" prefHeight="600.0" prefWidth="500.0" AnchorPane.leftAnchor="273.0">
          <children>
             <HBox id="aboutTitle" alignment="CENTER_LEFT" prefHeight="59.0" prefWidth="498.0">
                <children>
@@ -299,9 +307,9 @@
                   </VBox>
                   <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="1">
                      <children>
-                        <Label id="header" text="Thiago Vignolo Ferreira" />
-                        <Label id="hBoxLabel" text="thiagovignoloferreira@gmail.com" />
-                        <Label id="hBoxLabel" text="github.com/ThiagoVignolo" />
+                        <Label id="header" text="Adrián Blanca Enríquez" />
+                        <Label id="hBoxLabel" text="adrianblancaenriquez26@gmail.com" />
+                        <Label id="hBoxLabel" text="github.com/AdrianBlanca" />
                      </children>
                      <padding>
                         <Insets left="20.0" />
@@ -309,9 +317,9 @@
                   </VBox>
                   <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                      <children>
-                        <Label id="header" text="Thiago Vignolo Ferreira" />
-                        <Label id="hBoxLabel" text="thiagovignoloferreira@gmail.com" />
-                        <Label id="hBoxLabel" text="github.com/ThiagoVignolo" />
+                        <Label id="header" text="Juanjo Salguero Acevedo" />
+                        <Label id="hBoxLabel" text="juanjosalguero96@hotmail.com" />
+                        <Label id="hBoxLabel" text="github.com/JuanjoSalguero" />
                      </children>
                      <padding>
                         <Insets left="20.0" />
@@ -332,6 +340,9 @@
                <HBox.margin>
                   <Insets right="20.0" />
                </HBox.margin>
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
             </Label>
          </children>
          <opaqueInsets>
