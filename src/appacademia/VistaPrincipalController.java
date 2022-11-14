@@ -31,7 +31,7 @@ import javax.persistence.EntityManager;
 
 /**
  *
- * @author
+ * @Kristian Johansson
  */
 public class VistaPrincipalController implements Initializable {
 

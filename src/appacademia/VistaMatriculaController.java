@@ -46,7 +46,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
-import javafx.scene.text.Font;
 import javafx.util.StringConverter;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
@@ -55,7 +54,7 @@ import javax.persistence.RollbackException;
 /**
  * FXML Controller class
  *
- * @author kristian
+ * @author Adrian
  */
 public class VistaMatriculaController implements Initializable {
 
