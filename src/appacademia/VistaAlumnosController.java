@@ -139,20 +139,22 @@ public class VistaAlumnosController implements Initializable {
 
     @FXML
     private void onActionButtonSuprimir(ActionEvent event) {
-        Alert alert = new Alert(AlertType.CONFIRMATION);
-        alert.setTitle("Confirmar");
-        alert.setHeaderText("¿Desea suprimir el siguiente registro?");
-        alert.setContentText(alumnoSeleccionado.getDni() + " " + alumnoSeleccionado.getNombre());
-        Optional<ButtonType> result = alert.showAndWait();
-        if (result.get() == ButtonType.OK) {
-            // Acciones a realizar si el usuario acepta
-            em.getTransaction().begin();
-            em.merge(alumnoSeleccionado);
-            em.remove(alumnoSeleccionado);
-            em.getTransaction().commit();
-            tableViewAlumnos.getItems().remove(alumnoSeleccionado);
-            tableViewAlumnos.getFocusModel().focus(null);
-            tableViewAlumnos.requestFocus();
+        if (alumnoSeleccionado != null) {
+            Alert alert = new Alert(AlertType.CONFIRMATION);
+            alert.setTitle("Confirmar");
+            alert.setHeaderText("¿Desea suprimir el siguiente registro?");
+            alert.setContentText(alumnoSeleccionado.getDni() + " " + alumnoSeleccionado.getNombre());
+            Optional<ButtonType> result = alert.showAndWait();
+            if (result.get() == ButtonType.OK) {
+                // Acciones a realizar si el usuario acepta
+                em.getTransaction().begin();
+                em.merge(alumnoSeleccionado);
+                em.remove(alumnoSeleccionado);
+                em.getTransaction().commit();
+                tableViewAlumnos.getItems().remove(alumnoSeleccionado);
+                tableViewAlumnos.getFocusModel().focus(null);
+                tableViewAlumnos.requestFocus();
+            }
         }
     }
 
@@ -239,15 +241,9 @@ public class VistaAlumnosController implements Initializable {
                     tableViewAlumnos.refresh();
                 }
             } catch (RollbackException ex) { // Los datos introducidos no cumplen requisitos de BD
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setHeaderText("No se han podido guardar los cambios. " + "Compruebe que los datos cumplen los requisitos");
-                alert.setContentText(ex.getLocalizedMessage());
-                alert.showAndWait();
             }
         } else {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setHeaderText("No se han podido guardar los cambios. " + "Compruebe que los datos cumplen los requisitos");
-            alert.showAndWait();
+            Modularizacion.errorTab();
         }
 
     }

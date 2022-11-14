@@ -223,7 +223,7 @@ public class VistaCursoController implements Initializable {
 
         // Importe
         if (!textFieldImporte.getText().isEmpty()) {
-            curso.setImporte(BigDecimal.valueOf(Double.parseDouble(textFieldImporte.getText())));
+            curso.setImporte(BigDecimal.valueOf(Double.parseDouble(textFieldImporte.getText().substring(0, textFieldImporte.getText().length() -1))));
             Modularizacion.resetearError(textFieldImporte);
         } else {
             Modularizacion.errorTextField(textFieldImporte);
@@ -263,15 +263,9 @@ public class VistaCursoController implements Initializable {
                     limpiar();
                 }
             } catch (RollbackException ex) { // Los datos introducidos no cumplen requisitos de BD
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setHeaderText("No se han podido guardar los cambios. " + "Compruebe que los datos cumplen los requisitos.");
-                alert.setContentText(ex.getLocalizedMessage());
-                alert.showAndWait();
             }
         } else {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setHeaderText("No se han podido guardar los cambios. " + "Compruebe que los datos cumplen los requisitos.");
-            alert.showAndWait();
+            Modularizacion.errorTab();
         }
     }
 
@@ -301,7 +295,9 @@ public class VistaCursoController implements Initializable {
             dialog.setDialogPane(dialogPane);
             //dialog.initStyle(StageStyle.UNIFIED);
             Optional<ButtonType> clickedButton = dialog.showAndWait();
-            if(clickedButton.get() == ButtonType.CLOSE) dialog.close();            
+            if (clickedButton.get() == ButtonType.CLOSE) {
+                dialog.close();
+            }
 
         } catch (IOException ex) {
             Logger.getLogger(VistaCursoController.class.getName()).log(Level.SEVERE, null, ex);
@@ -362,7 +358,11 @@ public class VistaCursoController implements Initializable {
         // Restricción del DatePicker Fecha de Inicio
         Modularizacion.restringirDatepickers(datePickerFechaInicio, datePickerFechaFin);
         // TextField Duración restricción solo números
-        Modularizacion.soloNumerosYComa(textFieldImporte);
+        Modularizacion.soloNumerosYComaYEuro(textFieldImporte);
+        anadirEuro(textFieldImporte);
+
+        // Limitar campos 
+        limitarCamposMatricula();
     }
 
     // Método para limpiar los campos
@@ -420,7 +420,7 @@ public class VistaCursoController implements Initializable {
     }
 
     public void cambiarModo(boolean isLightMode) {
-        if (isLightMode){
+        if (isLightMode) {
             Image imagen = new Image("img/gorro1.png");
             icono.setImage(imagen);
         } else {
@@ -437,5 +437,16 @@ public class VistaCursoController implements Initializable {
         textFieldCertificacion.addEventFilter(KeyEvent.KEY_TYPED, Modularizacion.longitudMaxima(100));
         textFieldProveedor.addEventFilter(KeyEvent.KEY_TYPED, Modularizacion.longitudMaxima(100));
         textFieldImporte.addEventFilter(KeyEvent.KEY_TYPED, Modularizacion.longitudMaxima(8));
+    }
+    
+     // Método para añadir el € al importe 
+    public static void anadirEuro(TextField textField){
+                textField.focusedProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue) {
+                if (!textField.getText().contains("€") && !textField.getText().isEmpty()){
+                    textField.setText(textField.getText() + "€");
+                }
+            }
+        });
     }
 }

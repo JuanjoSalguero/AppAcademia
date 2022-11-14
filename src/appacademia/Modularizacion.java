@@ -102,15 +102,15 @@ public class Modularizacion {
     }
 
     // Método para restringir TextField a solo números con coma
-    public static void soloNumerosYComa(TextField textField) {
+    public static void soloNumerosYComaYEuro(TextField textField) {
 
         textField.textProperty().addListener(new ChangeListener<String>() {
 
             @Override
             public void changed(
                     ObservableValue<? extends String> observable, String oldValue, String newValue) {
-                if (!newValue.matches("[0-9.*]")) {
-                    textField.setText(newValue.replaceAll("[^0-9.]", ""));
+                if (!newValue.matches("[0-9.€*]")) {
+                    textField.setText(newValue.replaceAll("[^0-9.€]", ""));
                 }
             }
         });
@@ -149,28 +149,33 @@ public class Modularizacion {
 
     // Método para confirmar que deseamos enviar los datos
     public static void confirmationTab(String tituloVentana) {
+
         if (tituloVentana.equals("Nueva Matrícula y Nuevo Alumno")) {
             confirmationAlert = new Alert(Alert.AlertType.CONFIRMATION);
             confirmationAlert.setHeaderText(null);
+            confirmationAlert.getDialogPane().setPrefSize(600, 150);
             confirmationAlert.setTitle(tituloVentana + " - Confirmación de guardado de registro.");
             confirmationAlert.setContentText("¿Está seguro de que desea guardar el actual registro? Revise todos "
                     + "los campos antes de proceder con el guardado del registro.");
         } else if (tituloVentana.equals("Nueva Matrícula y Actualizar Alumno")) {
             confirmationAlert = new Alert(Alert.AlertType.CONFIRMATION);
             confirmationAlert.setHeaderText(null);
+            confirmationAlert.getDialogPane().setPrefSize(800, 150);
             confirmationAlert.setTitle(tituloVentana + " - Confirmación de guardado de registro y acualización de alumno.");
             confirmationAlert.setContentText("¿Está seguro de que desea guardar el actual registro? Revise todos "
                     + "los campos antes de proceder con el guardado del registro.");
         } else if (tituloVentana.equals("Actualizar Matrícula")) {
             confirmationAlert = new Alert(Alert.AlertType.CONFIRMATION);
             confirmationAlert.setHeaderText(null);
+            confirmationAlert.getDialogPane().setPrefSize(600, 150);
             confirmationAlert.setTitle(tituloVentana + " - Confirmación de acualización de matrícula.");
             confirmationAlert.setContentText("¿Está seguro de que desea guardar el actual registro? Revise todos "
                     + "los campos antes de proceder con el guardado del registro.");
         } else {
             confirmationAlert = new Alert(Alert.AlertType.CONFIRMATION);
             confirmationAlert.setHeaderText(null);
-            confirmationAlert.setTitle(tituloVentana + " - Confirmación de acualización de matrícula.");
+            confirmationAlert.getDialogPane().setPrefSize(600, 150);
+            confirmationAlert.setTitle(tituloVentana + " - Confirmación de guardado de registro.");
             confirmationAlert.setContentText("¿Está seguro de que desea guardar el actual registro? Revise todos "
                     + "los campos antes de proceder con el guardado del registro.");
         }
@@ -271,6 +276,14 @@ public class Modularizacion {
         });
     }
 
+        // Método para mostrar alert de error
+    public static void errorTab() {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setHeaderText("No se han podido guardar los cambios. " + "Compruebe que los datos cumplen los requisitos.");
+        alert.getDialogPane().setPrefSize(500, 50);
+        alert.showAndWait();
+    }
+    
     //  ***************************************** MÉTODOS PARA LIMPIAR *****************************************
     // Limpiar TextField
     public static void limpiarTextField(TextField textField) {

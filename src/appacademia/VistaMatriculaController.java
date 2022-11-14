@@ -247,7 +247,8 @@ public class VistaMatriculaController implements Initializable {
         }
 
         if (!textFieldImporteAbonado.getText().isEmpty()) {
-            matriculaNueva.setImporteAbonado(BigDecimal.valueOf(Double.parseDouble(textFieldImporteAbonado.getText())));
+            matriculaNueva.setImporteAbonado(BigDecimal.valueOf(Double.parseDouble(textFieldImporteAbonado.getText().substring
+        (0, textFieldImporteAbonado.getText().length() -1))));
         } else {
             errorFormatoAlumno = true;
         }
@@ -298,15 +299,9 @@ public class VistaMatriculaController implements Initializable {
                 em.getTransaction().commit();
 
             } catch (RollbackException ex) { // Los datos introducidos no cumplen requisitos de BD
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setHeaderText("No se han podido guardar los cambios. " + "Compruebe que los datos cumplen los requisitos");
-                alert.setContentText(ex.getLocalizedMessage());
-                alert.showAndWait();
             }
         } else {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setHeaderText("No se han podido guardar los cambios. " + "Compruebe que los datos cumplen los requisitos");
-            alert.showAndWait();
+            Modularizacion.errorTab();
         }
 
     }
@@ -548,7 +543,7 @@ public class VistaMatriculaController implements Initializable {
                     double importe = newValue.getImporte().doubleValue();
                     importe = calcularExtras(importe);
                     importe = Math.round(importe * 100) / 100;
-                    textFieldImporteAbonado.setText(String.valueOf(importe));
+                    textFieldImporteAbonado.setText(String.valueOf(importe) + "€");
                 }
             }
         });
@@ -560,7 +555,7 @@ public class VistaMatriculaController implements Initializable {
                     double importe = comboBoxCurso.getValue().getImporte().doubleValue();
                     importe = calcularExtras(importe);
                     importe = Math.round(importe * 100) / 100;
-                    textFieldImporteAbonado.setText(String.valueOf(importe));
+                    textFieldImporteAbonado.setText(String.valueOf(importe) + "€");
                 }
             }
         });
@@ -572,7 +567,7 @@ public class VistaMatriculaController implements Initializable {
                     double importe = comboBoxCurso.getValue().getImporte().doubleValue();
                     importe = calcularExtras(importe);
                     importe = Math.round(importe * 100) / 100;
-                    textFieldImporteAbonado.setText(String.valueOf(importe));
+                    textFieldImporteAbonado.setText(String.valueOf(importe) + "€");
                 }
             }
         });
@@ -584,7 +579,7 @@ public class VistaMatriculaController implements Initializable {
                     double importe = comboBoxCurso.getValue().getImporte().doubleValue();
                     importe = calcularExtras(importe);
                     importe = Math.round(importe * 100) / 100;
-                    textFieldImporteAbonado.setText(String.valueOf(importe));
+                    textFieldImporteAbonado.setText(String.valueOf(importe) + "€");
                 }
             }
         });
@@ -596,7 +591,7 @@ public class VistaMatriculaController implements Initializable {
                     double importe = comboBoxCurso.getValue().getImporte().doubleValue();
                     importe = calcularExtras(importe);
                     importe = Math.round(importe * 100) / 100;
-                    textFieldImporteAbonado.setText(String.valueOf(importe));
+                    textFieldImporteAbonado.setText(String.valueOf(importe) + "€");
                 }
             }
         });

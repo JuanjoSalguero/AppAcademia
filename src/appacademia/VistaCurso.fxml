@@ -242,7 +242,7 @@
                         <Tooltip text="Marcar en caso de corresponder beca" />
                      </tooltip>
                   </CheckBox>
-                  <Text id="header" fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" text="Ayudas para el estudio, mobilidad, investigación, centros docentes o necesidades específicas." textAlignment="JUSTIFY" wrappingWidth="310.513671875" GridPane.columnIndex="2" GridPane.halignment="LEFT" GridPane.rowIndex="9" GridPane.valignment="BOTTOM">
+                  <Text id="header" fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" text="Ayudas para el estudio, mobilidad, investigación, centros docentes o necesidades específicas." textAlignment="JUSTIFY" wrappingWidth="364.1136474609375" GridPane.columnIndex="2" GridPane.halignment="LEFT" GridPane.rowIndex="9" GridPane.valignment="BOTTOM">
                      <GridPane.margin>
                         <Insets left="20.0" />
                      </GridPane.margin>
