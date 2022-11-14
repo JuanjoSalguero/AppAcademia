@@ -21,6 +21,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.animation.TranslateTransition;
 import javafx.scene.Cursor;
+import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -66,6 +67,8 @@ public class VistaPrincipalController implements Initializable {
     private ImageView logo;
     @FXML
     private ImageView cerrar;
+    @FXML
+    private ImageView minimizar;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -94,6 +97,8 @@ public class VistaPrincipalController implements Initializable {
             logo.setImage(imagen3);
             Image imagen4 = new Image("img/letra-x.png");
             cerrar.setImage(imagen4);
+            Image imagen5 = new Image("img/minimizar.png");
+            minimizar.setImage(imagen5);
         } else {
             Image imagen = new Image("img/light-mode.png");
             imagenModo.setImage(imagen);
@@ -106,6 +111,9 @@ public class VistaPrincipalController implements Initializable {
             Image imagen4 = new Image("img/letra-x1.png");
             cerrar.setImage(imagen4);
 
+            Image imagen5 = new Image("img/minimizar1.png");
+            minimizar.setImage(imagen5);
+           
         }
         Modularizacion.cambiarModo(rootVistaPrincipal, isLightMode);
     }
@@ -122,7 +130,10 @@ public class VistaPrincipalController implements Initializable {
             vistaCursoController.setEntityManager(em);
             vistaCursoController.cambiarModo(isLightMode);
             cerrarConfiguracion(configuracionDesplegada);
+
             vistaCursoController.setIsLightMode(isLightMode);
+           
+
             // Ocultar la vista de la lista   
             rootVistaPrincipal.setVisible(false);
 
@@ -297,5 +308,10 @@ public class VistaPrincipalController implements Initializable {
     private void onClickCerrar(MouseEvent event) {
         Stage stage = (Stage) cerrar.getScene().getWindow();
         stage.close();
+    }
+
+    @FXML
+    private void minimizar(MouseEvent event) {
+        ((Stage)((ImageView)event.getSource()).getScene().getWindow()).setIconified(true);
     }
 }
