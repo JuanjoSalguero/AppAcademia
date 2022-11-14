@@ -115,6 +115,10 @@ public class VistaCursoController implements Initializable {
         cargarCategoriasComboBox();
     }
 
+    public void setIsLightMode(boolean isLightMode) {
+        this.isLightMode = isLightMode;
+    }
+
     // Setter
     public void setEntityManager(EntityManager entityManager) {
         this.em = entityManager;
@@ -133,45 +137,45 @@ public class VistaCursoController implements Initializable {
         // Nombre del curso
         if (!textFieldNombre.getText().isEmpty()) {
             curso.setNombre(textFieldNombre.getText());
-            Modularizacion.resetearError(textFieldNombre);
+            Modularizacion.resetearError(textFieldNombre,  isLightMode);
         } else {
-            Modularizacion.errorTextField(textFieldNombre);
+            Modularizacion.errorTextField(textFieldNombre,  isLightMode);
             errorFormato = true;
         }
 
         // Duración del curso
         if (!textFieldDuracion.getText().isEmpty()) {
             curso.setDuracion(Integer.parseInt(textFieldDuracion.getText()));
-            Modularizacion.resetearError(textFieldDuracion);
+            Modularizacion.resetearError(textFieldDuracion,  isLightMode);
         } else {
-            Modularizacion.errorTextField(textFieldDuracion);
+            Modularizacion.errorTextField(textFieldDuracion,  isLightMode);
             errorFormato = true;
         }
 
         // Proveedor
         if (!textFieldProveedor.getText().isEmpty()) {
             curso.setProveedor(textFieldProveedor.getText());
-            Modularizacion.resetearError(textFieldProveedor);
+            Modularizacion.resetearError(textFieldProveedor,  isLightMode);
         } else {
-            Modularizacion.errorTextField(textFieldProveedor);
+            Modularizacion.errorTextField(textFieldProveedor,  isLightMode);
             errorFormato = true;
         }
 
         // Categoria
         if (comboBoxCategoria.getValue() != null) {
             curso.setCategoria(comboBoxCategoria.getValue());
-            Modularizacion.resetearError(comboBoxCategoria);
+            Modularizacion.resetearError(comboBoxCategoria,  isLightMode);
         } else {
-            Modularizacion.errorComboBox(comboBoxCategoria);
+            Modularizacion.errorComboBox(comboBoxCategoria,  isLightMode);
             errorFormato = true;
         }
 
         // Certificación
         if (!textFieldCertificacion.getText().isEmpty()) {
             curso.setCertificacion(textFieldCertificacion.getText());
-            Modularizacion.resetearError(textFieldCertificacion);
+            Modularizacion.resetearError(textFieldCertificacion,  isLightMode);
         } else {
-            Modularizacion.errorTextField(textFieldCertificacion);
+            Modularizacion.errorTextField(textFieldCertificacion,  isLightMode);
             errorFormato = true;
         }
 
@@ -183,9 +187,9 @@ public class VistaCursoController implements Initializable {
             Instant instant = zonedDateTime.toInstant();
             Date date = Date.from(instant);
             curso.setFechaInicio(date);
-            Modularizacion.resetearError(datePickerFechaInicio);
+            Modularizacion.resetearError(datePickerFechaInicio,  isLightMode);
         } else {
-            Modularizacion.errorDatePicker(datePickerFechaInicio);
+            Modularizacion.errorDatePicker(datePickerFechaInicio,  isLightMode);
             errorFormato = true;
         }
 
@@ -197,18 +201,18 @@ public class VistaCursoController implements Initializable {
             Instant instant = zonedDateTime.toInstant();
             Date date = Date.from(instant);
             curso.setFechaFin(date);
-            Modularizacion.resetearError(datePickerFechaFin);
+            Modularizacion.resetearError(datePickerFechaFin,  isLightMode);
         } else {
-            Modularizacion.errorDatePicker(datePickerFechaFin);
+            Modularizacion.errorDatePicker(datePickerFechaFin,  isLightMode);
             errorFormato = true;
         }
 
         // Número de asistentes
         if (!spinnerAsistentes.getValue().equals(0)) {
             curso.setNumAsistentes(spinnerAsistentes.getValue());
-            Modularizacion.resetearError(spinnerAsistentes);
+            Modularizacion.resetearError(spinnerAsistentes,  isLightMode);
         } else {
-            Modularizacion.errorSpinner(spinnerAsistentes);
+            Modularizacion.errorSpinner(spinnerAsistentes,  isLightMode);
             errorFormato = true;
         }
 
@@ -223,19 +227,19 @@ public class VistaCursoController implements Initializable {
 
         // Importe
         if (!textFieldImporte.getText().isEmpty()) {
-            curso.setImporte(BigDecimal.valueOf(Double.parseDouble(textFieldImporte.getText().substring(0, textFieldImporte.getText().length() -1))));
-            Modularizacion.resetearError(textFieldImporte);
+            curso.setImporte(BigDecimal.valueOf(Double.parseDouble(textFieldImporte.getText().substring(0, textFieldImporte.getText().length() - 1))));
+            Modularizacion.resetearError(textFieldImporte,  isLightMode);
         } else {
-            Modularizacion.errorTextField(textFieldImporte);
+            Modularizacion.errorTextField(textFieldImporte,  isLightMode);
             errorFormato = true;
         }
 
         // Instructor
         if (comboBoxInstructor.getValue() != null) {
             curso.setInstructor(comboBoxInstructor.getValue());
-            Modularizacion.resetearError(comboBoxInstructor);
+            Modularizacion.resetearError(comboBoxInstructor,  isLightMode);
         } else {
-            Modularizacion.errorComboBox(comboBoxInstructor);
+            Modularizacion.errorComboBox(comboBoxInstructor,  isLightMode);
             errorFormato = true;
         }
 
@@ -384,16 +388,16 @@ public class VistaCursoController implements Initializable {
         Modularizacion.limpiarRadioButton(radioButtonVideoDemanda);
         Modularizacion.limpiarCheckBox(checkBoxBeca);
         // Resetear tambien el color de los nodos en caso de que esté coloreado en rojo por algún error
-        Modularizacion.resetearError(textFieldNombre);
-        Modularizacion.resetearError(textFieldDuracion);
-        Modularizacion.resetearError(textFieldProveedor);
-        Modularizacion.resetearError(comboBoxCategoria);
-        Modularizacion.resetearError(textFieldCertificacion);
-        Modularizacion.resetearError(datePickerFechaInicio);
-        Modularizacion.resetearError(datePickerFechaFin);
-        Modularizacion.resetearError(spinnerAsistentes);
-        Modularizacion.resetearError(textFieldImporte);
-        Modularizacion.resetearError(comboBoxInstructor);
+        Modularizacion.resetearError(textFieldNombre,  isLightMode);
+        Modularizacion.resetearError(textFieldDuracion,  isLightMode);
+        Modularizacion.resetearError(textFieldProveedor,  isLightMode);
+        Modularizacion.resetearError(comboBoxCategoria,  isLightMode);
+        Modularizacion.resetearError(textFieldCertificacion,  isLightMode);
+        Modularizacion.resetearError(datePickerFechaInicio,  isLightMode);
+        Modularizacion.resetearError(datePickerFechaFin,  isLightMode);
+        Modularizacion.resetearError(spinnerAsistentes,  isLightMode);
+        Modularizacion.resetearError(textFieldImporte,  isLightMode);
+        Modularizacion.resetearError(comboBoxInstructor,  isLightMode);
     }
 
     private void cargarCategoriasComboBox() {
@@ -438,12 +442,12 @@ public class VistaCursoController implements Initializable {
         textFieldProveedor.addEventFilter(KeyEvent.KEY_TYPED, Modularizacion.longitudMaxima(100));
         textFieldImporte.addEventFilter(KeyEvent.KEY_TYPED, Modularizacion.longitudMaxima(8));
     }
-    
-     // Método para añadir el € al importe 
-    public static void anadirEuro(TextField textField){
-                textField.focusedProperty().addListener((observable, oldValue, newValue) -> {
+
+    // Método para añadir el € al importe 
+    public static void anadirEuro(TextField textField) {
+        textField.focusedProperty().addListener((observable, oldValue, newValue) -> {
             if (!newValue) {
-                if (!textField.getText().contains("€") && !textField.getText().isEmpty()){
+                if (!textField.getText().contains("€") && !textField.getText().isEmpty()) {
                     textField.setText(textField.getText() + "€");
                 }
             }

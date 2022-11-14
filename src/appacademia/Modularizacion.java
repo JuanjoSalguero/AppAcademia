@@ -211,6 +211,7 @@ public class Modularizacion {
         return dniCorrecto;
     }
 
+    // Método para cambiar al modo oscuro
     public static void cambiarModo(AnchorPane root, boolean isLightMode) {
         if (isLightMode) {
             Modularizacion.establecerModoDia(root);
@@ -219,6 +220,7 @@ public class Modularizacion {
         }
     }
 
+    // Método para establecer dia o noche
     public static void establecerModoDia(AnchorPane root) {
         root.getStylesheets().remove("styles/darkMode.css");
         root.getStylesheets().add("styles/lightMode.css");
@@ -276,14 +278,14 @@ public class Modularizacion {
         });
     }
 
-        // Método para mostrar alert de error
+    // Método para mostrar alert de error
     public static void errorTab() {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setHeaderText("No se han podido guardar los cambios. " + "Compruebe que los datos cumplen los requisitos.");
         alert.getDialogPane().setPrefSize(500, 50);
         alert.showAndWait();
     }
-    
+
     //  ***************************************** MÉTODOS PARA LIMPIAR *****************************************
     // Limpiar TextField
     public static void limpiarTextField(TextField textField) {
@@ -328,46 +330,78 @@ public class Modularizacion {
     //  ***************************************** MÉTODOS PARA RESALTAR ERRORES *****************************************
     // ----------------------------- TEXTFIELD
     // Error de textField
-    public static void errorTextField(TextField textField) {
-        textField.setStyle("-fx-background-color: #fcd7d4;");
+    public static void errorTextField(TextField textField, boolean isLightMode) {
+        if (isLightMode) {
+            textField.setStyle("-fx-background-color: #fcd7d4;");
+        } else {
+            textField.setStyle("-fx-background-color: #641c1c;");
+        }
     }
 
     // Resetear error
-    public static void resetearError(TextField textField) {
-        textField.setStyle("-fx-background-color: rgba(180, 180, 180, 0.3);");
+    public static void resetearError(TextField textField, boolean isLightMode) {
+        if (isLightMode) {
+            textField.setStyle("-fx-background-color:#f6f8fa;");
+        } else {
+            textField.setStyle("-fx-background-color:rgba(180, 180, 180, 0.3);");
+        }
     }
 
     // ----------------------------- COMBOBOX
     // Error de comboBox
-    public static void errorComboBox(ComboBox comboBox) {
-        comboBox.setStyle("-fx-background-color: #fcd7d4;");
+    public static void errorComboBox(ComboBox comboBox, boolean isLightMode) {
+        if (isLightMode) {
+            comboBox.setStyle("-fx-background-color: #fcd7d4;");
+        } else {
+            comboBox.setStyle("-fx-background-color: #641c1c;");
+        }
     }
 
     // Resetear error
-    public static void resetearError(ComboBox comboBox) {
-        comboBox.setStyle("-fx-background-color: rgba(180, 180, 180, 0.3);");
+    public static void resetearError(ComboBox comboBox, boolean isLightMode) {
+        if (isLightMode) {
+            comboBox.setStyle("-fx-background-color:#f6f8fa;");
+        } else {
+            comboBox.setStyle("-fx-background-color:rgba(180, 180, 180, 0.3);");
+        }
     }
 
     // ----------------------------- DATEPICKER
     // Error de textField
-    public static void errorDatePicker(DatePicker datePicker) {
-        datePicker.setStyle("-fx-background-color: #fcd7d4;");
+    public static void errorDatePicker(DatePicker datePicker, boolean isLightMode) {
+        if (isLightMode) {
+            datePicker.setStyle("-fx-background-color: #fcd7d4;");
+        } else {
+            datePicker.setStyle("-fx-background-color: #641c1c;");
+        }
     }
 
     // Resetear error
-    public static void resetearError(DatePicker datePicker) {
-        datePicker.setStyle("-fx-background-color: transparent;");
+    public static void resetearError(DatePicker datePicker, boolean isLightMode) {
+        if (isLightMode) {
+            datePicker.setStyle("-fx-background-color:#f6f8fa;");
+        } else {
+            datePicker.setStyle("-fx-background-color:rgba(180, 180, 180, 0.3);");
+        }
     }
 
     // ----------------------------- SPINNER
     // Error de textField
-    public static void errorSpinner(Spinner spinner) {
-        spinner.setStyle("-fx-background-color: #fcd7d4;");
+    public static void errorSpinner(Spinner spinner, boolean isLightMode) {
+        if (isLightMode) {
+            spinner.setStyle("-fx-background-color: #fcd7d4;");
+        } else {
+            spinner.setStyle("-fx-background-color: #641c1c;");
+        }
     }
 
     // Resetear error
-    public static void resetearError(Spinner spinner) {
-        spinner.setStyle("-fx-background-color: transparent");
+    public static void resetearError(Spinner spinner, boolean isLightMode) {
+        if (isLightMode) {
+            spinner.setStyle("-fx-background-color:#f6f8fa;");
+        } else {
+            spinner.setStyle("-fx-background-color:rgba(180, 180, 180, 0.3);");
+        }
     }
-    
+
 }

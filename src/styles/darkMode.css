@@ -187,15 +187,26 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to ed
     -fx-background-color:-fx-header-color;
 }
 .spinner{
-    -fx-background-color: transparent;
-    -fx-background-radius: 30;    
+    -fx-background-color: -fx-textfield-background-color;
+    -fx-background-radius: 30;
     -fx-focus-color: transparent;
+    -fx-border-width: 0.5;
+    -fx-border-radius: 30;
+    -fx-border-color: -fx-textfield-border-color;
+}
+.spinner .text-field{
+    -fx-background-color: none;
+    -fx-background-radius: 0;
+    -fx-focus-color: transparent;
+    -fx-border-width: 0;
+    -fx-border-radius: 0;
+    -fx-border-color: transparent;
 }
 .spinner .arrow-button, .increment-arrow-button, .decrement-arrow-button{
-    -fx-background-radius: 50;
+    -fx-background-radius: 100;
     -fx-border-width: 0.5;
     -fx-background-color:-fx-header-color;
-    
+    -fx-padding: 5;
 }
 .spinner .increment-arrow-button .increment-arrow {
     -fx-background-color: white;
@@ -232,7 +243,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to ed
     -fx-background-color:-fx-textfield-focused-background-color;
 }
 .radio-button:selected .radio .dot {
-    
+
     -fx-background-color: -fx-header-color;
 }
 
@@ -243,28 +254,28 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to ed
 
 .check-box .box {
 
--fx-background-color: -fx-textfield-background-color;
--fx-border-color:-fx-header-text;
--fx-border-radius:3px;
--fx-border-width: 0.3;
+    -fx-background-color: -fx-textfield-background-color;
+    -fx-border-color:-fx-header-text;
+    -fx-border-radius:3px;
+    -fx-border-width: 0.3;
 
 
 }
 
 .check-box:selected .mark {
 
--fx-background-color: -fx-header-color;
+    -fx-background-color: -fx-header-color;
 
 }
 .check-box:hover .box {
 
--fx-background-color: -fx-textfield-focused-background-color;
+    -fx-background-color: -fx-textfield-focused-background-color;
 
 }
 
 .check-box:selected .box {
 
--fx-background-color: -fx-header-text;
+    -fx-background-color: -fx-header-text;
 }
 .table-view {
     -fx-background-color: -fx-header-color;
