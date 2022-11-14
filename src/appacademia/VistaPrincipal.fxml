@@ -308,7 +308,7 @@
                   <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="1">
                      <children>
                         <Label id="header" text="Adrián Blanca Enríquez" />
-                        <Label id="hBoxLabel" text="adrianblancaenriquez26@gmail.com" />
+                        <Label id="hBoxLabel" text="adrianblancae26@gmail.com" />
                         <Label id="hBoxLabel" text="github.com/AdrianBlanca" />
                      </children>
                      <padding>

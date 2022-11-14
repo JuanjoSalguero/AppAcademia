@@ -85,6 +85,21 @@ public class Modularizacion {
             }
         });
     }
+    
+        // Método para restringir TextField a letras, espacio y tildes
+    public static void letrasYNumeros(TextField textField) {
+
+        textField.textProperty().addListener(new ChangeListener<String>() {
+
+            @Override
+            public void changed(
+                    ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                if (!newValue.matches("[a-zA-Z\\sñÑáéíóúüÁÉÍÓÚ0-9*]")) {
+                    textField.setText(newValue.replaceAll("[^a-zA-Z\\sñÑáéíóúüÁÉÍÓÚ0-9]", ""));
+                }
+            }
+        });
+    }
 
     // Método para la restricción de caracteres de un textfield DIRECCIÓN
     public static void caracteresValidosDireccion(TextField textField) {
@@ -281,7 +296,7 @@ public class Modularizacion {
     // Método para mostrar alert de error
     public static void errorTab() {
         Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setHeaderText("No se han podido guardar los cambios. " + "Compruebe que los datos cumplen los requisitos.");
+        alert.setHeaderText("No se han podido guardar los cambios. " + "Compruebe que los datos cumplen los requisitos y consulte la ventana de ayuda.");
         alert.getDialogPane().setPrefSize(500, 50);
         alert.showAndWait();
     }

@@ -353,8 +353,8 @@ public class VistaCursoController implements Initializable {
         Modularizacion.soloNumeros(textFieldDuracion);
         // TextField Proveedor del curso restricción solo letras
         Modularizacion.soloLetras(textFieldProveedor);
-        // TextField Certificación restricción solo letras
-        Modularizacion.soloLetras(textFieldCertificacion);
+        // TextField Certificación restricción letras y números
+        Modularizacion.letrasYNumeros(textFieldCertificacion);
         // Fecha por defecto del DatePicker Fecha de inicio 
         datePickerFechaInicio.setValue(LocalDate.now());
         // Spinner número de asistentes solo números

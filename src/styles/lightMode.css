@@ -313,4 +313,6 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to ed
 }
 #backgroundAlumnos{
     -fx-background-color: #f6f8fa;
+    -fx-border-width: 1;
+    -fx-border-color: black;
 }
