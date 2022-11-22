@@ -41,8 +41,6 @@ public class Main extends Application {
         // Asocial objeto a la clase SplashScreenController
         SplashScreenController splashScreenController = (SplashScreenController) fxmlLoader.getController();
         splashScreenController.setEntityManager(em);
-
-        
                 
         Scene scene = new Scene(rootMain);
         stage.initStyle(StageStyle.UNDECORATED);
